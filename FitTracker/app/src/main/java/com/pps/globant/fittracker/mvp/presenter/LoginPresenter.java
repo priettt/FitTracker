@@ -5,8 +5,8 @@ import com.pps.globant.fittracker.mvp.view.LoginView;
 
 public class LoginPresenter {
 
-    private LoginModel model;
-    private LoginView view;
+    private final LoginModel model;
+    private final LoginView view;
 
     public LoginPresenter(LoginModel model, LoginView view) {
         this.model = model;
