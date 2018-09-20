@@ -1,8 +1,6 @@
 /captures
 .externalNativeBuild
 
-gradle.properties
-
 # Built application files
 *.apk
 *.ap_
@@ -24,6 +22,12 @@ gen/
 .gradle/
 build/
 gradle/
+gradlew
+gradle.bat
+settings.gradle
+gradle.properties
+
+
 
 # Local configuration file (sdk path, etc)
 local.properties
