@@ -1,5 +1,5 @@
 package com.pps.globant.fittracker.utils;
-import android.content.Context;
+
 import android.os.Bundle;
 
 import com.facebook.AccessToken;
@@ -10,7 +10,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-
 import com.pps.globant.fittracker.model.FbUser;
 import com.squareup.otto.Bus;
 
@@ -19,12 +18,12 @@ import org.json.JSONObject;
 
 public class FacebookLoginProvider {
 
-    public static void registerCallback(Context applicationContext, final Bus bus){
+    public static void registerCallback(final Bus bus) {
         LoginManager.getInstance().registerCallback(CallBackManagerProviderForFb.getCallbackManager(),
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                       AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+                        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
                             @Override
                             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
                                                                        AccessToken currentAccessToken) {
@@ -40,7 +39,7 @@ public class FacebookLoginProvider {
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
-                                        setResponse(object,bus);
+                                        setResponse(object, bus);
                                     }
                                 });
                         Bundle parameters = new Bundle();
@@ -61,9 +60,9 @@ public class FacebookLoginProvider {
     }
 
     private static void setResponse(JSONObject jsonObject, Bus bus) {
-        String name=null;
+        String name = null;
         try {
-            name=jsonObject.getString("name");
+            name = jsonObject.getString("name");
         } catch (JSONException e) {
             bus.post(new CantRetrieveAllTheFieldsRequestedsEvent());
             return;
@@ -81,15 +80,17 @@ public class FacebookLoginProvider {
 
     public static class FetchingFbUserDataCompletedEvent {
         public FbUser fbUser;
+
         public FetchingFbUserDataCompletedEvent(FbUser fbUser) {
-            this.fbUser=fbUser;
+            this.fbUser = fbUser;
         }
     }
 
     public static class FetchingFbUserDataErrorEvent {
         public FacebookException facebookException;
+
         public FetchingFbUserDataErrorEvent(FacebookException exception) {
-            facebookException=exception;
+            facebookException = exception;
         }
     }
 

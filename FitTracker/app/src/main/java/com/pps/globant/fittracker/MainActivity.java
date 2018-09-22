@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
 import com.pps.globant.fittracker.mvp.view.LoginView;
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new LoginPresenter(new LoginModel( BusProvider.getInstance(),getApplicationContext()), new LoginView(this, BusProvider.getInstance()));
+        presenter = new LoginPresenter(new LoginModel(BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
     }
 
     @Override
@@ -48,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         presenter.fbLogOut();
     }
 
