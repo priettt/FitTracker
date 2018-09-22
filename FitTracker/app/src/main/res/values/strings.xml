@@ -2,7 +2,4 @@
     <string name="app_name">FitTracker</string>
     <string name="facebook_app_id">2277009112312713</string>
     <string name="fb_login_protocol_scheme">fb2277009112312713</string>
-    <string name="fb_login_field_name">name</string>
-    <string name="fb_login_field_email">email</string>
-
 </resources>

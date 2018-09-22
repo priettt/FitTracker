@@ -1,12 +1,10 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
-import com.pps.globant.fittracker.model.FbUser;
+import android.util.Log;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 import com.squareup.otto.Subscribe;
-
-import butterknife.OnClick;
 
 public class LoginPresenter {
 
@@ -16,21 +14,30 @@ public class LoginPresenter {
     public LoginPresenter(LoginModel model, LoginView view) {
         this.model = model;
         this.view = view;
-        view.setLabel("Hi there");
-        FacebookLoginProvider.registerCallback();
     }
     @Subscribe
-    public void onLoginWithFbButtonPressed(LoginView.LoginWithFbButtonPressedEvent event){
-        FbUser fbUser=FacebookLoginProvider.fetchData();
-        if (fbUser!=null) {
-            view.setLabelFb("name: " + fbUser.getName() + ", email: " + fbUser.getEmail());
-        }
-        else{
-            view.setLabelFb("user nulo");
-        }
+    public void onFetchingFbUserDataCompletedEvent(FacebookLoginProvider.FetchingFbUserDataCompletedEvent event){
+        view.setLabelFb("name: "+event.fbUser.getName());
+    }
+
+    @Subscribe
+    public void onCantRetrieveAllTheFieldsRequestedsEvent(FacebookLoginProvider.CantRetrieveAllTheFieldsRequestedsEvent event){
+        view.setLabelFb("error");
+        Log.e("Facebook", "error al obtener los campos nombre y email del objeto JSON recuperado");
+    }
+
+    @Subscribe
+    public void onFetchingFbUserDataErrorEvent(FacebookLoginProvider.FetchingFbUserDataErrorEvent event){
+        view.setLabelFb("error");
+        Log.e("Facebook", "error al conectar a facebook. Excepcion :"+ event.facebookException.toString());
+    }
+
+    @Subscribe
+    public void onLogOutCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event){
+        view.setLabelFb("not logged in");
     }
 
     public void fbLogOut() {
-        FacebookLoginProvider.logOut();
+        model.fbLogOut();
     }
 }

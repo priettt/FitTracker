@@ -1,7 +1,9 @@
 package com.pps.globant.fittracker.utils;
+import android.content.Context;
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -10,24 +12,35 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
 import com.pps.globant.fittracker.model.FbUser;
+import com.squareup.otto.Bus;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FacebookLoginProvider {
-    private static FbUser fbUser=null;
 
-    public static void registerCallback(){
+    public static void registerCallback(Context applicationContext, final Bus bus){
         LoginManager.getInstance().registerCallback(CallBackManagerProviderForFb.getCallbackManager(),
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                       AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+                            @Override
+                            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                                       AccessToken currentAccessToken) {
+                                if (currentAccessToken == null) {
+                                    bus.post(new LogOutCompleteEvent());
+                                    this.stopTracking();
+                                }
+                            }
+                        };
+                        accessTokenTracker.startTracking();
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
-                                        setFbUser(object);
+                                        setResponse(object,bus);
                                     }
                                 });
                         Bundle parameters = new Bundle();
@@ -42,29 +55,45 @@ public class FacebookLoginProvider {
 
                     @Override
                     public void onError(FacebookException exception) {
+                        bus.post(new FetchingFbUserDataErrorEvent(exception));
                     }
                 });
     }
 
-    private static void setFbUser(JSONObject jsonObject) {
+    private static void setResponse(JSONObject jsonObject, Bus bus) {
         String name=null;
-        String email=null;
         try {
             name=jsonObject.getString("name");
-            email=jsonObject.getString("email");
         } catch (JSONException e) {
-            e.printStackTrace();
+            bus.post(new CantRetrieveAllTheFieldsRequestedsEvent());
+            return;
         }
-        if (name!=null && email!=null) {
-            fbUser = new FbUser(name,email);
-        }
-    }
-
-    public static FbUser fetchData (){
-        return fbUser;
+        bus.post(new FetchingFbUserDataCompletedEvent(new FbUser(name)));
     }
 
     public static void logOut() {
         LoginManager.getInstance().logOut();
+    }
+
+    public static class CantRetrieveAllTheFieldsRequestedsEvent {
+
+    }
+
+    public static class FetchingFbUserDataCompletedEvent {
+        public FbUser fbUser;
+        public FetchingFbUserDataCompletedEvent(FbUser fbUser) {
+            this.fbUser=fbUser;
+        }
+    }
+
+    public static class FetchingFbUserDataErrorEvent {
+        public FacebookException facebookException;
+        public FetchingFbUserDataErrorEvent(FacebookException exception) {
+            facebookException=exception;
+        }
+    }
+
+    public static class LogOutCompleteEvent {
+        //Nothing to do
     }
 }

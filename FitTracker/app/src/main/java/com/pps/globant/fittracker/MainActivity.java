@@ -22,22 +22,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//todo move to oncreate from presenter maybe in another class delegated for this purpose
-/*        @Override
-        public void onCreate() {
-            super.onCreate();
-            FacebookSdk.sdkInitialize(getApplicationContext());
-            AppEventsLogger.activateApp(this);
-        }*/
 //todo move
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        //todo try to delete the next line and see whats happening
-        AppEventsLogger.activateApp(this);
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new LoginPresenter(new LoginModel(), new LoginView(this, BusProvider.getInstance()));
+        presenter = new LoginPresenter(new LoginModel( BusProvider.getInstance(),getApplicationContext()), new LoginView(this, BusProvider.getInstance()));
     }
 
     @Override
