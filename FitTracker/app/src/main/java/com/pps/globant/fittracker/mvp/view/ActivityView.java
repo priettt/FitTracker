@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import java.lang.ref.WeakReference;
 
 public class ActivityView {
-    private WeakReference<Activity> activityRef;
+    private final WeakReference<Activity> activityRef;
 
-    public ActivityView(Activity activity) {
+    ActivityView(Activity activity) {
         activityRef = new WeakReference<>(activity);
     }
 

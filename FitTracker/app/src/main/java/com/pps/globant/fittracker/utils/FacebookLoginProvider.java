@@ -17,52 +17,61 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FacebookLoginProvider {
+    private static boolean callbackRegistered = false;
+
+    private static final String FIELDS="fields";
+    private static final String NAME="name";
+    private static final String ID="id";
+    private static final String REQUESTED_FIELDS=String.format("%1$s,%2$s",ID,NAME);
 
     public static void registerCallback(final Bus bus) {
-        LoginManager.getInstance().registerCallback(CallBackManagerProviderForFb.getCallbackManager(),
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
-                            @Override
-                            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                                       AccessToken currentAccessToken) {
-                                if (currentAccessToken == null) {
-                                    bus.post(new LogOutCompleteEvent());
-                                    this.stopTracking();
-                                }
-                            }
-                        };
-                        accessTokenTracker.startTracking();
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject object, GraphResponse response) {
-                                        setResponse(object, bus);
+        if (!isCallbackRegistered()) {
+            LoginManager.getInstance().registerCallback(CallBackManagerProviderForFb.getCallbackManager(),
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+                                @Override
+                                protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                                           AccessToken currentAccessToken) {
+                                    if (currentAccessToken == null) {
+                                        bus.post(new LogOutCompleteEvent());
+                                        this.stopTracking();
                                     }
-                                });
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name");
-                        request.setParameters(parameters);
-                        request.executeAsync();
-                    }
+                                }
+                            };
+                            accessTokenTracker.startTracking();
+                            GraphRequest request = GraphRequest.newMeRequest(
+                                    loginResult.getAccessToken(),
+                                    new GraphRequest.GraphJSONObjectCallback() {
+                                        @Override
+                                        public void onCompleted(JSONObject object, GraphResponse response) {
+                                            setResponse(object, bus);
+                                        }
+                                    });
+                            Bundle parameters = new Bundle();
+                            parameters.putString(FIELDS, REQUESTED_FIELDS);
+                            request.setParameters(parameters);
+                            request.executeAsync();
+                        }
 
-                    @Override
-                    public void onCancel() {
-                    }
+                        @Override
+                        public void onCancel() {
+                        }
 
-                    @Override
-                    public void onError(FacebookException exception) {
-                        bus.post(new FetchingFbUserDataErrorEvent(exception));
-                    }
-                });
+                        @Override
+                        public void onError(FacebookException exception) {
+                            bus.post(new FetchingFbUserDataErrorEvent(exception));
+                        }
+                    });
+        }
+        callbackRegistered = true;
     }
 
     private static void setResponse(JSONObject jsonObject, Bus bus) {
-        String name = null;
+        String name;
         try {
-            name = jsonObject.getString("name");
+            name = jsonObject.getString(NAME);
         } catch (JSONException e) {
             bus.post(new CantRetrieveAllTheFieldsRequestedsEvent());
             return;
@@ -79,7 +88,7 @@ public class FacebookLoginProvider {
     }
 
     public static class FetchingFbUserDataCompletedEvent {
-        public FbUser fbUser;
+        public final FbUser fbUser;
 
         public FetchingFbUserDataCompletedEvent(FbUser fbUser) {
             this.fbUser = fbUser;
@@ -87,8 +96,7 @@ public class FacebookLoginProvider {
     }
 
     public static class FetchingFbUserDataErrorEvent {
-        public FacebookException facebookException;
-
+        public final FacebookException facebookException;
         public FetchingFbUserDataErrorEvent(FacebookException exception) {
             facebookException = exception;
         }
@@ -96,5 +104,9 @@ public class FacebookLoginProvider {
 
     public static class LogOutCompleteEvent {
         //Nothing to do
+    }
+
+    private static boolean isCallbackRegistered() {
+        return callbackRegistered;
     }
 }

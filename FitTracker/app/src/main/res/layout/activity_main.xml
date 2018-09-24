@@ -18,6 +18,7 @@
 
     <TextView
         android:id="@+id/text_fb_label"
+        android:text="@string/not_loged_in"
         android:layout_width="wrap_content"
         android:textSize="@dimen/placeholder_text_size"
         android:layout_height="wrap_content"/>

@@ -8,7 +8,10 @@ public class LoginModel {
 
     public LoginModel(Bus bus) {
         this.bus = bus;
-        FacebookLoginProvider.registerCallback(bus);
+    }
+
+    public void registerFbCallbacks(){
+    FacebookLoginProvider.registerCallback(bus);
     }
 
     public void fbLogOut() {

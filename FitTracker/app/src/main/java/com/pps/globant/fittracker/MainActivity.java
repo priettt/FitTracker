@@ -8,7 +8,6 @@ import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
-import com.pps.globant.fittracker.utils.CallBackManagerProviderForFb;
 
 import butterknife.ButterKnife;
 
@@ -20,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//todo move
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new LoginPresenter(new LoginModel(BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        CallBackManagerProviderForFb.getCallbackManager().onActivityResult(requestCode, resultCode, data);
+        presenter.redirectActivityResults(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
