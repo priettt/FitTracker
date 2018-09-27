@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -17,16 +18,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FacebookLoginProvider {
+    private static final String FIELDS = "fields";
+    private static final String NAME = "name";
+    private static final String ID = "id";
+    private static final String REQUESTED_FIELDS = String.format("%1$s,%2$s", ID, NAME);
     private static boolean callbackRegistered = false;
 
-    private static final String FIELDS="fields";
-    private static final String NAME="name";
-    private static final String ID="id";
-    private static final String REQUESTED_FIELDS=String.format("%1$s,%2$s",ID,NAME);
-
-    public static void registerCallback(final Bus bus) {
+    public static void registerCallback(final Bus bus, CallbackManager callbackManager) {
         if (!isCallbackRegistered()) {
-            LoginManager.getInstance().registerCallback(CallBackManagerProviderForFb.getCallbackManager(),
+            LoginManager.getInstance().registerCallback(callbackManager,
                     new FacebookCallback<LoginResult>() {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
@@ -83,6 +83,10 @@ public class FacebookLoginProvider {
         LoginManager.getInstance().logOut();
     }
 
+    private static boolean isCallbackRegistered() {
+        return callbackRegistered;
+    }
+
     public static class CantRetrieveAllTheFieldsRequestedsEvent {
 
     }
@@ -97,16 +101,12 @@ public class FacebookLoginProvider {
 
     public static class FetchingFbUserDataErrorEvent {
         public final FacebookException facebookException;
+
         public FetchingFbUserDataErrorEvent(FacebookException exception) {
             facebookException = exception;
         }
     }
 
     public static class LogOutCompleteEvent {
-        //Nothing to do
-    }
-
-    private static boolean isCallbackRegistered() {
-        return callbackRegistered;
     }
 }

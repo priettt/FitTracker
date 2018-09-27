@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.facebook.CallbackManager;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
 import com.pps.globant.fittracker.mvp.view.LoginView;
@@ -14,6 +15,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    private CallbackManager callbackManager;
     private LoginPresenter presenter;
 
     @Override
@@ -21,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new LoginPresenter(new LoginModel(BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
+        callbackManager = CallbackManager.Factory.create();
+        presenter = new LoginPresenter(new LoginModel(callbackManager, BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
     }
 
     @Override
@@ -38,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        presenter.redirectActivityResults(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
