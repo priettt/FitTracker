@@ -8,12 +8,13 @@ import com.squareup.otto.Bus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginView extends ActivityView {
 
     private final Bus bus;
 
-    @BindView(R.id.hello_label) TextView helloLabel;
+    @BindView(R.id.text_fb_label) TextView textFbLabel;
 
     public LoginView(Activity activity, Bus bus) {
         super(activity);
@@ -21,8 +22,15 @@ public class LoginView extends ActivityView {
         ButterKnife.bind(this, activity);
     }
 
-    public void setLabel(String label) {
-        helloLabel.setText(label);
+    public void setLabelFb(String label) {
+        textFbLabel.setText(label);
     }
 
+    @OnClick(R.id.buttton_fb_login)
+    public void fbButtonPressed() {
+        bus.post(new FbButtonPressedEvent());
+    }
+
+    public class FbButtonPressedEvent {
+    }
 }

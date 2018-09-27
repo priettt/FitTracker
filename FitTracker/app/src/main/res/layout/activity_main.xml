@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     android:id="@+id/activity_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,10 +8,20 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/buttton_fb_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_marginTop_fb_login_button"
+        android:layout_marginBottom="@dimen/layout_marginBottom_fb_login_button" />
+
     <TextView
-        android:id="@+id/hello_label"
+        android:id="@+id/text_fb_label"
+        android:text="@string/not_loged_in"
         android:layout_width="wrap_content"
         android:textSize="@dimen/placeholder_text_size"
         android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

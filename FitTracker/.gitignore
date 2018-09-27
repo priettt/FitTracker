@@ -23,8 +23,8 @@ gen/
 build/
 gradle/
 gradlew
+gradlew.bat
 gradle.bat
-settings.gradle
 gradle.properties
 
 
