@@ -1,5 +1,6 @@
 package com.pps.globant.fittracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -20,19 +21,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new LoginPresenter(new LoginModel(), new LoginView(this, BusProvider.getInstance()));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        presenter = new LoginPresenter(new LoginModel(BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
         BusProvider.register(presenter);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        BusProvider.unregister(presenter);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        presenter.setActivityResults(requestCode, resultCode, data);
     }
 
 }

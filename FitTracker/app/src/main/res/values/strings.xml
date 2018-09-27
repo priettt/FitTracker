@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">FitTracker</string>
+    <string name="desc_google_icon">Google Logo</string>
+
+    <!-- Button labels -->
+    <string name="sign_out">Sign Out</string>
+
+    <string name="signed_in">Signed in</string>
+    <string name="signing_in">Signing in…</string>
+    <string name="signed_out">Signed out</string>
+
+    <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
+    from https://console.developers.google.com/ -->
+    <string name="server_client_id">231247111023-7k9pj0ahudma57rgr9miistqd8eltuaj.apps.googleusercontent.com</string>
+
+
 </resources>

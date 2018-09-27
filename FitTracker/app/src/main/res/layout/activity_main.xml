@@ -1,16 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/activity_main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/google_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20sp"
+        android:contentDescription="@string/desc_google_icon"
+        android:src="@drawable/googleg_color" />
+
     <TextView
-        android:id="@+id/hello_label"
+        android:id="@+id/status"
         android:layout_width="wrap_content"
-        android:textSize="@dimen/placeholder_text_size"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:text="@string/signed_out"
+        android:textSize="16sp" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/sign_out"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:gravity="center"
+        android:scrollbars="vertical"
+        android:textSize="14sp" />
 
 </LinearLayout>
