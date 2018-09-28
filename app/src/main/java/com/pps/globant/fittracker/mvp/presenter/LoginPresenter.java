@@ -66,6 +66,7 @@ public class LoginPresenter {
         model.signOutGoogle();
         view.hideGoogleSignOutButton();
         view.showGoogleSignInButton();
+        view.setStatusLabel("Signed out");
     }
 
     @Subscribe
@@ -74,6 +75,7 @@ public class LoginPresenter {
         view.setDetailLabel(model.getMail());
         view.hideGoogleSignInButton();
         view.showGoogleSignOutButton();
+        view.setStatusLabel("Signed in");
     }
 
     public void setActivityResults(int requestCode, int resultCode, Intent data) {
