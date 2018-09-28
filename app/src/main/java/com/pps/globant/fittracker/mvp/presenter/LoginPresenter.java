@@ -75,7 +75,7 @@ public class LoginPresenter {
         model.signOutGoogle();
         view.hideGoogleSignOutButton();
         view.showGoogleSignInButton();
-        view.setStatusLabel("Signed out");
+        view.setStatusLabel(R.string.signed_out);
         view.setDetailLabel("");
     }
 
@@ -84,7 +84,7 @@ public class LoginPresenter {
         view.setDetailLabel(model.getMail());
         view.hideGoogleSignInButton();
         view.showGoogleSignOutButton();
-        view.setStatusLabel("Signed in");
+        view.setStatusLabel(R.string.signed_in);
     }
 
     @Subscribe
@@ -116,22 +116,17 @@ public class LoginPresenter {
 
     @Subscribe
     public void onCantRetrieveAllTheFieldsRequestedsEvent(FacebookLoginProvider.CantRetrieveAllTheFieldsRequestedsEvent event) {
-        Resources res = view.getActivity().getResources();
-        view.setLabelFb(res.getString(R.string.fb_login_error_message));
-        Log.e(res.getString(R.string.facebook), res.getString(R.string.fb_login_error_logPrintErrorCantRetrieveAllTheFields));
+        view.setLabelFb(R.string.fb_login_error_message);
     }
 
     @Subscribe
     public void onFetchingFbUserDataErrorEvent(FacebookLoginProvider.FetchingFbUserDataErrorEvent event) {
-        Resources res = view.getActivity().getResources();
-        view.setLabelFb(res.getString(R.string.fb_login_error_message));
-        Log.e(res.getString(R.string.facebook), String.format(res.getString(R.string.fb_login_error_logPrintErrorCantFetchData), event.facebookException.toString()));
+        view.setLabelFb(R.string.fb_login_error_message);
     }
 
     @Subscribe
     public void onLogOutCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event) {
-        Resources res = view.getActivity().getResources();
-        view.setLabelFb(res.getString(R.string.not_loged_in));
+        view.setLabelFb(R.string.not_loged_in);
     }
 
     @Subscribe

@@ -2,6 +2,7 @@ package com.pps.globant.fittracker.mvp.view;
 
 import android.app.Activity;
 
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,12 +39,12 @@ public class LoginView extends ActivityView {
         ButterKnife.bind(this, activity);
     }
 
-    public void setStatusLabel(String label) {
-        statusLabel.setText(label);
-    }
-
     public void setDetailLabel(String label) {
         detailLabel.setText(label);
+    }
+
+    public void setStatusLabel(@StringRes int label) {
+        statusLabel.setText(label);
     }
 
     public void hideGoogleSignInButton() {
@@ -81,6 +82,10 @@ public class LoginView extends ActivityView {
     }
 
     public void setLabelFb(String label) {
+        textFbLabel.setText(label);
+    }
+
+    public void setLabelFb(@StringRes int label) {
         textFbLabel.setText(label);
     }
 

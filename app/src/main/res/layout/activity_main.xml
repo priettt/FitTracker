@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/google_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20sp"
+        android:layout_width="@dimen/google_image"
+        android:layout_height="@dimen/google_image"
+        android:layout_marginTop="@dimen/margin_medium"
         android:contentDescription="@string/desc_google_icon"
         android:src="@drawable/googleg_color" />
 
@@ -17,14 +17,14 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="@string/signed_out"
-        android:textSize="16sp" />
+        android:textSize="@dimen/google_status_label" />
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10sp">
+        android:layout_marginTop="@dimen/margin_small">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -45,10 +45,10 @@
         android:id="@+id/detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="@dimen/margin_small"
         android:gravity="center"
         android:scrollbars="vertical"
-        android:textSize="14sp" />
+        android:textSize="@dimen/google_detail_label" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/buttton_fb_login"

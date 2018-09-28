@@ -4,4 +4,11 @@
     <dimen name="layout_marginBottom_fb_login_button">30dp</dimen>
     <dimen name="placeholder_text_size">40sp</dimen>
 
+    <dimen name="google_image">48dp</dimen>
+    <dimen name="google_status_label">16sp</dimen>
+    <dimen name="google_detail_label">14sp</dimen>
+    <dimen name="margin_small">10sp</dimen>
+    <dimen name="margin_medium">20sp</dimen>
+
+
 </resources>
