@@ -9,12 +9,14 @@ import com.squareup.otto.Subscribe;
 
 import com.pps.globant.fittracker.R;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
+
 import android.content.res.Resources;
 import android.util.Log;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,7 +36,7 @@ public class LoginPresenter {
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/
     private static final String googleServiceClientId = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
     private static final int RC_GET_TOKEN = 9002;
-    private static final String googleSignInErrorTag="Sign In Error";
+    private static final String googleSignInErrorTag = "Sign In Error";
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     //-------------------------------------------------------------------------------------------------------------------------------
@@ -51,7 +53,8 @@ public class LoginPresenter {
                 .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(view.getActivity(), gso);
+        if (view.getActivity() != null)
+            mGoogleSignInClient = GoogleSignIn.getClient(view.getActivity(), gso);
     }
 
     @Subscribe
@@ -60,23 +63,26 @@ public class LoginPresenter {
         //If you request other stuff beyond profile, email, token and openid,
         //the user is also prompted to grant access to the requested resources.
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        view.getActivity().startActivityForResult(signInIntent, RC_GET_TOKEN);
+        if (view.getActivity() != null)
+            view.getActivity().startActivityForResult(signInIntent, RC_GET_TOKEN);
     }
 
     @Subscribe
     public void onGoogleSignOutButtonPressed(GoogleSignOutButtonPressedEvent event) {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(view.getActivity(), new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(view.getActivity(), "Signed out from google", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        model.signOutGoogle();
-        view.hideGoogleSignOutButton();
-        view.showGoogleSignInButton();
-        view.setStatusLabel(R.string.signed_out);
-        view.setDetailLabel("");
+        if (view.getActivity() != null) {
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(view.getActivity(), new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(view.getActivity(), "Signed out from google", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            model.signOutGoogle();
+            view.hideGoogleSignOutButton();
+            view.showGoogleSignInButton();
+            view.setStatusLabel(R.string.signed_out);
+            view.setDetailLabel("");
+        }
     }
 
     public void successfulGoogleSignIn() {
@@ -88,7 +94,7 @@ public class LoginPresenter {
     }
 
     @Subscribe
-    public void onGoogleSignIn(GoogleSignInEvent event){
+    public void onGoogleSignIn(GoogleSignInEvent event) {
         //Handles the task of login in. If it's successful, posts in the bus a SuccessfulGoogleSignInEvent
         try {
             GoogleSignInAccount account = event.getCompletedTask().getResult(ApiException.class);
@@ -110,8 +116,10 @@ public class LoginPresenter {
 
     @Subscribe
     public void onFetchingFbUserDataCompletedEvent(FacebookLoginProvider.FetchingFbUserDataCompletedEvent event) {
-        Resources res = view.getActivity().getResources();
-        view.setLabelFb(String.format(res.getString(R.string.loged_in_name), event.fbUser.getName()));
+        if (view.getActivity() != null) {
+            Resources res = view.getActivity().getResources();
+            view.setLabelFb(String.format(res.getString(R.string.loged_in_name), event.fbUser.getName()));
+        }
     }
 
     @Subscribe
