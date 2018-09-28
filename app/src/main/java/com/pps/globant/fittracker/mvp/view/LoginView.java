@@ -80,7 +80,6 @@ public class LoginView extends ActivityView {
         //Nothing to do, class made to pass it through the bus
     }
 
-
     public void setLabelFb(String label) {
         textFbLabel.setText(label);
     }

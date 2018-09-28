@@ -73,6 +73,7 @@ public class LoginPresenter {
         view.hideGoogleSignOutButton();
         view.showGoogleSignInButton();
         view.setStatusLabel("Signed out");
+        view.setDetailLabel("");
     }
 
     @Subscribe
