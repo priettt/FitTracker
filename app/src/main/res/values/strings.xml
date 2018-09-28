@@ -1,17 +1,21 @@
 <resources>
     <string name="app_name">FitTracker</string>
-    <string name="desc_google_icon">Google Logo</string>
 
-    <!-- Button labels -->
+    <!-- Google -->
     <string name="sign_out">Sign Out</string>
-
     <string name="signed_in">Signed in</string>
     <string name="signing_in">Signing in…</string>
     <string name="signed_out">Signed out</string>
+    <string name="desc_google_icon">Google Logo</string>
 
-    <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
-    from https://console.developers.google.com/ -->
-    <string name="server_client_id">231247111023-7k9pj0ahudma57rgr9miistqd8eltuaj.apps.googleusercontent.com</string>
-
+    <!-- Facebook -->
+    <string name="facebook_app_id">2277009112312713</string>
+    <string name="fb_login_protocol_scheme">fb2277009112312713</string>
+    <string name="fb_login_error_message">error</string>
+    <string name="facebook">Facebook</string>
+    <string name="loged_in_name">name: %1$s</string>
+    <string name="not_loged_in">not loged in</string>
+    <string name="fb_login_error_logPrintErrorCantRetrieveAllTheFields">error al obtener los campos nombre y email del objeto JSON recuperado</string>
+    <string name="fb_login_error_logPrintErrorCantFetchData">error al conectar a facebook. Excepcion : %1$s"</string>
 
 </resources>

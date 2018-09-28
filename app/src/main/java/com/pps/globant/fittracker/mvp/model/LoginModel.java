@@ -1,26 +1,31 @@
 package com.pps.globant.fittracker.mvp.model;
 
+import com.squareup.otto.Bus;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.squareup.otto.Bus;
+
+import com.facebook.CallbackManager;
+import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 
 public class LoginModel {
 
     private Bus bus;
 
+    private final CallbackManager callbackManager;
+
     private GoogleSignInAccount account; //Contains all the information of the account.
     private static final String GoogleSignInErrorTAG = "LoginPresenter";
 
 
-    public LoginModel(Bus bus) {
+    public LoginModel(CallbackManager callbackManager, Bus bus) {
         this.bus = bus;
+        this.callbackManager = callbackManager;
     }
 
     public void signInGoogle(Intent data) {
@@ -58,4 +63,11 @@ public class LoginModel {
         return account.getEmail();
     }
 
+    public void registerFbCallbacks() {
+        FacebookLoginProvider.registerCallback(bus, callbackManager);
+    }
+
+    public void fbLogOut() {
+        FacebookLoginProvider.logOut();
+    }
 }

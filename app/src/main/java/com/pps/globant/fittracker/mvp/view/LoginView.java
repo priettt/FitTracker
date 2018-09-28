@@ -28,6 +28,10 @@ public class LoginView extends ActivityView {
     @BindView(R.id.sign_out_button)
     Button googleSignOutButton;
 
+    @BindView(R.id.text_fb_label)
+    TextView textFbLabel;
+
+
     public LoginView(Activity activity, Bus bus) {
         super(activity);
         this.bus = bus;
@@ -74,6 +78,19 @@ public class LoginView extends ActivityView {
 
     public static class GoogleSignOutButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
+    }
+
+
+    public void setLabelFb(String label) {
+        textFbLabel.setText(label);
+    }
+
+    @OnClick(R.id.buttton_fb_login)
+    public void fbButtonPressed() {
+        bus.post(new FbButtonPressedEvent());
+    }
+
+    public class FbButtonPressedEvent {
     }
 
 }

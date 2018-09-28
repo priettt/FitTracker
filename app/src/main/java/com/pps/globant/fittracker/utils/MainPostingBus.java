@@ -2,10 +2,11 @@ package com.pps.globant.fittracker.utils;
 
 import android.os.Handler;
 import android.os.Looper;
+
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
-public class MainPostingBus extends Bus {
+class MainPostingBus extends Bus {
 
     private final Handler handler = new Handler(Looper.getMainLooper());
 

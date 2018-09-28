@@ -1,4 +1,5 @@
 package com.pps.globant.fittracker.mvp.view;
+
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
