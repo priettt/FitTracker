@@ -20,8 +20,6 @@ public class LoginModel {
     private final CallbackManager callbackManager;
 
     private GoogleSignInAccount account; //Contains all the information of the account.
-    private static final String GoogleSignInErrorTAG = "LoginPresenter";
-
 
     public LoginModel(CallbackManager callbackManager, Bus bus) {
         this.bus = bus;
@@ -29,38 +27,34 @@ public class LoginModel {
     }
 
     public void signInGoogle(Intent data) {
-        //Creates the task to SignIn from the intent, and calls private method handleSignInResult
-        //to get the results
+        //Creates the task to SignIn from the intent, and posts GoogleSignInEvent
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-        handleSignInResult(task);
-    }
+        bus.post(new GoogleSignInEvent(task));
 
-    private void handleSignInResult(@NonNull Task<GoogleSignInAccount> completedTask) {
-        //Handles the task of login in. If it's successful, posts in the bus a SuccessfulGoogleSignInEvent
-        try {
-            account = completedTask.getResult(ApiException.class);
-            bus.post(new SuccessfulGoogleSignInEvent());
-        } catch (ApiException e) {
-            bus.post(new UnsuccessfulGoogleSignInEvent());
-            Log.w(GoogleSignInErrorTAG, "handleSignInResult:error", e);
-        }
     }
 
     public void signOutGoogle() {
         account = null;
     }
 
+    public static class GoogleSignInEvent{
+        @NonNull Task<GoogleSignInAccount> completedTask;
+        public GoogleSignInEvent(@NonNull Task<GoogleSignInAccount> completedTask) {
+            this.completedTask=completedTask;
+        }
 
-    public static class SuccessfulGoogleSignInEvent {
-        //Nothing to do, class made to pass it through the bus
-    }
-
-    public static class UnsuccessfulGoogleSignInEvent {
-        //Nothing to do, class made to pass it through the bus
+        @NonNull
+        public Task<GoogleSignInAccount> getCompletedTask() {
+            return completedTask;
+        }
     }
 
     public String getMail() {
         return account.getEmail();
+    }
+
+    public void setAccount(GoogleSignInAccount account) {
+        this.account = account;
     }
 
     public void registerFbCallbacks() {

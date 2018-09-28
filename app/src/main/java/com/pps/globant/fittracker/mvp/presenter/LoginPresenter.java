@@ -1,6 +1,8 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.ApiException;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.squareup.otto.Subscribe;
@@ -32,6 +34,7 @@ public class LoginPresenter {
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/
     private static final String googleServiceClientId = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
     private static final int RC_GET_TOKEN = 9002;
+    private static final String googleSignInErrorTag="Sign In Error";
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     //-------------------------------------------------------------------------------------------------------------------------------
@@ -76,14 +79,26 @@ public class LoginPresenter {
         view.setDetailLabel("");
     }
 
-    @Subscribe
-    public void onSuccessfulGoogleSignIn(SuccessfulGoogleSignInEvent event) {
+    public void successfulGoogleSignIn() {
         //Once model posts that the login was successful, it sets the detail label with the name.
         view.setDetailLabel(model.getMail());
         view.hideGoogleSignInButton();
         view.showGoogleSignOutButton();
         view.setStatusLabel("Signed in");
     }
+
+    @Subscribe
+    public void onGoogleSignIn(GoogleSignInEvent event){
+        //Handles the task of login in. If it's successful, posts in the bus a SuccessfulGoogleSignInEvent
+        try {
+            GoogleSignInAccount account = event.getCompletedTask().getResult(ApiException.class);
+            model.setAccount(account);
+            successfulGoogleSignIn();
+        } catch (ApiException e) {
+            Log.w(googleSignInErrorTag, "handleSignInResult:error", e);
+        }
+    }
+
 
     public void setActivityResults(int requestCode, int resultCode, Intent data) {
         //Once the activity started in onGoogleSignInButtonPressed, model.signInGoogle is called.
