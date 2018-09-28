@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BusProvider.unregister(presenter);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Calls a different method depending on which request is registered, Facebook or Google
         super.onActivityResult(requestCode, resultCode, data);
