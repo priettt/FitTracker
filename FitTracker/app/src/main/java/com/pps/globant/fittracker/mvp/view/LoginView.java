@@ -1,6 +1,7 @@
 package com.pps.globant.fittracker.mvp.view;
 
 import android.app.Activity;
+import android.support.annotation.StringRes;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,16 +32,20 @@ public class LoginView extends ActivityView {
         textFbLabel.setText(label);
     }
 
+    public void setLabelFb(@StringRes int labelId) {
+        textFbLabel.setText(labelId);
+    }
+
     @OnClick(R.id.buttton_fb)
     public void fbButtonPressed() {
         bus.post(new FbButtonPressedEvent());
     }
 
-    public void setLabelButtonFb(String label) {
+    public void setLabelButtonFb(@StringRes int label) {
         this.buttonFb.setText(label);
     }
 
-    public void popUp(String error) {
+    public void popUp(@StringRes int error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 

@@ -2,12 +2,12 @@
     <string name="app_name">FitTracker</string>
     <string name="facebook_app_id">2277009112312713</string>
     <string name="fb_login_protocol_scheme">fb2277009112312713</string>
-    <string name="fb_login_error_message">error</string>
+    <string name="login_error">error</string>
+    <string name="fb_login_error_message">error login in</string>
+    <string name="fb_login_cancel_message">login canceled</string>
     <string name="facebook">Facebook</string>
     <string name="loged_in_name">name: %1$s</string>
     <string name="fb_login_button_msg_Continue_with_fb">Continue with Facebook</string>
     <string name="fb_login_button_msg_Log_Out">Log out</string>
     <string name="not_loged_in">not loged in</string>
-    <string name="fb_login_error_logPrintErrorCantRetrieveAllTheFields">error al obtener los campos nombre y email del objeto JSON recuperado</string>
-    <string name="fb_login_error_logPrintErrorCantFetchData">error al conectar a facebook. Excepcion : %1$s"</string>
 </resources>

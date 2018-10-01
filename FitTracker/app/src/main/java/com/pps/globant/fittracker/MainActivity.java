@@ -9,6 +9,7 @@ import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
+import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 
 import butterknife.ButterKnife;
 
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         callbackManager = CallbackManager.Factory.create();
-        presenter = new LoginPresenter(new LoginModel(callbackManager, BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
-        BusProvider.register(presenter, presenter.getModel());
+        presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(BusProvider.getInstance(), callbackManager)), new LoginView(this, BusProvider.getInstance()));
+        presenter.register();
         presenter.restoreState();
     }
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BusProvider.unregister(presenter, presenter.getModel());
+        presenter.unregister();
     }
 
 
