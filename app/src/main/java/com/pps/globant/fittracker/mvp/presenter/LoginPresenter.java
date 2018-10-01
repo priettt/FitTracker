@@ -34,9 +34,14 @@ public class LoginPresenter {
     //Google declarations-----------------------------------------------------------------------------------------------------------
     /*googleServiceClientId is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/
-    private static final String googleServiceClientId = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
+    private static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
+    private static final String GOOGLE_SIGN_IN_ERROR_TAG = "Sign In Error";
+    private static final String GOOGLE_SIGNED_OUT_MESSAGE = "Signed out from google";
+    private static final String GOOGLE_SIGN_IN_ERROR_MESSAGE ="handleSignInResult:error";
+    private static final String EMPTY_STRING ="";
     private static final int RC_GET_TOKEN = 9002;
-    private static final String googleSignInErrorTag = "Sign In Error";
+
+
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     //-------------------------------------------------------------------------------------------------------------------------------
@@ -48,7 +53,7 @@ public class LoginPresenter {
         // Configure sign-in to request the user's ID, email address, token and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(googleServiceClientId)
+                .requestIdToken(GOOGLE_SERVICE_CLIENT_ID)
                 .requestEmail()
                 .build();
 
@@ -74,14 +79,14 @@ public class LoginPresenter {
                     .addOnCompleteListener(view.getActivity(), new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(view.getActivity(), "Signed out from google", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getActivity(), GOOGLE_SIGNED_OUT_MESSAGE, Toast.LENGTH_SHORT).show();
                         }
                     });
             model.signOutGoogle();
             view.hideGoogleSignOutButton();
             view.showGoogleSignInButton();
             view.setStatusLabel(R.string.signed_out);
-            view.setDetailLabel("");
+            view.setDetailLabel(EMPTY_STRING);
         }
     }
 
@@ -101,7 +106,7 @@ public class LoginPresenter {
             model.setAccount(account);
             successfulGoogleSignIn();
         } catch (ApiException e) {
-            Log.w(googleSignInErrorTag, "handleSignInResult:error", e);
+            Log.w(GOOGLE_SIGN_IN_ERROR_TAG, GOOGLE_SIGN_IN_ERROR_MESSAGE, e);
         }
     }
 
