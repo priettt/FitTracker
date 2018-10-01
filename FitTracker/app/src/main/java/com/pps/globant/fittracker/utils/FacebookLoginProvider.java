@@ -1,9 +1,9 @@
 package com.pps.globant.fittracker.utils;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -11,95 +11,75 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.pps.globant.fittracker.model.FbUser;
+import com.pps.globant.fittracker.model.User;
 import com.squareup.otto.Bus;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class FacebookLoginProvider {
     private static final String FIELDS = "fields";
     private static final String NAME = "name";
-    private static final String ID = "id";
-    private static final String REQUESTED_FIELDS = String.format("%1$s,%2$s", ID, NAME);
-    private static boolean callbackRegistered = false;
+    private static final List<String> LOGIN_PERMISSIONS = Collections.singletonList("public_profile");
+    private final Bus bus;
+    private CallbackManager callbackManager;
+    private boolean callbackRegistered;
 
-    public static void registerCallback(final Bus bus, CallbackManager callbackManager) {
-        if (!isCallbackRegistered()) {
-            LoginManager.getInstance().registerCallback(callbackManager,
-                    new FacebookCallback<LoginResult>() {
-                        @Override
-                        public void onSuccess(LoginResult loginResult) {
-                            AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
-                                @Override
-                                protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                                           AccessToken currentAccessToken) {
-                                    if (currentAccessToken == null) {
-                                        bus.post(new LogOutCompleteEvent());
-                                        this.stopTracking();
-                                    }
-                                }
-                            };
-                            accessTokenTracker.startTracking();
-                            GraphRequest request = GraphRequest.newMeRequest(
-                                    loginResult.getAccessToken(),
-                                    new GraphRequest.GraphJSONObjectCallback() {
-                                        @Override
-                                        public void onCompleted(JSONObject object, GraphResponse response) {
-                                            setResponse(object, bus);
-                                        }
-                                    });
-                            Bundle parameters = new Bundle();
-                            parameters.putString(FIELDS, REQUESTED_FIELDS);
-                            request.setParameters(parameters);
-                            request.executeAsync();
-                        }
 
-                        @Override
-                        public void onCancel() {
-                        }
+    private void registerCallback() {
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        getUserProfile(loginResult.getAccessToken());
+                    }
 
-                        @Override
-                        public void onError(FacebookException exception) {
-                            bus.post(new FetchingFbUserDataErrorEvent(exception));
-                        }
-                    });
-        }
+                    @Override
+                    public void onCancel() {
+                        bus.post(new FetchingFbUserDataCancelEvent());
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        bus.post(new FetchingFbUserDataErrorEvent(exception));
+                    }
+                });
         callbackRegistered = true;
     }
 
-    private static void setResponse(JSONObject jsonObject, Bus bus) {
-        String name;
-        try {
-            name = jsonObject.getString(NAME);
-        } catch (JSONException e) {
-            bus.post(new CantRetrieveAllTheFieldsRequestedsEvent());
-            return;
-        }
-        bus.post(new FetchingFbUserDataCompletedEvent(new FbUser(name)));
+    public FacebookLoginProvider(Bus bus, CallbackManager callbackManager) {
+        this.bus = bus;
+        this.callbackManager = callbackManager;
+        callbackRegistered = false;
     }
 
-    public static void logOut() {
+    public void logOut() {
         LoginManager.getInstance().logOut();
+        bus.post(new LogOutCompleteEvent());
     }
 
-    private static boolean isCallbackRegistered() {
-        return callbackRegistered;
+    public void logIn(Activity activity) {
+        if (!callbackRegistered) {
+            registerCallback();
+        }
+        LoginManager.getInstance().logInWithReadPermissions(activity, LOGIN_PERMISSIONS);
     }
 
-    public static class CantRetrieveAllTheFieldsRequestedsEvent {
-
+    public boolean isLoginTokenActive() {
+        return (AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired());
     }
 
-    public static class FetchingFbUserDataCompletedEvent {
-        public final FbUser fbUser;
-
-        public FetchingFbUserDataCompletedEvent(FbUser fbUser) {
-            this.fbUser = fbUser;
+    public void restoreState() {
+        if (isLoginTokenActive()) {
+            getUserProfile(AccessToken.getCurrentAccessToken());
         }
     }
 
-    public static class FetchingFbUserDataErrorEvent {
+    public class FetchingFbUserDataErrorEvent {
         public final FacebookException facebookException;
 
         public FetchingFbUserDataErrorEvent(FacebookException exception) {
@@ -107,6 +87,37 @@ public class FacebookLoginProvider {
         }
     }
 
-    public static class LogOutCompleteEvent {
+    public class LogOutCompleteEvent {
+    }
+
+    public class FetchingFbUserDataCancelEvent {
+    }
+
+    public class FbUserDataRecoveredEvent {
+        public final User user;
+
+        public FbUserDataRecoveredEvent(User user) {
+            this.user = user;
+        }
+    }
+
+    private void getUserProfile(AccessToken currentAccessToken) {
+        GraphRequest request = GraphRequest.newMeRequest(
+                currentAccessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            String name = object.getString(NAME);
+                            bus.post(new FbUserDataRecoveredEvent(new User(name)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString(FIELDS, NAME);
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 }

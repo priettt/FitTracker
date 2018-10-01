@@ -25,18 +25,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         callbackManager = CallbackManager.Factory.create();
         presenter = new LoginPresenter(new LoginModel(callbackManager, BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        BusProvider.register(presenter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        BusProvider.unregister(presenter);
+        BusProvider.register(presenter, presenter.getModel());
+        presenter.restoreState();
     }
 
     @Override
@@ -46,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        presenter.fbLogOut();
+    protected void onDestroy() {
+        super.onDestroy();
+        BusProvider.unregister(presenter, presenter.getModel());
     }
+
 
 }

@@ -1,7 +1,6 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.pps.globant.fittracker.R;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
@@ -11,6 +10,7 @@ import com.squareup.otto.Subscribe;
 
 public class LoginPresenter {
 
+
     private final LoginModel model;
     private final LoginView view;
 
@@ -19,39 +19,46 @@ public class LoginPresenter {
         this.view = view;
     }
 
-    @Subscribe
-    public void onFetchingFbUserDataCompletedEvent(FacebookLoginProvider.FetchingFbUserDataCompletedEvent event) {
+    public LoginModel getModel() {
+        return model;
+    }
+
+    public void restoreState() {
+        model.restoreState();
+    }
+
+    private void setUser() {
         Resources res = view.getActivity().getResources();
-        view.setLabelFb(String.format(res.getString(R.string.loged_in_name), event.fbUser.getName()));
+        view.setLabelButtonFb(res.getString(R.string.fb_login_button_msg_Log_Out));
+        view.setLabelFb(String.format(res.getString(R.string.loged_in_name), model.getUser().getName()));
     }
 
     @Subscribe
-    public void onCantRetrieveAllTheFieldsRequestedsEvent(FacebookLoginProvider.CantRetrieveAllTheFieldsRequestedsEvent event) {
-        Resources res = view.getActivity().getResources();
-        view.setLabelFb(res.getString(R.string.fb_login_error_message));
-        Log.e(res.getString(R.string.facebook), res.getString(R.string.fb_login_error_logPrintErrorCantRetrieveAllTheFields));
+    public void onUserDataRecoveredEvent(LoginModel.UserDataRecoveredEvent event) {
+        setUser();
     }
 
     @Subscribe
-    public void onFetchingFbUserDataErrorEvent(FacebookLoginProvider.FetchingFbUserDataErrorEvent event) {
+    public void onErrorOnUserDataRecoveryEvent(LoginModel.ErrorOnUserDataRecoveryEvent event) {
         Resources res = view.getActivity().getResources();
         view.setLabelFb(res.getString(R.string.fb_login_error_message));
-        Log.e(res.getString(R.string.facebook), String.format(res.getString(R.string.fb_login_error_logPrintErrorCantFetchData), event.facebookException.toString()));
+        view.popUp(event.error);
     }
 
     @Subscribe
     public void onLogOutCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event) {
         Resources res = view.getActivity().getResources();
         view.setLabelFb(res.getString(R.string.not_loged_in));
+        view.setLabelButtonFb(res.getString(R.string.fb_login_button_msg_Continue_with_fb));
     }
 
     @Subscribe
     public void onFbButtonPressedEvent(LoginView.FbButtonPressedEvent event) {
-        model.registerFbCallbacks();
-    }
-
-    public void fbLogOut() {
-        model.fbLogOut();
+        if (!model.isFbLogedIn()) {
+            model.fbLogIn(view.getActivity());
+        } else {
+            model.fbLogOut();
+        }
     }
 
 }
