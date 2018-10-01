@@ -11,7 +11,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.pps.globant.fittracker.model.User;
+import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.squareup.otto.Bus;
 
 import org.json.JSONException;

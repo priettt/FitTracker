@@ -2,6 +2,7 @@ package com.pps.globant.fittracker.mvp.view;
 
 import android.app.Activity;
 import android.support.annotation.StringRes;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,10 @@ public class LoginView extends ActivityView {
     TextView textFbLabel;
     @BindView(R.id.buttton_fb)
     Button buttonFb;
+    @BindView(R.id.button_db_check)
+    Button buttonDb;
+    @BindView(R.id.button_db_delete)
+    Button buttonDbDelete;
 
     public LoginView(Activity activity, Bus bus) {
         super(activity);
@@ -45,10 +50,44 @@ public class LoginView extends ActivityView {
         this.buttonFb.setText(label);
     }
 
+    @OnClick(R.id.button_db_delete)
+    public void dbButtonDeletePressed() {
+        bus.post(new DbButtonDeletePressedEvent());
+    }
+
+    @OnClick(R.id.button_db_check)
+    public void dbButtonPressed() {
+        bus.post(new DbButtonPressedEvent());
+    }
+
     public void popUp(@StringRes int error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
+    public void setDbOptionVisible() {
+        buttonDb.setVisibility(View.VISIBLE);
+    }
+
+    public void setDbDeleteOptionInvisible() {
+        buttonDbDelete.setVisibility(View.INVISIBLE);
+    }
+
+    public void setDbDeleteOptionVisible() {
+        buttonDbDelete.setVisibility(View.VISIBLE);
+    }
+
+
+
+    public void setDbOptionInvisible() {
+        buttonDb.setVisibility(View.INVISIBLE);
+    }
+
     public class FbButtonPressedEvent {
+    }
+
+    public class DbButtonPressedEvent {
+    }
+
+    public class DbButtonDeletePressedEvent {
     }
 }

@@ -8,6 +8,14 @@
     <string name="facebook">Facebook</string>
     <string name="loged_in_name">name: %1$s</string>
     <string name="fb_login_button_msg_Continue_with_fb">Continue with Facebook</string>
+    <string name="db_text_msg_user_doesnt_exists">User not present into the database, added</string>
+    <string name="db_text_msg_user_exists">User present into the database</string>
+    <string name="db_text_msg_user_deleted">User deleted from the database</string>
     <string name="fb_login_button_msg_Log_Out">Log out</string>
     <string name="not_loged_in">not loged in</string>
+    <string name="fb_login_error_logPrintErrorCantRetrieveAllTheFields">error al obtener los campos nombre y email del objeto JSON recuperado</string>
+    <string name="fb_login_error_logPrintErrorCantFetchData">error al conectar a facebook. Excepcion : %1$s"</string>
+    <string name="db_button_check">check the DB</string>
+    <string name="db_button_delete">Delete User</string>
+    <string name="db_text_msg_adding_user">User added to database</string>
 </resources>
