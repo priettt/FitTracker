@@ -1,9 +1,9 @@
 package com.pps.globant.fittracker.model;
 
-public class FbUser {
+public class User {
     private final String name;
 
-    public FbUser(String name) {
+    public User(String name) {
         this.name = name;
     }
 

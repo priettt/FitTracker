@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="fbButton" parent="AppTheme">
+        <item name="android:background">@color/com_facebook_button_background_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textColor">@color/com_facebook_button_text_color</item>
+        <item name="android:layout_marginTop">@dimen/layout_marginTop_fb_login_button</item>
+        <item name="android:layout_marginBottom">@dimen/layout_marginBottom_fb_login_button</item>
+    </style>
+
 </resources>
