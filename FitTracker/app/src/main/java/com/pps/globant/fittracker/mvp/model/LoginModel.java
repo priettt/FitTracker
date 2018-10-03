@@ -1,23 +1,54 @@
 package com.pps.globant.fittracker.mvp.model;
 
-import com.facebook.CallbackManager;
+import android.app.Activity;
+
+import com.pps.globant.fittracker.mvp.model.DataBase.User;
+import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
-import com.squareup.otto.Bus;
 
 public class LoginModel {
-    private final Bus bus;
-    private final CallbackManager callbackManager;
+    private FacebookLoginProvider facebookLoginProvider;
+    private User activeUser;
+    private UsersRepository usersRepository;
 
-    public LoginModel(CallbackManager callbackManager, Bus bus) {
-        this.bus = bus;
-        this.callbackManager = callbackManager;
-    }
-
-    public void registerFbCallbacks() {
-        FacebookLoginProvider.registerCallback(bus, callbackManager);
+    public LoginModel(FacebookLoginProvider facebookLoginProvider, UsersRepository usersRepository) {
+        this.facebookLoginProvider = facebookLoginProvider;
+        this.usersRepository = usersRepository;
     }
 
     public void fbLogOut() {
-        FacebookLoginProvider.logOut();
+        facebookLoginProvider.logOut();
+    }
+
+    public void fbLogIn(Activity activity) {
+        facebookLoginProvider.logIn(activity);
+    }
+
+    public boolean isFbLogedIn() {
+        return facebookLoginProvider.isLoginTokenActive();
+    }
+
+    public User getUser() {
+        return activeUser;
+    }
+
+    public void restoreState() {
+        facebookLoginProvider.restoreState();
+    }
+
+    public void setUser(User user) {
+        activeUser=user;
+    }
+
+    public void getUserFromDB() {
+        usersRepository.get(activeUser.getName());
+    }
+
+    public void insertUserToDB() {
+        usersRepository.insert(activeUser);
+    }
+
+    public void deleteUser() {
+        usersRepository.delete(activeUser);
     }
 }

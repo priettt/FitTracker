@@ -8,13 +8,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/buttton_fb_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/buttton_fb"
+        style="@style/fbButton"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/layout_marginTop_fb_login_button"
-        android:layout_marginBottom="@dimen/layout_marginBottom_fb_login_button" />
+        android:text="@string/fb_login_button_msg_Continue_with_fb"/>
 
     <TextView
         android:id="@+id/text_fb_label"
@@ -23,5 +21,18 @@
         android:textSize="@dimen/placeholder_text_size"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/button_db_check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="@string/db_button_check"/>
+
+    <Button
+        android:id="@+id/button_db_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="@string/db_button_delete"/>
 
 </LinearLayout>
