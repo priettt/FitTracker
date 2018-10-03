@@ -60,6 +60,18 @@ public class LoginPresenter {
         // Build a GoogleSignInClient with the options specified by gso.
         if (view.getActivity() != null)
             mGoogleSignInClient = GoogleSignIn.getClient(view.getActivity(), gso);
+
+        // [START on_start_sign_in]
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        if (view.getActivity() != null){
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getActivity());
+            if (account != null) {
+                model.setAccount(account);
+                successfulGoogleSignIn();
+            }
+        }
+        // [END on_start_sign_in]
     }
 
     @Subscribe
