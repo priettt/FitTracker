@@ -98,7 +98,7 @@ public class LoginPresenter {
         }
     }
 
-    public void successfulGoogleSignIn() {
+    private void successfulGoogleSignIn() {
         //Once model posts that the login was successful, it sets the detail label with the name.
         view.setDetailLabel(model.getMail());
         view.hideGoogleSignInButton();
@@ -106,7 +106,7 @@ public class LoginPresenter {
         view.setStatusLabel(R.string.signed_in);
     }
 
-    public void successfulGoogleSignOut() {
+    private void successfulGoogleSignOut() {
         model.signOutGoogle();
         view.hideGoogleSignOutButton();
         view.showGoogleSignInButton();
