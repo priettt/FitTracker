@@ -33,7 +33,7 @@ public class LoginPresenter {
     private final Activity activity;
 
     //Google declarations-----------------------------------------------------------------------------------------------------------
-    /*googleServiceClientId is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
+    /*GOOGLE_SERVICE_CLIENT_ID is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/
     private static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
     private static final String GOOGLE_SIGN_IN_ERROR_TAG = "Sign In Error";
@@ -41,7 +41,6 @@ public class LoginPresenter {
     private static final String GOOGLE_SIGN_IN_ERROR_MESSAGE = "handleSignInResult:error";
     private static final String EMPTY_STRING = "";
     private static final int RC_GET_TOKEN = 9002;
-
 
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
