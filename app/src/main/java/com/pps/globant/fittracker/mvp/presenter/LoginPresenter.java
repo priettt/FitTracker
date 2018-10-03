@@ -1,6 +1,5 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
-
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
@@ -10,6 +9,7 @@ import com.squareup.otto.Subscribe;
 import com.pps.globant.fittracker.R;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.util.Log;
 
@@ -30,6 +30,7 @@ public class LoginPresenter {
 
     private final LoginModel model;
     private final LoginView view;
+    private final Activity activity;
 
     //Google declarations-----------------------------------------------------------------------------------------------------------
     /*googleServiceClientId is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
@@ -37,8 +38,8 @@ public class LoginPresenter {
     private static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
     private static final String GOOGLE_SIGN_IN_ERROR_TAG = "Sign In Error";
     private static final String GOOGLE_SIGNED_OUT_MESSAGE = "Signed out from google";
-    private static final String GOOGLE_SIGN_IN_ERROR_MESSAGE ="handleSignInResult:error";
-    private static final String EMPTY_STRING ="";
+    private static final String GOOGLE_SIGN_IN_ERROR_MESSAGE = "handleSignInResult:error";
+    private static final String EMPTY_STRING = "";
     private static final int RC_GET_TOKEN = 9002;
 
 
@@ -49,29 +50,28 @@ public class LoginPresenter {
     public LoginPresenter(LoginModel model, LoginView view) {
         this.model = model;
         this.view = view;
+        this.activity = view.getActivity();
 
-        // Configure sign-in to request the user's ID, email address, token and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(GOOGLE_SERVICE_CLIENT_ID)
-                .requestEmail()
-                .build();
+        if (activity != null) {
 
-        // Build a GoogleSignInClient with the options specified by gso.
-        if (view.getActivity() != null)
-            mGoogleSignInClient = GoogleSignIn.getClient(view.getActivity(), gso);
+            // Configure sign-in to request the user's ID, email address, token and basic
+            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(GOOGLE_SERVICE_CLIENT_ID)
+                    .requestEmail()
+                    .build();
 
-        // [START on_start_sign_in]
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        if (view.getActivity() != null){
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getActivity());
+            // Build a GoogleSignInClient with the options specified by gso.
+            mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
+
+            // Check for existing Google Sign In account, if the user is already signed in
+            // the GoogleSignInAccount will be non-null.
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(activity);
             if (account != null) {
                 model.setAccount(account);
                 successfulGoogleSignIn();
             }
         }
-        // [END on_start_sign_in]
     }
 
     @Subscribe
@@ -80,25 +80,21 @@ public class LoginPresenter {
         //If you request other stuff beyond profile, email, token and openid,
         //the user is also prompted to grant access to the requested resources.
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        if (view.getActivity() != null)
-            view.getActivity().startActivityForResult(signInIntent, RC_GET_TOKEN);
+        if (activity != null)
+            activity.startActivityForResult(signInIntent, RC_GET_TOKEN);
     }
 
     @Subscribe
     public void onGoogleSignOutButtonPressed(GoogleSignOutButtonPressedEvent event) {
-        if (view.getActivity() != null) {
+        if (activity != null) {
             mGoogleSignInClient.signOut()
-                    .addOnCompleteListener(view.getActivity(), new OnCompleteListener<Void>() {
+                    .addOnCompleteListener(activity, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(view.getActivity(), GOOGLE_SIGNED_OUT_MESSAGE, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, GOOGLE_SIGNED_OUT_MESSAGE, Toast.LENGTH_SHORT).show();
+                            successfulGoogleSignOut();
                         }
                     });
-            model.signOutGoogle();
-            view.hideGoogleSignOutButton();
-            view.showGoogleSignInButton();
-            view.setStatusLabel(R.string.signed_out);
-            view.setDetailLabel(EMPTY_STRING);
         }
     }
 
@@ -108,6 +104,14 @@ public class LoginPresenter {
         view.hideGoogleSignInButton();
         view.showGoogleSignOutButton();
         view.setStatusLabel(R.string.signed_in);
+    }
+
+    public void successfulGoogleSignOut() {
+        model.signOutGoogle();
+        view.hideGoogleSignOutButton();
+        view.showGoogleSignInButton();
+        view.setStatusLabel(R.string.signed_out);
+        view.setDetailLabel(EMPTY_STRING);
     }
 
     @Subscribe
@@ -133,8 +137,8 @@ public class LoginPresenter {
 
     @Subscribe
     public void onFetchingFbUserDataCompletedEvent(FacebookLoginProvider.FetchingFbUserDataCompletedEvent event) {
-        if (view.getActivity() != null) {
-            Resources res = view.getActivity().getResources();
+        if (activity != null) {
+            Resources res = activity.getResources();
             view.setLabelFb(String.format(res.getString(R.string.loged_in_name), event.fbUser.getName()));
         }
     }
