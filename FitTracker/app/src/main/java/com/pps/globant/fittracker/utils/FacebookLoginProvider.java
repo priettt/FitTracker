@@ -69,7 +69,8 @@ public class FacebookLoginProvider {
     }
 
     public boolean isLoginTokenActive() {
-        return (AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired());
+        final AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return (accessToken != null && !accessToken.isExpired());
     }
 
     public void restoreState() {

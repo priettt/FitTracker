@@ -10,7 +10,6 @@ public class LoginModel {
     private User activeUser;
 
     public LoginModel(FacebookLoginProvider facebookLoginProvider) {
-        activeUser = null;
         this.facebookLoginProvider = facebookLoginProvider;
     }
 
@@ -36,7 +35,7 @@ public class LoginModel {
     }
 
     public void setUser(User user) {
-        this.activeUser=user;
+        activeUser=user;
     }
 
 }
