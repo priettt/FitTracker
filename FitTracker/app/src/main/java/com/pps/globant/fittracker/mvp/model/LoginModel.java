@@ -3,7 +3,6 @@ package com.pps.globant.fittracker.mvp.model;
 import android.app.Activity;
 
 import com.pps.globant.fittracker.mvp.model.DataBase.User;
-import com.pps.globant.fittracker.mvp.model.DataBase.UserRoomDataBase;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 

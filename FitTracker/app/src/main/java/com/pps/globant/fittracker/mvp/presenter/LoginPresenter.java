@@ -3,7 +3,6 @@ package com.pps.globant.fittracker.mvp.presenter;
 import android.content.res.Resources;
 
 import com.pps.globant.fittracker.R;
-import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.view.LoginView;

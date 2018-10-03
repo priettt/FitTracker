@@ -77,11 +77,7 @@ public class UsersRepository {
 
         @Override
         protected void onPostExecute(List<User> users) {
-            User user = null;
-            if (!users.isEmpty()){
-                user=users.get(0);
-            }
-            bus.post(new FetchingUserFromDataBaseCompleted(user));
+            bus.post(new FetchingUserFromDataBaseCompleted(!users.isEmpty()?users.get(0):null));
         }
     }
 
