@@ -1,23 +1,23 @@
 package com.pps.globant.fittracker.mvp.model.DataBase;
 
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = User.TABLE_NAME)
-public class User {
-    private static final String NAME = "name";
-    static final String TABLE_NAME = "user";
+import java.util.Date;
 
-    public User(@NonNull String name) {
+@Entity
+public class User {
+
+    public User(int id, String email, String firstName, String lastName, Date dateOfBirth) {
         this.name = name;
     }
 
     @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = NAME)
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String name;
 
     public String getName() {
