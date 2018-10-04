@@ -4,65 +4,147 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/google_icon"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small"
-        android:contentDescription="@string/desc_google_icon"
-        android:src="@drawable/googleg_color" />
+        android:layout_marginTop="@dimen/margin_big"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small"
-        android:text="@string/signed_out"
-        android:textSize="@dimen/google_status_label" />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small">
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
+        <ImageView
+            android:id="@+id/google_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/sign_out_button"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/sign_out"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:visibility="gone" />
-    </FrameLayout>
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:contentDescription="@string/desc_google_icon"
+            android:src="@drawable/googleg_color" />
 
-    <TextView
-        android:id="@+id/detail"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_horizontal">
+
+            <Button
+                android:id="@+id/google_sign_in_button"
+                android:layout_width="@dimen/button_medium_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:text="@string/google_sign_in"
+                android:theme="@style/ThemeOverlay.GoogleButton"/>
+
+            <Button
+                android:id="@+id/google_sign_out_button"
+                android:layout_width="@dimen/button_medium_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:text="@string/sign_out"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small"
-        android:textSize="@dimen/google_detail_label" />
+        android:layout_marginTop="@dimen/margin_medium"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/facebook_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:contentDescription="@string/desc_google_icon"
+            android:src="@drawable/ic_facebook" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_horizontal">
+
+            <Button
+                android:id="@+id/facebook_sign_in_button"
+                android:layout_width="@dimen/button_medium_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:text="@string/facebook_sign_in"
+                android:theme="@style/ThemeOverlay.FacebookButton"/>
+
+            <Button
+                android:id="@+id/facebook_sign_out_button"
+                android:layout_width="@dimen/button_medium_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:text="@string/sign_out"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/instagram_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:contentDescription="@string/desc_google_icon"
+            android:src="@drawable/ic_instagram" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_horizontal">
+
+            <Button
+                android:id="@+id/instagram_sign_in_button"
+                android:layout_width="@dimen/button_medium_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:text="@string/instagram_sign_in"
+                android:theme="@style/ThemeOverlay.InstagramButton"/>
+
+            <Button
+                android:id="@+id/instagram_sign_out_button"
+                android:layout_width="@dimen/button_medium_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_gravity="center"
+                android:text="@string/sign_out"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/buttton_fb"
-        style="@style/fbButton"
+        android:id="@+id/manual_sign_in_button"
+        android:layout_width="@dimen/button_large_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/margin_medium"
         android:layout_gravity="center"
-        android:text="@string/fb_login_button_msg_Continue_with_fb" />
+        android:text="@string/manual_sign_in"
+        android:theme="@style/ThemeOverlay.ManualLogInButton"/>
 
-    <TextView
-        android:id="@+id/text_fb_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/manual_register_button"
+        android:layout_width="@dimen/button_large_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_gravity="center"
-        android:text="@string/not_loged_in"
-        android:textSize="@dimen/placeholder_text_size" />
+        android:text="@string/manual_register"
+        android:theme="@style/ThemeOverlay.ManualRegisterButton"/>
 
 </LinearLayout>

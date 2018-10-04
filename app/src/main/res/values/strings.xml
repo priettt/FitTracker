@@ -8,6 +8,13 @@
     <string name="signed_out">Signed out</string>
     <string name="desc_google_icon">Google Logo</string>
 
+    <!-- Button Strings -->
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="facebook_sign_in">Sign in with Facebook</string>
+    <string name="instagram_sign_in">Sign in with Instagram</string>
+    <string name="manual_sign_in">Manual Sign In</string>
+    <string name="manual_register">Manual Register</string>
+
     <!-- Facebook -->
     <string name="facebook_app_id">2277009112312713</string>
     <string name="fb_login_protocol_scheme">fb2277009112312713</string>

@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.SignInButton;
 
 import com.pps.globant.fittracker.R;
 import com.squareup.otto.Bus;
@@ -20,20 +17,20 @@ public class LoginView extends ActivityView {
 
     private final Bus bus;
 
-    @BindView(R.id.status)
-    TextView statusLabel;
-    @BindView(R.id.detail)
-    TextView detailLabel;
-    @BindView(R.id.sign_in_button)
-    SignInButton googleSignInButton;
-    @BindView(R.id.sign_out_button)
+    @BindView(R.id.google_sign_in_button)
+    Button googleSignInButton;
+    @BindView(R.id.google_sign_out_button)
     Button googleSignOutButton;
 
-    @BindView(R.id.text_fb_label)
-    TextView textFbLabel;
-    @BindView(R.id.buttton_fb)
-    Button buttonFb;
+    @BindView(R.id.facebook_sign_in_button)
+    Button facebookSignInButton;
+    @BindView(R.id.facebook_sign_out_button)
+    Button facebookSignOutButton;
 
+    @BindView(R.id.instagram_sign_in_button)
+    Button instagramSignInButton;
+    @BindView(R.id.instagram_sign_out_button)
+    Button instagramSignOutButton;
 
     public LoginView(Activity activity, Bus bus) {
         super(activity);
@@ -41,36 +38,42 @@ public class LoginView extends ActivityView {
         ButterKnife.bind(this, activity);
     }
 
-    public void setDetailLabel(String label) {
-        detailLabel.setText(label);
+    public void toggleGoogleVisibility() {
+        if (googleSignInButton.getVisibility() == View.GONE) {
+            googleSignOutButton.setVisibility(View.GONE);
+            googleSignInButton.setVisibility(View.VISIBLE);
+        } else {
+            googleSignInButton.setVisibility(View.GONE);
+            googleSignOutButton.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void setStatusLabel(@StringRes int label) {
-        statusLabel.setText(label);
+    public void toggleFacebookVisibility() {
+        if (facebookSignInButton.getVisibility() == View.GONE) {
+            facebookSignOutButton.setVisibility(View.GONE);
+            facebookSignInButton.setVisibility(View.VISIBLE);
+        } else {
+            facebookSignInButton.setVisibility(View.GONE);
+            facebookSignOutButton.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void hideGoogleSignInButton() {
-        googleSignInButton.setVisibility(View.GONE);
+    public void toggleInstagramVisibility() {
+        if (instagramSignInButton.getVisibility() == View.GONE) {
+            instagramSignOutButton.setVisibility(View.GONE);
+            instagramSignInButton.setVisibility(View.VISIBLE);
+        } else {
+            instagramSignInButton.setVisibility(View.GONE);
+            instagramSignOutButton.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void hideGoogleSignOutButton() {
-        googleSignOutButton.setVisibility(View.GONE);
-    }
-
-    public void showGoogleSignInButton() {
-        googleSignInButton.setVisibility(View.VISIBLE);
-    }
-
-    public void showGoogleSignOutButton() {
-        googleSignOutButton.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.sign_in_button)
+    @OnClick(R.id.google_sign_in_button)
     public void signInButtonPressed() {
         bus.post(new GoogleSignInButtonPressedEvent());
     }
 
-    @OnClick(R.id.sign_out_button)
+    @OnClick(R.id.google_sign_out_button)
     public void signOutButtonPressed() {
         bus.post(new GoogleSignOutButtonPressedEvent());
     }
@@ -83,28 +86,26 @@ public class LoginView extends ActivityView {
         //Nothing to do, class made to pass it through the bus
     }
 
-    public void setLabelFb(String label) {
-        textFbLabel.setText(label);
+    @OnClick(R.id.facebook_sign_in_button)
+    public void FacebookSignInButtonPressed() {
+        bus.post(new FacebookSignInButtonPressed());
     }
 
-    public void setLabelFb(@StringRes int labelId) {
-        textFbLabel.setText(labelId);
-    }
-
-    @OnClick(R.id.buttton_fb)
-    public void fbButtonPressed() {
-        bus.post(new FbButtonPressedEvent());
-    }
-
-    public void setLabelButtonFb(@StringRes int label) {
-        this.buttonFb.setText(label);
+    @OnClick(R.id.facebook_sign_out_button)
+    public void FacebookSignOutButtonPressed() {
+        bus.post(new FacebookSignOutButtonPressed());
     }
 
     public void popUp(@StringRes int error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
-    public class FbButtonPressedEvent {
+    public static class FacebookSignInButtonPressed {
+        //Nothing to do, class made to pass it through the bus
+    }
+
+    public static class FacebookSignOutButtonPressed {
+        //Nothing to do, class made to pass it through the bus
     }
 
 }

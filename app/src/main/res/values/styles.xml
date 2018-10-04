@@ -14,6 +14,34 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!-- Facebook Button Style-->
+    <style name="ThemeOverlay.FacebookButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/facebook_color</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <!-- InstagramButton Style-->
+    <style name="ThemeOverlay.InstagramButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/instagram_color</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <!-- Google Button Style-->
+    <style name="ThemeOverlay.GoogleButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/google_color</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Manual Log In Button Style-->
+    <style name="ThemeOverlay.ManualLogInButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/manual_login_color</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Manual Register Button Style-->
+    <style name="ThemeOverlay.ManualRegisterButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/manual_register_color</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <!-- Facebook styles -->
     <style name="fbButton" parent="AppTheme">
         <item name="android:background">@color/com_facebook_button_background_color</item>

@@ -68,7 +68,7 @@ public class LoginPresenter {
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(activity);
             if (account != null) {
                 model.setAccount(account);
-                successfulGoogleSignIn();
+                view.toggleGoogleVisibility();
             }
         }
     }
@@ -91,26 +91,11 @@ public class LoginPresenter {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(activity, GOOGLE_SIGNED_OUT_MESSAGE, Toast.LENGTH_SHORT).show();
-                            successfulGoogleSignOut();
+                            model.signOutGoogle();
+                            view.toggleGoogleVisibility();
                         }
                     });
         }
-    }
-
-    private void successfulGoogleSignIn() {
-        //Once model posts that the login was successful, it sets the detail label with the name.
-        view.setDetailLabel(model.getMail());
-        view.hideGoogleSignInButton();
-        view.showGoogleSignOutButton();
-        view.setStatusLabel(R.string.signed_in);
-    }
-
-    private void successfulGoogleSignOut() {
-        model.signOutGoogle();
-        view.hideGoogleSignOutButton();
-        view.showGoogleSignInButton();
-        view.setStatusLabel(R.string.signed_out);
-        view.setDetailLabel(EMPTY_STRING);
     }
 
     @Subscribe
@@ -119,7 +104,7 @@ public class LoginPresenter {
         try {
             GoogleSignInAccount account = event.getCompletedTask().getResult(ApiException.class);
             model.setAccount(account);
-            successfulGoogleSignIn();
+            view.toggleGoogleVisibility();
         } catch (ApiException e) {
             Log.w(GOOGLE_SIGN_IN_ERROR_TAG, GOOGLE_SIGN_IN_ERROR_MESSAGE, e);
         }
@@ -136,29 +121,30 @@ public class LoginPresenter {
 
     private void setUser() {
         Resources res = view.getActivity().getResources();
-        view.setLabelButtonFb(R.string.fb_login_button_msg_Log_Out);
-        view.setLabelFb(String.format(res.getString(R.string.loged_in_name), model.getUser().getName()));
+        view.toggleFacebookVisibility();
+        /*view.setLabelFb(String.format(res.getString(R.string.loged_in_name), model.getUser().getName()));*/
     }
 
-    public void setAndPopUpError(int error){
-        view.setLabelFb(R.string.fb_login_error_message);
+    public void setAndPopUpError(int error) {
+        /*view.setLabelFb(R.string.fb_login_error_message);*/
         view.popUp(error);
     }
 
     @Subscribe
     public void onLogOutCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event) {
         Resources res = view.getActivity().getResources();
-        view.setLabelFb(R.string.not_loged_in);
-        view.setLabelButtonFb(R.string.fb_login_button_msg_Continue_with_fb);
+        /*view.setLabelFb(R.string.not_loged_in);*/
+        view.toggleFacebookVisibility();
     }
 
     @Subscribe
-    public void onFbButtonPressedEvent(LoginView.FbButtonPressedEvent event) {
-        if (!model.isFbLogedIn()) {
-            model.fbLogIn(view.getActivity());
-        } else {
-            model.fbLogOut();
-        }
+    public void onFacebookSignInButtonPressed(FacebookSignInButtonPressed event) {
+        model.fbLogIn(activity);
+    }
+
+    @Subscribe
+    public void onFacebookSignOutButtonPressed(FacebookSignOutButtonPressed event) {
+        model.fbLogOut();
     }
 
     public void register() {
@@ -189,5 +175,4 @@ public class LoginPresenter {
     public void onFetchingFbUserDataErrorEvent(FacebookLoginProvider.FetchingFbUserDataErrorEvent event) {
         setAndPopUpError(R.string.fb_login_error_message);
     }
-
 }
