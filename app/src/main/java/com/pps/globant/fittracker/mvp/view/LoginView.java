@@ -34,6 +34,10 @@ public class LoginView extends ActivityView {
     @BindView(R.id.buttton_fb)
     Button buttonFb;
 
+    @BindView(R.id.btn_insta_login) Button btn_insta_login;
+    @BindView(R.id.txt_view_instagram) TextView igLabel;
+    @BindView(R.id.btn_insta_logout) Button btn_insta_logout;
+
 
     public LoginView(Activity activity, Bus bus) {
         super(activity);
@@ -106,5 +110,38 @@ public class LoginView extends ActivityView {
 
     public class FbButtonPressedEvent {
     }
+
+    /********instagram*******/
+
+    public void setIgTextView(String name){
+        igLabel.setText(name);
+    }
+
+    public void showLoginToast(String name){
+        Toast.makeText(this.getContext(), getContext().getResources().getString(R.string.toast_instagram_login) + name, Toast.LENGTH_SHORT).show();
+    }
+    public void showLogoutToast(){
+        Toast.makeText(this.getContext(), R.string.toast_instagram_logout, Toast.LENGTH_SHORT).show();
+    }
+
+    public void disableLogin(){
+        btn_insta_login.setVisibility(View.INVISIBLE);
+        btn_insta_login.setEnabled(false);
+        btn_insta_logout.setVisibility(View.VISIBLE);
+        btn_insta_logout.setEnabled(true);
+
+    }
+    public void enableLogin(){
+        btn_insta_login.setVisibility(View.VISIBLE);
+        btn_insta_login.setEnabled(true);
+        btn_insta_logout.setVisibility(View.INVISIBLE);
+        btn_insta_logout.setEnabled(false);
+    }
+
+    public void showLoadingLogin() {
+        Toast.makeText(this.getContext(), R.string.toast_instagram_loading, Toast.LENGTH_LONG).show();
+    }
+
+    /********end instagram********/
 
 }

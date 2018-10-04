@@ -1,5 +1,6 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
+import com.pps.globant.fittracker.MainActivity;
 import com.squareup.otto.Subscribe;
 
 import com.pps.globant.fittracker.mvp.model.LoginModel;
@@ -9,9 +10,12 @@ import com.pps.globant.fittracker.R;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.Toast;
 import android.content.res.Resources;
 
@@ -25,17 +29,22 @@ import com.google.android.gms.common.api.ApiException;
 
 import static com.pps.globant.fittracker.mvp.view.LoginView.*;
 import static com.pps.globant.fittracker.mvp.model.LoginModel.*;
+import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
 
 public class LoginPresenter {
 
     private final LoginModel model;
     private final LoginView view;
     private final Activity activity;
+    //instagram presenter
+    private final InstagramLoginPresenter IgPresenter = new InstagramLoginPresenter(BusProvider.getInstance());
+
 
     //Google declarations-----------------------------------------------------------------------------------------------------------
     /*GOOGLE_SERVICE_CLIENT_ID is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/
-    private static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
+    //private static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
+    private static final String GOOGLE_SERVICE_CLIENT_ID = "146472501375-hu9vlk5qk9svo2m2b2gbt0kb0fnvfrvd.apps.googleusercontent.com";
     private static final String GOOGLE_SIGN_IN_ERROR_TAG = "Sign In Error";
     private static final String GOOGLE_SIGNED_OUT_MESSAGE = "Signed out from google";
     private static final String GOOGLE_SIGN_IN_ERROR_MESSAGE = "handleSignInResult:error";
@@ -189,5 +198,40 @@ public class LoginPresenter {
     public void onFetchingFbUserDataErrorEvent(FacebookLoginProvider.FetchingFbUserDataErrorEvent event) {
         setAndPopUpError(R.string.fb_login_error_message);
     }
+
+
+    /***** instagram methods *****/
+    public void igButtonLoginClick(MainActivity activity) {
+        view.showLoadingLogin();
+        IgPresenter.igButtonLoginClick(activity);
+    }
+
+    @Subscribe
+    public void onInformationReady(InstagramLoginPresenter.InformationReady event) {
+        if (event.logeado) {
+            view.disableLogin();
+            view.showLoginToast(event.name);
+        } else {
+            view.enableLogin();
+        }
+        view.setIgTextView(event.name);
+    }
+
+    public void isLoggedInInstagram(MainActivity activity) {
+        IgPresenter.isLoggedIn(activity);
+    }
+
+    public void igButtonLogoutClick(MainActivity activity, SharedPreferences spUser) {
+        view.enableLogin();
+        view.setIgTextView(activity.getResources().getString(R.string.instagram_not_login));
+        view.showLogoutToast();
+        CookieSyncManager.createInstance(activity.getApplicationContext());
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
+        spUser.edit().putString(SP_TOKEN, null).apply();
+    }
+
+    /*****end instagram*****/
+
 
 }
