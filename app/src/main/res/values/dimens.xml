@@ -4,6 +4,7 @@
     <dimen name="layout_marginBottom_fb_login_button">30dp</dimen>
     <dimen name="placeholder_text_size">40sp</dimen>
     <dimen name="button_text_size">22dp</dimen>
+    <dimen name="text_size">16sp</dimen>
 
     <dimen name="google_image">48dp</dimen>
     <dimen name="google_status_label">16sp</dimen>
@@ -13,4 +14,9 @@
 
     <dimen name="instagram_name_text_size">20sp</dimen>
     <dimen name="instagram_button_width">277dp</dimen>
+    <dimen name="button_padding">12dp</dimen>
+    <dimen name="padding_left">24dp</dimen>
+    <dimen name="padding_right">24dp</dimen>
+    <dimen name="padding_top">56dp</dimen>
+
 </resources>
