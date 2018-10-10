@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">FitTracker</string>
 
-    <!-- Google -->
+    <!-- Common -->
     <string name="sign_out">Sign Out</string>
     <string name="signed_in">Signed in</string>
     <string name="signing_in">Signing in…</string>
     <string name="signed_out">Signed out</string>
+
+    <!-- Icon Description Strings -->
     <string name="desc_google_icon">Google Logo</string>
+    <string name="desc_facebook_icon">Facebook Logo</string>
+    <string name="desc_instagram_icon">Instagram Logo</string>
 
     <!-- Button Strings -->
     <string name="google_sign_in">Sign in with Google</string>
@@ -15,7 +19,7 @@
     <string name="manual_sign_in">Manual Sign In</string>
     <string name="manual_register">Manual Register</string>
 
-    <!-- Facebook -->
+    <!-- Facebook Strings -->
     <string name="facebook_app_id">2277009112312713</string>
     <string name="fb_login_protocol_scheme">fb2277009112312713</string>
     <string name="login_error">error</string>

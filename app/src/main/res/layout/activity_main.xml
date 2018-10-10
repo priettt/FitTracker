@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_horizontal"
-            android:contentDescription="@string/desc_google_icon"
+            android:contentDescription="@string/desc_facebook_icon"
             android:src="@drawable/ic_facebook" />
 
         <FrameLayout
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/margin_horizontal"
-            android:contentDescription="@string/desc_google_icon"
+            android:contentDescription="@string/desc_instagram_icon"
             android:src="@drawable/ic_instagram" />
 
         <FrameLayout
