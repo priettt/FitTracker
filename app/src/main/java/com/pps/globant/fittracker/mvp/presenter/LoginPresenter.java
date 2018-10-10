@@ -37,8 +37,7 @@ public class LoginPresenter {
     private final LoginView view;
     private final Activity activity;
     //instagram presenter
-    private final InstagramLoginPresenter IgPresenter = new InstagramLoginPresenter(BusProvider.getInstance());
-
+    private final InstagramLoginPresenter igPresenter;
 
     //Google declarations-----------------------------------------------------------------------------------------------------------
     /*GOOGLE_SERVICE_CLIENT_ID is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
@@ -55,10 +54,11 @@ public class LoginPresenter {
     private GoogleSignInClient mGoogleSignInClient;
     //-------------------------------------------------------------------------------------------------------------------------------
 
-    public LoginPresenter(LoginModel model, LoginView view) {
+    public LoginPresenter(LoginModel model, LoginView view, InstagramLoginPresenter igPresenter) {
         this.model = model;
         this.view = view;
         this.activity = view.getActivity();
+        this.igPresenter = igPresenter;
 
         if (activity != null) {
 
@@ -203,7 +203,7 @@ public class LoginPresenter {
     /***** instagram methods *****/
     public void igButtonLoginClick(MainActivity activity) {
         view.showLoadingLogin();
-        IgPresenter.igButtonLoginClick(activity);
+        igPresenter.igButtonLoginClick(activity);
     }
 
     @Subscribe
@@ -217,8 +217,8 @@ public class LoginPresenter {
         view.setIgTextView(event.name);
     }
 
-    public void isLoggedInInstagram(MainActivity activity) {
-        IgPresenter.isLoggedIn(activity);
+    public void isLoggedInInstagram(SharedPreferences spUser) {
+        igPresenter.isLoggedIn(spUser);
     }
 
     public void igButtonLogoutClick(MainActivity activity, SharedPreferences spUser) {

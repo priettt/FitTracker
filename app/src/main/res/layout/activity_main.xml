@@ -79,7 +79,6 @@
         <Button
             android:id="@+id/btn_insta_login"
             style="@style/instagramButton"
-            android:layout_height="wrap_content"
             android:text="@string/btn_intagram_login" />
 
         <Button

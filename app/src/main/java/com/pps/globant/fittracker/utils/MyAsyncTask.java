@@ -38,7 +38,7 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, Long> {
     protected Long doInBackground(URL... urls) {
         long result = 0;
         try {
-            URL url = new URL(InstagramLoginModel.getTokenUrlFull());
+            URL url = new URL(InstagramLoginModel.TOKEN_URL_FULL);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.setRequestMethod("POST");
             httpsURLConnection.setDoInput(true);

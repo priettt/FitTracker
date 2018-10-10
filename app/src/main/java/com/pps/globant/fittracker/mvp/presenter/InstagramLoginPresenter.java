@@ -1,11 +1,12 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.webkit.WebView;
 
 import com.pps.globant.fittracker.MainActivity;
 import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
-import com.pps.globant.fittracker.mvp.view.IntagramLoginView;
+import com.pps.globant.fittracker.mvp.view.InstagramLoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
 import com.pps.globant.fittracker.utils.MyWVClient;
 import com.squareup.otto.Bus;
@@ -16,7 +17,7 @@ public class InstagramLoginPresenter {
     private final static String ERROR = "error";
     private static final String EQUAL_SIGN = "=";
     private final InstagramLoginModel model;
-    private final IntagramLoginView view;
+    private final InstagramLoginView view;
     public Dialog dialog;
     public MainActivity activity;
     public Bus bus;
@@ -26,7 +27,7 @@ public class InstagramLoginPresenter {
         this.bus = bus;
         BusProvider.register(this);
         model = new InstagramLoginModel(bus);
-        view = new IntagramLoginView();
+        view = new InstagramLoginView();
     }
 
     public void igButtonLoginClick(MainActivity activity) {
@@ -37,7 +38,7 @@ public class InstagramLoginPresenter {
         webView.setHorizontalScrollBarEnabled(false);
         webView.setWebViewClient(new MyWVClient(dialog, bus));
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(model.getAuthUrlFull());
+        webView.loadUrl(model.AUTH_URL_FULL);
         dialog.setContentView(webView);
     }
 
@@ -65,8 +66,8 @@ public class InstagramLoginPresenter {
         bus.post(new InformationReady(event.name, event.logeado));
     }
 
-    public void isLoggedIn(MainActivity activity) {
-        model.isLoggedIn(activity);
+    public void isLoggedIn(SharedPreferences spUser) {
+        model.isLoggedIn(spUser);
     }
 
     public static class InformationReady {

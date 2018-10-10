@@ -118,8 +118,9 @@ public class LoginView extends ActivityView {
     }
 
     public void showLoginToast(String name){
-        Toast.makeText(this.getContext(), getContext().getResources().getString(R.string.toast_instagram_login) + name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), String.format("%s%s", getContext().getResources().getString(R.string.toast_instagram_login), name), Toast.LENGTH_SHORT).show();
     }
+
     public void showLogoutToast(){
         Toast.makeText(this.getContext(), R.string.toast_instagram_logout, Toast.LENGTH_SHORT).show();
     }

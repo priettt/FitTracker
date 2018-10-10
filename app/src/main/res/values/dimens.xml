@@ -12,5 +12,5 @@
     <dimen name="margin_medium">20sp</dimen>
 
     <dimen name="instagram_name_text_size">20sp</dimen>
-    <dimen name="instagram_button_width">277</dimen>
+    <dimen name="instagram_button_width">277dp</dimen>
 </resources>
