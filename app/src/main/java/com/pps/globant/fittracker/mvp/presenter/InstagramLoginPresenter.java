@@ -14,6 +14,7 @@ import com.squareup.otto.Subscribe;
 public class InstagramLoginPresenter {
     private final static String CODE = "code";
     private final static String ERROR = "error";
+    private static final String EQUAL_SIGN = "=";
     private final InstagramLoginModel model;
     private final IntagramLoginView view;
     public Dialog dialog;
@@ -43,12 +44,10 @@ public class InstagramLoginPresenter {
 
     public void handleUrl(String url) {
         String code;
+        String temp[] = url.split(EQUAL_SIGN);
         if (url.contains(CODE)) {
-            String temp[] = url.split("=");
             code = temp[1];
             model.getIGInformation(code, activity);
-        } else if (url.contains(ERROR)) {
-            String temp[] = url.split("=");
         }
     }
 
@@ -60,7 +59,7 @@ public class InstagramLoginPresenter {
 
     @Subscribe
     public void onRetIgInformation(InstagramLoginModel.RetIgInformation event) {
-        if (dialog != null && dialog.isShowing()){
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         bus.post(new InformationReady(event.name, event.logeado));

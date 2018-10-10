@@ -7,8 +7,10 @@ import java.io.InputStreamReader;
 
 public class StreamToString {
 
+    private static final String EMPTY_STRING = "" ;
+
     public static String streamToString(InputStream is) throws IOException {
-        String str = "";
+        String str = EMPTY_STRING;
 
         if (is != null) {
             StringBuilder sb = new StringBuilder();

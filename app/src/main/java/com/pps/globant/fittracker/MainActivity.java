@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //presenter = new LoginPresenter(new LoginModel(), new LoginView(this));
         spUser = getSharedPreferences(CONSTANTS.SP,MODE_PRIVATE);
         callbackManager = CallbackManager.Factory.create();
         presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(BusProvider.getInstance(), callbackManager), BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
