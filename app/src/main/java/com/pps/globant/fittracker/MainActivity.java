@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.CallbackManager;
+import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
 import com.pps.globant.fittracker.mvp.presenter.InstagramLoginPresenter;
+import com.pps.globant.fittracker.mvp.view.InstagramLoginView;
 import com.pps.globant.fittracker.utils.CONSTANTS;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 
@@ -35,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         spUser = getSharedPreferences(SP,MODE_PRIVATE);
         callbackManager = CallbackManager.Factory.create();
-        presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(BusProvider.getInstance(), callbackManager), BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()), new InstagramLoginPresenter(BusProvider.getInstance()));
+        presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(BusProvider.getInstance(), callbackManager), BusProvider.getInstance()),
+                new LoginView(this, BusProvider.getInstance()),
+                new InstagramLoginPresenter(BusProvider.getInstance(),new InstagramLoginModel(BusProvider.getInstance(),spUser),new InstagramLoginView(this,BusProvider.getInstance())));
         presenter.register();
         presenter.restoreState();
     }
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_insta_login)
     public void onIgLoginClick() {
-        presenter.igButtonLoginClick(this);
+        presenter.igButtonLoginClick();
     }
 
     @OnClick(R.id.btn_insta_logout)

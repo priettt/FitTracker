@@ -1,5 +1,4 @@
 package com.pps.globant.fittracker.utils;
-
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
@@ -20,11 +19,13 @@ import static com.pps.globant.fittracker.utils.CONSTANTS.REDIRECT_URI;
 import static com.pps.globant.fittracker.utils.CONSTANTS.SP_CODE;
 import static com.pps.globant.fittracker.utils.CONSTANTS.SP_NAME;
 import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
+import static com.pps.globant.fittracker.utils.CONSTANTS.USER_ID;
 
-public class MyAsyncTask extends AsyncTask<URL, Integer, Long> {
+public class MyAsyncTask extends AsyncTask<URL, Void, Void> {
     private String code;
     private String accessTokenString;
     private String fullName;
+    private String id;
     public SharedPreferences spUser;
     public SharedPreferences.Editor spEdit;
     public Bus bus;
@@ -35,8 +36,7 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, Long> {
         this.spUser = spUser;
     }
 
-    protected Long doInBackground(URL... urls) {
-        long result = 0;
+    protected Void doInBackground(URL... urls) {
         try {
             URL url = new URL(InstagramLoginModel.TOKEN_URL_FULL);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
@@ -55,27 +55,31 @@ public class MyAsyncTask extends AsyncTask<URL, Integer, Long> {
             JSONObject jsonObject = (JSONObject) new JSONTokener(response).nextValue();
             accessTokenString = jsonObject.getString("access_token");
             fullName = jsonObject.getJSONObject("user").getString("full_name");
+            id = jsonObject.getJSONObject("user").getString("id");
             spEdit = spUser.edit();
             spEdit.putString(SP_TOKEN, accessTokenString);
             spEdit.putString(SP_NAME, fullName);
+            spEdit.putString(USER_ID,id);
             spEdit.putString(SP_CODE, code);
             spEdit.apply();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return null;
     }
 
-    protected void onPostExecute(Long result) {
-        bus.post(new PostReadyInformation(fullName));
+    protected void onPostExecute(Void result) {
+        bus.post(new PostReadyInformation(fullName,id));
     }
 
     public static class PostReadyInformation {
         public final String name;
+        public final String id;
 
-        public PostReadyInformation(String name) {
+        public PostReadyInformation(String name,String id) {
             this.name = name;
+            this.id = id;
         }
     }
 

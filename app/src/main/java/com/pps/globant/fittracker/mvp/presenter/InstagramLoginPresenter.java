@@ -1,10 +1,7 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
-import android.app.Dialog;
 import android.content.SharedPreferences;
-import android.webkit.WebView;
 
-import com.pps.globant.fittracker.MainActivity;
 import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
 import com.pps.globant.fittracker.mvp.view.InstagramLoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
@@ -12,75 +9,67 @@ import com.pps.globant.fittracker.utils.MyWVClient;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import static com.pps.globant.fittracker.utils.CONSTANTS.SP_NAME;
+import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
+import static com.pps.globant.fittracker.utils.CONSTANTS.USER_ID;
+
 public class InstagramLoginPresenter {
     private final static String CODE = "code";
-    private final static String ERROR = "error";
     private static final String EQUAL_SIGN = "=";
+    private final static String NOT_LOGGED = "None user account logged in";
     private final InstagramLoginModel model;
     private final InstagramLoginView view;
-    public Dialog dialog;
-    public MainActivity activity;
     public Bus bus;
 
 
-    public InstagramLoginPresenter(Bus bus) {
+    public InstagramLoginPresenter(Bus bus, InstagramLoginModel model, InstagramLoginView view) {
         this.bus = bus;
         BusProvider.register(this);
-        model = new InstagramLoginModel(bus);
-        view = new InstagramLoginView();
+        this.model = model;
+        this.view = view;
     }
 
-    public void igButtonLoginClick(MainActivity activity) {
-        this.activity = activity;
-        dialog = new Dialog(activity);
-        WebView webView = new WebView(activity);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebViewClient(new MyWVClient(dialog, bus));
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(model.AUTH_URL_FULL);
-        dialog.setContentView(webView);
-    }
-
-
-    public void handleUrl(String url) {
-        String code;
-        String temp[] = url.split(EQUAL_SIGN);
-        if (url.contains(CODE)) {
-            code = temp[1];
-            model.getIGInformation(code, activity);
-        }
+    public void igButtonLoginClick() {
+        view.showDialog();
     }
 
     @Subscribe
     public void onPostForHandleUrl(MyWVClient.PostForHandleUrl event) {
         String url = event.url;
-        handleUrl(url);
+        String code;
+        String temp[] = url.split(EQUAL_SIGN);
+        if (url.contains(CODE)) {
+            code = temp[1];
+            model.getIGInformation(code);
+        }
     }
 
     @Subscribe
     public void onRetIgInformation(InstagramLoginModel.RetIgInformation event) {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
-        bus.post(new InformationReady(event.name, event.logeado));
+        view.closeDialog();
+        bus.post(new InformationReady(event.name, event.logeado, event.id));
     }
 
     public void isLoggedIn(SharedPreferences spUser) {
-        model.isLoggedIn(spUser);
+        String token = spUser.getString(SP_TOKEN, null);
+        String name = spUser.getString(SP_NAME, null);
+        String id = spUser.getString(USER_ID, null);
+        if (token != null) {
+            bus.post(new InformationReady(name, true, id));
+        } else {
+            bus.post(new InformationReady(NOT_LOGGED, false, id));
+        }
     }
 
     public static class InformationReady {
         public final String name;
         public boolean logeado;
+        public String id;
 
-        public InformationReady(String name, boolean logeado) {
+        public InformationReady(String name, boolean logeado, String id) {
             this.name = name;
             this.logeado = logeado;
-        }
-
-        public InformationReady(String name) {
-            this.name = name;
+            this.id = id;
         }
     }
 }

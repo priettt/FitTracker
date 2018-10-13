@@ -1,34 +1,33 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
-import com.pps.globant.fittracker.MainActivity;
-import com.squareup.otto.Subscribe;
-
-import com.pps.globant.fittracker.mvp.model.LoginModel;
-import com.pps.globant.fittracker.mvp.view.LoginView;
-import com.pps.globant.fittracker.utils.BusProvider;
-import com.pps.globant.fittracker.R;
-import com.pps.globant.fittracker.utils.FacebookLoginProvider;
-
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.Toast;
-import android.content.res.Resources;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.api.ApiException;
+import com.pps.globant.fittracker.MainActivity;
+import com.pps.globant.fittracker.R;
+import com.pps.globant.fittracker.mvp.model.LoginModel;
+import com.pps.globant.fittracker.mvp.view.LoginView;
+import com.pps.globant.fittracker.utils.BusProvider;
+import com.pps.globant.fittracker.utils.FacebookLoginProvider;
+import com.squareup.otto.Subscribe;
 
-import static com.pps.globant.fittracker.mvp.view.LoginView.*;
-import static com.pps.globant.fittracker.mvp.model.LoginModel.*;
+import static com.pps.globant.fittracker.mvp.model.LoginModel.GoogleSignInEvent;
+import static com.pps.globant.fittracker.mvp.view.LoginView.GoogleSignInButtonPressedEvent;
+import static com.pps.globant.fittracker.mvp.view.LoginView.GoogleSignOutButtonPressedEvent;
 import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
 
 public class LoginPresenter {
@@ -201,9 +200,9 @@ public class LoginPresenter {
 
 
     /***** instagram methods *****/
-    public void igButtonLoginClick(MainActivity activity) {
+    public void igButtonLoginClick() {
         view.showLoadingLogin();
-        igPresenter.igButtonLoginClick(activity);
+        igPresenter.igButtonLoginClick();
     }
 
     @Subscribe

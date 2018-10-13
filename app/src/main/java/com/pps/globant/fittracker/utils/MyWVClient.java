@@ -1,6 +1,5 @@
 package com.pps.globant.fittracker.utils;
-import android.app.Dialog;
-import android.graphics.Bitmap;
+
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.webkit.WebResourceRequest;
@@ -12,12 +11,9 @@ import com.squareup.otto.Bus;
 import static com.pps.globant.fittracker.utils.CONSTANTS.REDIRECT_URI;
 
 public class MyWVClient extends WebViewClient {
-
-    Dialog dialog;
     Bus bus;
 
-    public MyWVClient(Dialog dialog, Bus bus) {
-        this.dialog = dialog;
+    public MyWVClient(Bus bus) {
         this.bus = bus;
     }
 
@@ -40,15 +36,8 @@ public class MyWVClient extends WebViewClient {
         return false;
     }
 
-    @Override
-    public void onPageFinished(WebView view, String url) {
-        super.onPageFinished(view, url);
-        dialog.show();
-    }
-
     public static class PostForHandleUrl{
         public final String url;
-
         public PostForHandleUrl(String url){
             this.url = url;
         }

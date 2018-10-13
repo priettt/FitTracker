@@ -12,4 +12,5 @@ public class CONSTANTS {
     public static final String SP_TOKEN = "TOKEN";
     public static final String SP_NAME = "NAME";
     public static final String SP_CODE = "CODE";
+    public static final String USER_ID = "ID";
 }
