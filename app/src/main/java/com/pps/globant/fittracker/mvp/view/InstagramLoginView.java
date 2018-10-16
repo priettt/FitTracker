@@ -19,8 +19,12 @@ public class InstagramLoginView extends ActivityView{
     }
 
     public void showDialog() {
-        dialog = new Dialog(this.getActivity());
-        WebView webView = new WebView(this.getActivity());
+        Activity activity = this.getActivity();
+        if (activity ==null){
+            return;
+        }
+        dialog = new Dialog(activity);
+        WebView webView = new WebView(activity);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setWebViewClient(new MyWVClient(bus));
