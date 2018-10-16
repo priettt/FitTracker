@@ -20,4 +20,11 @@
     <string name="fb_login_button_msg_Log_Out">Log out</string>
     <string name="not_loged_in">not loged in</string>
 
+    <!--Instagram-->
+    <string name="btn_intagram_login">Instagram Login</string>
+    <string name="btn_intagram_logout">Instagram Logout</string>
+    <string name="toast_instagram_login">Instagram signed in as:  </string>
+    <string name="instagram_not_login">Not instagram logged in</string>
+    <string name="toast_instagram_logout">Successful Logout</string>
+    <string name="toast_instagram_loading">Loading login view, please wait.</string>
 </resources>

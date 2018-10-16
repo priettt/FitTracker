@@ -22,6 +22,14 @@
         android:text="@string/signed_out"
         android:textSize="@dimen/google_status_label" />
 
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textSize="@dimen/google_detail_label" />
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,12 +52,12 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/detail"
+        android:id="@+id/text_fb_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_small"
-        android:textSize="@dimen/google_detail_label" />
+        android:text="@string/not_loged_in"
+        android:textSize="@dimen/placeholder_text_size" />
 
     <Button
         android:id="@+id/buttton_fb"
@@ -58,11 +66,27 @@
         android:text="@string/fb_login_button_msg_Continue_with_fb" />
 
     <TextView
-        android:id="@+id/text_fb_label"
-        android:layout_width="wrap_content"
+        android:id="@+id/txt_view_instagram"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/not_loged_in"
-        android:textSize="@dimen/placeholder_text_size" />
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/instagram_name_text_size" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_insta_login"
+            style="@style/instagramButton"
+            android:text="@string/btn_intagram_login" />
+
+        <Button
+            android:id="@+id/btn_insta_logout"
+            style="@style/instagramButton"
+            android:baselineAligned="false"
+            android:enabled="false"
+            android:text="@string/btn_intagram_logout" />
+    </FrameLayout>
 
 </LinearLayout>
