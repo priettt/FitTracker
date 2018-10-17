@@ -18,25 +18,18 @@ import butterknife.OnClick;
 public class LoginView extends ActivityView {
 
     private final Bus bus;
-
-    @BindView(R.id.status)
-    TextView statusLabel;
-    @BindView(R.id.detail)
-    TextView detailLabel;
-    @BindView(R.id.sign_in_button)
+    @BindView(R.id.button_google_sign_in)
     SignInButton googleSignInButton;
-    @BindView(R.id.sign_out_button)
+    @BindView(R.id.button_google_sign_out)
     Button googleSignOutButton;
 
-    @BindView(R.id.text_fb_label)
-    TextView textFbLabel;
-    @BindView(R.id.buttton_fb)
+    //GOOGLE
+    @BindView(R.id.button_fb)
     Button buttonFb;
 
     @BindView(R.id.btn_insta_login) Button btn_insta_login;
     @BindView(R.id.txt_view_instagram) TextView igLabel;
     @BindView(R.id.btn_insta_logout) Button btn_insta_logout;
-
 
     public LoginView(Activity activity, Bus bus) {
         super(activity);
@@ -44,12 +37,8 @@ public class LoginView extends ActivityView {
         ButterKnife.bind(this, activity);
     }
 
-    public void setDetailLabel(String label) {
-        detailLabel.setText(label);
-    }
-
-    public void setStatusLabel(@StringRes int label) {
-        statusLabel.setText(label);
+    public void popUp(@StringRes int mensaje) {
+        Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
     }
 
     public void hideGoogleSignInButton() {
@@ -68,43 +57,48 @@ public class LoginView extends ActivityView {
         googleSignOutButton.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.sign_in_button)
+    @OnClick(R.id.button_google_sign_in)
     public void signInButtonPressed() {
         bus.post(new GoogleSignInButtonPressedEvent());
     }
 
-    @OnClick(R.id.sign_out_button)
+    @OnClick(R.id.button_google_sign_out)
     public void signOutButtonPressed() {
         bus.post(new GoogleSignOutButtonPressedEvent());
+    }
+
+    @OnClick(R.id.button_fb)
+    public void fbButtonPressed() {
+        bus.post(new FbButtonPressedEvent());
+    }
+
+    //FACEBOOK
+
+    public void setLabelButtonFb(@StringRes int label) {
+        this.buttonFb.setText(label);
+    }
+
+    @OnClick(R.id.button_manual_loggin)
+    public void manualLogginButtonPressed() {
+        bus.post(new ManualLogginButtonPressedEvent());
+    }
+
+    @OnClick(R.id.link_signup)
+    public void signUpLinkPressed() {
+        bus.post(new signUpLinkPressedEvent());
     }
 
     public static class GoogleSignInButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
     }
 
+    //LOCAL LOGGIN AND SIGNUP
+
     public static class GoogleSignOutButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
     }
 
-    public void setLabelFb(String label) {
-        textFbLabel.setText(label);
-    }
-
-    public void setLabelFb(@StringRes int labelId) {
-        textFbLabel.setText(labelId);
-    }
-
-    @OnClick(R.id.buttton_fb)
-    public void fbButtonPressed() {
-        bus.post(new FbButtonPressedEvent());
-    }
-
-    public void setLabelButtonFb(@StringRes int label) {
-        this.buttonFb.setText(label);
-    }
-
-    public void popUp(@StringRes int error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    public static class signUpLinkPressedEvent {
     }
 
     public class FbButtonPressedEvent {
@@ -144,4 +138,6 @@ public class LoginView extends ActivityView {
 
     /********end instagram********/
 
+    public class ManualLogginButtonPressedEvent {
+    }
 }

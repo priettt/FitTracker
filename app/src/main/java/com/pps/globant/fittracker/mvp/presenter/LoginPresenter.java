@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -17,8 +15,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.pps.globant.fittracker.FirstAppScreenActivity;
+import com.pps.globant.fittracker.LoginLocallyActivity;
 import com.pps.globant.fittracker.MainActivity;
 import com.pps.globant.fittracker.R;
+import com.pps.globant.fittracker.SignInFormActivity;
+import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
@@ -32,53 +34,46 @@ import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
 
 public class LoginPresenter {
 
-    private final LoginModel model;
-    private final LoginView view;
-    private final Activity activity;
-    //instagram presenter
-    private final InstagramLoginPresenter igPresenter;
-
     //Google declarations-----------------------------------------------------------------------------------------------------------
     /*GOOGLE_SERVICE_CLIENT_ID is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/
-    //private static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
-    private static final String GOOGLE_SERVICE_CLIENT_ID = "146472501375-hu9vlk5qk9svo2m2b2gbt0kb0fnvfrvd.apps.googleusercontent.com";
-    private static final String GOOGLE_SIGN_IN_ERROR_TAG = "Sign In Error";
-    private static final String GOOGLE_SIGNED_OUT_MESSAGE = "Signed out from google";
-    private static final String GOOGLE_SIGN_IN_ERROR_MESSAGE = "handleSignInResult:error";
-    private static final String EMPTY_STRING = "";
+    //francisco key private static final String GOOGLE_SERVICE_CLIENT_ID =
+    // "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
+    //fermin key private static final String GOOGLE_SERVICE_CLIENT_ID = "146472501375-hu9vlk5qk9svo2m2b2gbt0kb0fnvfrvd
+    // .apps.googleusercontent.com";
+    //instagram presenter
+    private final InstagramLoginPresenter igPresenter;
+    public static final String GOOGLE_SERVICE_CLIENT_ID = "602409589834-6b03kf79u58uel71s3k840mjie1mrhm9.apps.googleusercontent.com";
+    public static final String EXTRA_MESSAGE = "com.pps.globant.fittracker.USERID";
     private static final int RC_GET_TOKEN = 9002;
-
+    private final LoginModel model;
+    private final LoginView view;
     private GoogleSignInOptions gso;
-    private GoogleSignInClient mGoogleSignInClient;
     //-------------------------------------------------------------------------------------------------------------------------------
+    private GoogleSignInClient mGoogleSignInClient;
 
-    public LoginPresenter(LoginModel model, LoginView view, InstagramLoginPresenter igPresenter) {
+    public LoginPresenter(LoginModel model, LoginView view, GoogleSignInOptions gso, GoogleSignInClient
+            mGoogleSignInClient, InstagramLoginPresenter igPresenter) {
         this.model = model;
         this.view = view;
-        this.activity = view.getActivity();
+        this.gso = gso;
+        this.mGoogleSignInClient = mGoogleSignInClient;
         this.igPresenter = igPresenter;
 
-        if (activity != null) {
+    }
 
-            // Configure sign-in to request the user's ID, email address, token and basic
-            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(GOOGLE_SERVICE_CLIENT_ID)
-                    .requestEmail()
-                    .build();
+    public void clearDatabase() {
+        model.clearDatabase();
+    }
 
-            // Build a GoogleSignInClient with the options specified by gso.
-            mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
+    public void register() {
+        BusProvider.register(this);
+    }
 
-            // Check for existing Google Sign In account, if the user is already signed in
-            // the GoogleSignInAccount will be non-null.
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(activity);
-            if (account != null) {
-                model.setAccount(account);
-                successfulGoogleSignIn();
-            }
-        }
+    //GOOGLE
+
+    public void unregister() {
+        BusProvider.unregister(this);
     }
 
     @Subscribe
@@ -87,18 +82,19 @@ public class LoginPresenter {
         //If you request other stuff beyond profile, email, token and openid,
         //the user is also prompted to grant access to the requested resources.
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Activity activity = view.getActivity();
         if (activity != null)
             activity.startActivityForResult(signInIntent, RC_GET_TOKEN);
     }
 
     @Subscribe
     public void onGoogleSignOutButtonPressed(GoogleSignOutButtonPressedEvent event) {
+        Activity activity = view.getActivity();
         if (activity != null) {
             mGoogleSignInClient.signOut()
                     .addOnCompleteListener(activity, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(activity, GOOGLE_SIGNED_OUT_MESSAGE, Toast.LENGTH_SHORT).show();
                             successfulGoogleSignOut();
                         }
                     });
@@ -106,19 +102,18 @@ public class LoginPresenter {
     }
 
     private void successfulGoogleSignIn() {
-        //Once model posts that the login was successful, it sets the detail label with the name.
-        view.setDetailLabel(model.getMail());
+        //TODO check if the google id is already into the database. If is, complete the login, otherwise save a new User into de Room database with the data provided from google account like facebook login does
         view.hideGoogleSignInButton();
         view.showGoogleSignOutButton();
-        view.setStatusLabel(R.string.signed_in);
+        view.popUp(R.string.logged_into_google);
     }
 
     private void successfulGoogleSignOut() {
-        model.signOutGoogle();
+        model.googleSignOut();
         view.hideGoogleSignOutButton();
         view.showGoogleSignInButton();
-        view.setStatusLabel(R.string.signed_out);
-        view.setDetailLabel(EMPTY_STRING);
+        view.popUp(R.string.logged_out_from_google);
+
     }
 
     @Subscribe
@@ -126,78 +121,104 @@ public class LoginPresenter {
         //Handles the task of login in. If it's successful, posts in the bus a SuccessfulGoogleSignInEvent
         try {
             GoogleSignInAccount account = event.getCompletedTask().getResult(ApiException.class);
-            model.setAccount(account);
+            model.setGoogleAccount(account);
             successfulGoogleSignIn();
         } catch (ApiException e) {
-            Log.w(GOOGLE_SIGN_IN_ERROR_TAG, GOOGLE_SIGN_IN_ERROR_MESSAGE, e);
+            view.popUp(R.string.google_login_error_message);
         }
     }
-
 
     public void setActivityResults(int requestCode, int resultCode, Intent data) {
-        //Once the activity started in onGoogleSignInButtonPressed, model.signInGoogle is called.
+        //Once the activity started in onGoogleSignInButtonPressed, model.googleSignIn is called.
         //This method is called by MainActivity, that is listening for the activity to get the result.
         if (requestCode == RC_GET_TOKEN) {
-            model.signInGoogle(data);
+            model.googleSignIn(data);
         }
     }
 
-    private void setUser() {
-        Resources res = view.getActivity().getResources();
-        view.setLabelButtonFb(R.string.fb_login_button_msg_Log_Out);
-        view.setLabelFb(String.format(res.getString(R.string.loged_in_name), model.getUser().getName()));
-    }
+    //FACEBOOK
 
-    public void setAndPopUpError(int error){
-        view.setLabelFb(R.string.fb_login_error_message);
-        view.popUp(error);
+    private void restoreGoogleState() {
+        Activity activity = view.getActivity();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(activity);
+        if (account != null) {
+            model.setGoogleAccount(account);
+            successfulGoogleSignIn();
+        }
     }
 
     @Subscribe
-    public void onLogOutCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event) {
-        Resources res = view.getActivity().getResources();
-        view.setLabelFb(R.string.not_loged_in);
+    public void onLogOutFbCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event) {
+        Activity activity = view.getActivity();
+        if (activity == null) return;
+        view.popUp(R.string.logged_out_from_facebook);
         view.setLabelButtonFb(R.string.fb_login_button_msg_Continue_with_fb);
     }
 
     @Subscribe
     public void onFbButtonPressedEvent(LoginView.FbButtonPressedEvent event) {
         if (!model.isFbLogedIn()) {
-            model.fbLogIn(view.getActivity());
+            Activity activity = view.getActivity();
+            if (activity == null) return;
+            model.fbLogIn(activity);
         } else {
             model.fbLogOut();
         }
     }
 
-    public void register() {
-        BusProvider.register(this, this.model);
-    }
-
-    public void unregister() {
-        BusProvider.unregister(this, this.model);
-    }
-
-    public void restoreState() {
+    public void restoreFbState() {
         model.restoreState();
     }
 
-    //FACEBOOK´S EVENTS
     @Subscribe
     public void onFbUserDataRecoveredEvent(FacebookLoginProvider.FbUserDataRecoveredEvent event) {
         model.setUser(event.user);
-        setUser();
+        view.popUp(R.string.logged_into_facebook);
+        view.setLabelButtonFb(R.string.fb_login_button_msg_Log_Out);
+        model.getUserFromDbBySocialNetworkId();
     }
 
     @Subscribe
     public void onFetchingFbUserDataCancelEvent(FacebookLoginProvider.FetchingFbUserDataCancelEvent event) {
-        setAndPopUpError(R.string.fb_login_cancel_message);
+        view.popUp(R.string.fb_login_cancel_message);
     }
+
+    //ROOM DATABASE
 
     @Subscribe
     public void onFetchingFbUserDataErrorEvent(FacebookLoginProvider.FetchingFbUserDataErrorEvent event) {
-        setAndPopUpError(R.string.fb_login_error_message);
+        view.popUp(R.string.fb_login_error_message);
     }
 
+    @Subscribe
+    public void onFetchingUserFromDataBaseCompleted(UsersRepository.FetchingUserFromDataBaseCompleted event) {
+        if (event.user == null) {
+            model.insertUserToDB();
+        } else {
+            model.setUser(event.user);
+            view.popUp(R.string.db_text_msg_user_exists);
+            if (event.user.isRegisterComplete()) loginSocial();
+            else signUpSocial();
+        }
+    }
+
+    @Subscribe
+    public void onInsertUserIntoDataBaseCompleted(UsersRepository.InsertUserIntoDataBaseCompleted event) {
+        view.popUp(R.string.db_text_msg_adding_user);
+        model.getUser().setId(event.id);
+        signUpSocial();
+    }
+
+    private void loginSocial() {
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        Intent intent = new Intent(activity, FirstAppScreenActivity.class);
+        long userId = model.getUser().getId();
+        intent.putExtra(EXTRA_MESSAGE, userId);
+        activity.startActivity(intent);
+    }
 
     /***** instagram methods *****/
     public void igButtonLoginClick() {
@@ -233,4 +254,41 @@ public class LoginPresenter {
     /*****end instagram*****/
 
 
+    private void signUpSocial() {
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        Intent intent = new Intent(activity, SignInFormActivity.class);
+        long userId = model.getUser().getId();
+        intent.putExtra(EXTRA_MESSAGE, String.valueOf(userId));
+        activity.startActivity(intent);
+    }
+
+    @Subscribe
+    public void onDeletingUserFromDataBaseCompleted(UsersRepository.DeletingUserFromDataBaseCompleted event) {
+        view.popUp(R.string.db_text_msg_user_deleted);
+    }
+
+    //LOCAL SIGNUP
+
+    @Subscribe
+    public void onSignUpLinkPressedEvent(LoginView.signUpLinkPressedEvent event) {
+        Activity activity = view.getActivity();
+        if (activity == null) return;
+        Intent intent = new Intent(activity, SignInFormActivity.class);
+        activity.startActivity(intent);
+    }
+
+    //LOCAL LOGIN
+
+    @Subscribe
+    public void onManualLogginButtonPressedEvent(LoginView.ManualLogginButtonPressedEvent event) {
+        Activity activity = view.getActivity();
+        if (activity == null) {
+            return;
+        }
+        Intent intent = new Intent(activity, LoginLocallyActivity.class);
+        activity.startActivity(intent);
+    }
 }
