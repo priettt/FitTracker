@@ -1,13 +1,15 @@
 package com.pps.globant.fittracker.mvp.model;
 
+import android.text.TextUtils;
+
 import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.squareup.otto.Bus;
 
 public class SignUpModel {
-    private Bus bus;
+    private final Bus bus;
     private User activeUser;
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     public SignUpModel(Bus bus, UsersRepository usersRepository) {
         this.bus = bus;
@@ -48,30 +50,30 @@ public class SignUpModel {
     }
 
     public boolean validateFirstName(String firstName) {
-        return (firstName.isEmpty() || firstName.length() < 3);
+        return (TextUtils.isEmpty(firstName) || firstName.length() < 3);
     }
 
     public boolean validateLastName(String lastName) {
-        return (lastName.isEmpty() || lastName.length() < 3);
+        return (TextUtils.isEmpty(lastName) || lastName.length() < 3);
     }
 
     public boolean validateEmail(String email) {
-        return (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        return (TextUtils.isEmpty(email) || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
     public boolean validateUserName(String username) {
-        return (username.isEmpty() || username.length() < 8);
+        return (TextUtils.isEmpty(username) || username.length() < 8);
     }
 
     public boolean validatePassword(String password) {
-        return (password.isEmpty() || password.length() < 4 || password.length() > 10);
+        return (TextUtils.isEmpty(password) || password.length() < 4 || password.length() > 10);
     }
 
     public boolean validateReEnterPassword(String password, String reEnterPassword) {
-        return (reEnterPassword.isEmpty() || reEnterPassword.equals(password));
+        return (TextUtils.isEmpty(reEnterPassword) || reEnterPassword.equals(password));
     }
 
     public boolean validateBirthday(String birthday) {
-        return (birthday.isEmpty());
+        return (TextUtils.isEmpty(birthday));
     }
 }

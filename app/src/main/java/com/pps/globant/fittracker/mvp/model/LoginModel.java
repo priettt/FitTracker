@@ -14,11 +14,11 @@ import com.squareup.otto.Bus;
 
 public class LoginModel {
 
-    private Bus bus;
+    private final Bus bus;
     private User activeUser;
     private GoogleSignInAccount account; //Contains all the information of the account.
-    private FacebookLoginProvider facebookLoginProvider;
-    private UsersRepository usersRepository;
+    private final FacebookLoginProvider facebookLoginProvider;
+    private final UsersRepository usersRepository;
 
     //GOOGLE
 

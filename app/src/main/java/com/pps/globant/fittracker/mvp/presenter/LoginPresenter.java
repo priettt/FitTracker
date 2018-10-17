@@ -151,7 +151,6 @@ public class LoginPresenter {
     public void onLogOutFbCompleteEvent(FacebookLoginProvider.LogOutCompleteEvent event) {
         Activity activity = view.getActivity();
         if (activity == null) return;
-        Resources res = activity.getResources();
         view.popUp(R.string.logged_out_from_facebook);
         view.setLabelButtonFb(R.string.fb_login_button_msg_Continue_with_fb);
     }

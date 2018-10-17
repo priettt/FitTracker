@@ -6,9 +6,9 @@ import com.squareup.otto.Bus;
 
 public class LoginLocallyModel {
 
-    private Bus bus;
+    private final Bus bus;
     private User activeUser;
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     public LoginLocallyModel(Bus bus, UsersRepository usersRepository) {
         this.bus = bus;
