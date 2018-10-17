@@ -251,6 +251,13 @@ public class LoginPresenter {
         spUser.edit().putString(SP_TOKEN, null).apply();
     }
 
+
+    @Subscribe
+    public void onIgUserDataRecoveredEvent(InstagramLoginPresenter.IgUserDataRecoveredEvent event) {
+        model.setUser(event.user);
+        model.getUserFromDbBySocialNetworkId();
+    }
+
     /*****end instagram*****/
 
 

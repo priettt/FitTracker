@@ -2,6 +2,7 @@ package com.pps.globant.fittracker.mvp.presenter;
 
 import android.content.SharedPreferences;
 
+import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
 import com.pps.globant.fittracker.mvp.view.InstagramLoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
@@ -17,6 +18,7 @@ public class InstagramLoginPresenter {
     private final static String CODE = "code";
     private static final String EQUAL_SIGN = "=";
     private final static String NOT_LOGGED = "None user account logged in";
+    private final static String EMPTY_STRING = "";
     private final InstagramLoginModel model;
     private final InstagramLoginView view;
     public Bus bus;
@@ -47,7 +49,10 @@ public class InstagramLoginPresenter {
     @Subscribe
     public void onRetIgInformation(InstagramLoginModel.RetIgInformation event) {
         view.closeDialog();
+        String names[] = event.name.split(" ",2);
+        String id = String.format("IG%s", event.id);
         bus.post(new InformationReady(event.name, event.logeado, event.id));
+        bus.post(new IgUserDataRecoveredEvent(User.getUser(names[0], names[1], null, null, id)));
     }
 
     public void isLoggedIn(SharedPreferences spUser) {
@@ -70,6 +75,14 @@ public class InstagramLoginPresenter {
             this.name = name;
             this.logeado = logeado;
             this.id = id;
+        }
+    }
+
+    public class IgUserDataRecoveredEvent {
+        public final User user;
+
+        public IgUserDataRecoveredEvent(User user) {
+            this.user = user;
         }
     }
 }

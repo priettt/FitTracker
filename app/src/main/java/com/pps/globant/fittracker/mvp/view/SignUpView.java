@@ -197,7 +197,7 @@ public class SignUpView extends ActivityView {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            BusProvider.getInstance().post(new DateSetEvent(day, month, year));
+            BusProvider.getInstance().post(new DateSetEvent(day, month + 1, year));
         }
 
         public class DateSetEvent {
