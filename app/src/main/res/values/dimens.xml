@@ -10,7 +10,6 @@
     <dimen name="google_status_label">16sp</dimen>
     <dimen name="google_detail_label">14sp</dimen>
 
-
     <dimen name="instagram_name_text_size">20sp</dimen>
     <dimen name="instagram_button_width">277dp</dimen>
     <dimen name="button_padding">12dp</dimen>
@@ -33,4 +32,5 @@
     <dimen name="button_large_width">300sp</dimen>
     <dimen name="button_height">45sp</dimen>
 
+    <dimen name="text_medium_size">24sp</dimen>
 </resources>

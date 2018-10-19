@@ -15,6 +15,8 @@ public class Constants {
     public static final String USER_ID = "ID";
 
     public static final String EXTRA_MESSAGE = "com.pps.globant.fittracker.USERID";
+    public static final String PATH_VECTOR = "com.pps.globant.fittracker.PATH_VECTOR";
+
 
     public static final int RC_GET_TOKEN = 9002;
 
@@ -28,4 +30,5 @@ public class Constants {
     // Fermin's key
     // public static final String GOOGLE_SERVICE_CLIENT_ID = "146472501375-hu9vlk5qk9svo2m2b2gbt0kb0fnvfrvd.apps.googleusercontent.com";
     public static final String GOOGLE_SERVICE_CLIENT_ID = "268582315609-j419amnke1b8djg935oq1ncd08e78lam.apps.googleusercontent.com";
+    public static final int POLYLINE_WIDTH = 5 ;
 }

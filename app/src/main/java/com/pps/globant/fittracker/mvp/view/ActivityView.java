@@ -1,26 +1,25 @@
 package com.pps.globant.fittracker.mvp.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
-public class ActivityView {
-    private final WeakReference<Activity> activityRef;
+public class ActivityView<T> {
+    private final WeakReference<T> activityRef;
 
-    ActivityView(Activity activity) {
+    ActivityView(T activity) {
         activityRef = new WeakReference<>(activity);
     }
 
     @Nullable
-    public Activity getActivity() {
+    public T getActivity() {
         return activityRef.get();
     }
 
     @Nullable
     public Context getContext() {
-        return getActivity();
+        return (Context) getActivity();
     }
 
 }

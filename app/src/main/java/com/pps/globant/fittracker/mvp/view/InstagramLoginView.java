@@ -8,9 +8,10 @@ import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
 import com.pps.globant.fittracker.utils.MyWVClient;
 import com.squareup.otto.Bus;
 
-public class InstagramLoginView extends ActivityView {
-    private final Bus bus;
+public class InstagramLoginView extends ActivityView<Activity> {
     private Dialog dialog;
+
+    private final Bus bus;
 
     public InstagramLoginView(Activity activity, Bus bus) {
         super(activity);

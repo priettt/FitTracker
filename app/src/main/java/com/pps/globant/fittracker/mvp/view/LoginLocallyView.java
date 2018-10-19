@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginLocallyView extends ActivityView {
+public class LoginLocallyView extends ActivityView<Activity> {
 
     private final Bus bus;
 
