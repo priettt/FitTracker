@@ -77,4 +77,17 @@
     <!--Instagram-->
     <string name="toast_instagram_login">Instagram signed in as:  </string>
     <string name="toast_instagram_loading">Loading login view, please wait.</string>
+
+    <!--RunTracker-->
+    <string name="start_running">Start Running</string>
+    <string name="cero">0.0</string>
+    <string name="distance">Distance:</string>
+    <string name="steps">Steps:</string>
+    <string name="calories">Calories:</string>
+    <string name="stop_run">STOP</string>
+    <string name="close">CLOSE</string>
+    <string name="show_on_map">SHOW ON MAP</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="no_point_registered_yet">No point registered yet</string>
+
 </resources>

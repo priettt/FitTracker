@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SignUpView extends ActivityView {
+public class SignUpView extends ActivityView<Activity> {
 
     private final Bus bus;
 
