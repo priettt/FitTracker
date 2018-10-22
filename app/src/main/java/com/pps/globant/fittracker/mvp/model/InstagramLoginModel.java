@@ -7,11 +7,11 @@ import com.pps.globant.fittracker.utils.MyAsyncTask;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import static com.pps.globant.fittracker.utils.CONSTANTS.AUTHURL;
-import static com.pps.globant.fittracker.utils.CONSTANTS.CLIENT_ID;
-import static com.pps.globant.fittracker.utils.CONSTANTS.CLIENT_SECRET;
-import static com.pps.globant.fittracker.utils.CONSTANTS.REDIRECT_URI;
-import static com.pps.globant.fittracker.utils.CONSTANTS.TOKENURL;
+import static com.pps.globant.fittracker.utils.Constants.AUTHURL;
+import static com.pps.globant.fittracker.utils.Constants.CLIENT_ID;
+import static com.pps.globant.fittracker.utils.Constants.CLIENT_SECRET;
+import static com.pps.globant.fittracker.utils.Constants.REDIRECT_URI;
+import static com.pps.globant.fittracker.utils.Constants.TOKENURL;
 
 public class InstagramLoginModel {
 
@@ -33,18 +33,16 @@ public class InstagramLoginModel {
     public static class RetIgInformation {
         public String name;
         public String id;
-        public boolean logeado;
 
-        public RetIgInformation(String name, boolean logeado, String id) {
+        public RetIgInformation(String name, String id) {
             this.name = name;
             this.id = id;
-            this.logeado = logeado;
         }
     }
 
     @Subscribe
     public void onPostReadyInformation(MyAsyncTask.PostReadyInformation event) {
-        bus.post(new RetIgInformation(event.name, true, event.id));
+        bus.post(new RetIgInformation(event.name, event.id));
     }
 
 }

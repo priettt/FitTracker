@@ -28,8 +28,8 @@ public class LoginLocallyView extends ActivityView {
         ButterKnife.bind(this, activity);
     }
 
-    public void popUp(@StringRes int mensaje) {
-        Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
+    public void popUp(@StringRes int msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.button_login_locally)

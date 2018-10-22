@@ -9,8 +9,7 @@
     <dimen name="google_image">48dp</dimen>
     <dimen name="google_status_label">16sp</dimen>
     <dimen name="google_detail_label">14sp</dimen>
-    <dimen name="margin_small">10sp</dimen>
-    <dimen name="margin_medium">20sp</dimen>
+
 
     <dimen name="instagram_name_text_size">20sp</dimen>
     <dimen name="instagram_button_width">277dp</dimen>
@@ -18,5 +17,13 @@
     <dimen name="padding_left">24dp</dimen>
     <dimen name="padding_right">24dp</dimen>
     <dimen name="padding_top">56dp</dimen>
+
+    <dimen name="margin_small">10sp</dimen>
+    <dimen name="margin_medium">20sp</dimen>
+    <dimen name="margin_big">60sp</dimen>
+
+    <dimen name="button_medium_width">200sp</dimen>
+    <dimen name="button_large_width">300sp</dimen>
+    <dimen name="button_height">45sp</dimen>
 
 </resources>

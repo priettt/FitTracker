@@ -6,12 +6,27 @@
     <string name="logged_into_google">\"Logged into google account\"</string>
     <string name="logged_out_from_google">Logged out from google account</string>
     <string name="google_login_error_message">An error occurred while login into google</string>
+
+    <!-- Common -->
     <string name="sign_out">Sign Out</string>
+    <string name="signed_in">Signed in</string>
+    <string name="signing_in">Signing in…</string>
+
+    <!-- Icon Description Strings -->
     <string name="desc_google_icon">Google Logo</string>
     <string name="signed_out">Signed out</string>
 
+    <string name="desc_facebook_icon">Facebook Logo</string>
+    <string name="desc_instagram_icon">Instagram Logo</string>
 
-    <!-- Facebook -->
+    <!-- Button Strings -->
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="facebook_sign_in">Sign in with Facebook</string>
+    <string name="instagram_sign_in">Sign in with Instagram</string>
+    <string name="manual_sign_in">Manual Sign In</string>
+    <string name="manual_register">Manual Register</string>
+
+    <!-- Facebook Strings -->
     <string name="facebook_app_id">2277009112312713</string>
     <string name="fb_login_protocol_scheme">fb2277009112312713</string>
     <string name="logged_out_from_facebook">Logged out from Facebook</string>
