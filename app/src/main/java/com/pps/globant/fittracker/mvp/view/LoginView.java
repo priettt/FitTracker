@@ -2,7 +2,6 @@ package com.pps.globant.fittracker.mvp.view;
 
 import android.app.Activity;
 import android.support.annotation.StringRes;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -19,18 +18,17 @@ public class LoginView extends ActivityView {
 
     @BindView(R.id.google_sign_in_button)
     Button googleSignInButton;
-    @BindView(R.id.google_sign_out_button)
-    Button googleSignOutButton;
 
     @BindView(R.id.facebook_sign_in_button)
     Button facebookSignInButton;
-    @BindView(R.id.facebook_sign_out_button)
-    Button facebookSignOutButton;
 
     @BindView(R.id.instagram_sign_in_button)
     Button instagramSignInButton;
-    @BindView(R.id.instagram_sign_out_button)
-    Button instagramSignOutButton;
+
+    @BindView(R.id.manual_sign_in_button)
+    Button manualSignInButton;
+    @BindView(R.id.manual_register_button)
+    Button manualRegisterButton;
 
     public LoginView(Activity activity, Bus bus) {
         super(activity);
@@ -38,74 +36,57 @@ public class LoginView extends ActivityView {
         ButterKnife.bind(this, activity);
     }
 
-    public void toggleGoogleVisibility() {
-        if (googleSignInButton.getVisibility() == View.GONE) {
-            googleSignOutButton.setVisibility(View.GONE);
-            googleSignInButton.setVisibility(View.VISIBLE);
-        } else {
-            googleSignInButton.setVisibility(View.GONE);
-            googleSignOutButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void toggleFacebookVisibility() {
-        if (facebookSignInButton.getVisibility() == View.GONE) {
-            facebookSignOutButton.setVisibility(View.GONE);
-            facebookSignInButton.setVisibility(View.VISIBLE);
-        } else {
-            facebookSignInButton.setVisibility(View.GONE);
-            facebookSignOutButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void toggleInstagramVisibility() {
-        if (instagramSignInButton.getVisibility() == View.GONE) {
-            instagramSignOutButton.setVisibility(View.GONE);
-            instagramSignInButton.setVisibility(View.VISIBLE);
-        } else {
-            instagramSignInButton.setVisibility(View.GONE);
-            instagramSignOutButton.setVisibility(View.VISIBLE);
-        }
-    }
-
     @OnClick(R.id.google_sign_in_button)
-    public void signInButtonPressed() {
+    public void googleSignInButtonPressed() {
         bus.post(new GoogleSignInButtonPressedEvent());
     }
 
-    @OnClick(R.id.google_sign_out_button)
-    public void signOutButtonPressed() {
-        bus.post(new GoogleSignOutButtonPressedEvent());
+    @OnClick(R.id.facebook_sign_in_button)
+    public void facebookSignInButtonPressed() {
+        bus.post(new FacebookSignInButtonPressedEvent());
+    }
+
+    @OnClick(R.id.instagram_sign_in_button)
+    public void instagramSignInButtonPressed() {
+        bus.post(new InstagramSignInButtonPressedEvent());
+    }
+
+    @OnClick(R.id.manual_sign_in_button)
+    public void manualSignInButtonPressed() {
+        bus.post(new ManualSignInButtonPressedEvent());
+    }
+
+    @OnClick(R.id.manual_register_button)
+    public void manualRegisterButtonPressed() {
+        bus.post(new ManualRegisterButtonPressedEvent());
     }
 
     public static class GoogleSignInButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
     }
 
-    public static class GoogleSignOutButtonPressedEvent {
+    public static class FacebookSignInButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
     }
 
-    @OnClick(R.id.facebook_sign_in_button)
-    public void FacebookSignInButtonPressed() {
-        bus.post(new FacebookSignInButtonPressed());
-    }
-
-    @OnClick(R.id.facebook_sign_out_button)
-    public void FacebookSignOutButtonPressed() {
-        bus.post(new FacebookSignOutButtonPressed());
-    }
-
-    public void popUp(@StringRes int error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-    }
-
-    public static class FacebookSignInButtonPressed {
+    public static class InstagramSignInButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
     }
 
-    public static class FacebookSignOutButtonPressed {
+    public static class ManualSignInButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
+    }
+
+    public static class ManualRegisterButtonPressedEvent {
+        //Nothing to do, class made to pass it through the bus
+    }
+
+    public void popUp(@StringRes int msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void popUp(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -16,33 +16,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:contentDescription="@string/desc_google_icon"
             android:src="@drawable/googleg_color" />
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/google_sign_in_button"
+            android:layout_width="@dimen/button_medium_width"
+            android:layout_height="@dimen/button_height"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_horizontal">
-
-            <Button
-                android:id="@+id/google_sign_in_button"
-                android:layout_width="@dimen/button_medium_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:text="@string/google_sign_in"
-                android:theme="@style/ThemeOverlay.GoogleButton"/>
-
-            <Button
-                android:id="@+id/google_sign_out_button"
-                android:layout_width="@dimen/button_medium_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:text="@string/sign_out"
-                android:theme="@style/ThemeOverlay.MyDarkButton"
-                android:visibility="gone" />
-        </FrameLayout>
+            android:layout_marginStart="@dimen/margin_medium"
+            android:text="@string/google_sign_in"
+            android:theme="@style/ThemeOverlay.GoogleButton" />
 
     </LinearLayout>
 
@@ -58,33 +43,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:contentDescription="@string/desc_facebook_icon"
             android:src="@drawable/ic_facebook" />
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/facebook_sign_in_button"
+            android:layout_width="@dimen/button_medium_width"
+            android:layout_height="@dimen/button_height"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_horizontal">
+            android:layout_marginStart="@dimen/margin_medium"
+            android:text="@string/facebook_sign_in"
+            android:theme="@style/ThemeOverlay.FacebookButton" />
 
-            <Button
-                android:id="@+id/facebook_sign_in_button"
-                android:layout_width="@dimen/button_medium_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:text="@string/facebook_sign_in"
-                android:theme="@style/ThemeOverlay.FacebookButton"/>
-
-            <Button
-                android:id="@+id/facebook_sign_out_button"
-                android:layout_width="@dimen/button_medium_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:text="@string/sign_out"
-                android:theme="@style/ThemeOverlay.MyDarkButton"
-                android:visibility="gone" />
-        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -99,33 +70,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:contentDescription="@string/desc_instagram_icon"
             android:src="@drawable/ic_instagram" />
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/instagram_sign_in_button"
+            android:layout_width="@dimen/button_medium_width"
+            android:layout_height="@dimen/button_height"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_horizontal">
-
-            <Button
-                android:id="@+id/instagram_sign_in_button"
-                android:layout_width="@dimen/button_medium_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:text="@string/instagram_sign_in"
-                android:theme="@style/ThemeOverlay.InstagramButton"/>
-
-            <Button
-                android:id="@+id/instagram_sign_out_button"
-                android:layout_width="@dimen/button_medium_width"
-                android:layout_height="@dimen/button_height"
-                android:layout_gravity="center"
-                android:text="@string/sign_out"
-                android:theme="@style/ThemeOverlay.MyDarkButton"
-                android:visibility="gone" />
-        </FrameLayout>
+            android:layout_marginStart="@dimen/margin_medium"
+            android:text="@string/instagram_sign_in"
+            android:theme="@style/ThemeOverlay.InstagramButton" />
 
     </LinearLayout>
 
@@ -133,18 +89,18 @@
         android:id="@+id/manual_sign_in_button"
         android:layout_width="@dimen/button_large_width"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="@dimen/margin_medium"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
         android:text="@string/manual_sign_in"
-        android:theme="@style/ThemeOverlay.ManualLogInButton"/>
+        android:theme="@style/ThemeOverlay.ManualLogInButton" />
 
     <Button
         android:id="@+id/manual_register_button"
         android:layout_width="@dimen/button_large_width"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="@dimen/margin_small"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="@string/manual_register"
-        android:theme="@style/ThemeOverlay.ManualRegisterButton"/>
+        android:theme="@style/ThemeOverlay.ManualRegisterButton" />
 
 </LinearLayout>

@@ -1,41 +1,71 @@
 package com.pps.globant.fittracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.CallbackManager;
-import com.pps.globant.fittracker.utils.FacebookLoginProvider;
-
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.pps.globant.fittracker.mvp.model.DataBase.UserRoomDataBase;
+import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
+import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
 import com.pps.globant.fittracker.mvp.model.LoginModel;
+import com.pps.globant.fittracker.mvp.presenter.InstagramLoginPresenter;
 import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
+import com.pps.globant.fittracker.mvp.view.InstagramLoginView;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
+import com.pps.globant.fittracker.utils.FacebookLoginProvider;
+import com.squareup.otto.Bus;
 
 import butterknife.ButterKnife;
 
+import static com.pps.globant.fittracker.utils.Constants.*;
 
 public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
     private LoginPresenter presenter;
-    private static final int RC_GET_TOKEN = 9002;
+    private SharedPreferences spUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bus bus = BusProvider.getInstance();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        // Configure sign-in to request the user's ID, email address, token and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(GOOGLE_SERVICE_CLIENT_ID)
+                .requestEmail()
+                .requestProfile()
+                .build();
+
         callbackManager = CallbackManager.Factory.create();
-        presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(BusProvider.getInstance(), callbackManager), BusProvider.getInstance()), new LoginView(this, BusProvider.getInstance()));
-        presenter.register();
-        presenter.restoreState();
+        spUser = getSharedPreferences(SP, MODE_PRIVATE);
+        presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(bus, callbackManager),
+                bus, new UsersRepository(UserRoomDataBase.getDatabase(this).userDao(), bus)),
+                new LoginView(this, bus), GoogleSignIn.getClient(this, gso),
+                new InstagramLoginPresenter(BusProvider.getInstance(), new InstagramLoginModel(BusProvider.getInstance(),
+                        spUser), new InstagramLoginView(this, bus)));
+
+        presenter.clearDatabase(); //Line for debugging: comment it to activate persistence.
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         presenter.unregister();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.register();
     }
 
     @Override
