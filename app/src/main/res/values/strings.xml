@@ -77,6 +77,8 @@
     <!--Instagram-->
     <string name="toast_instagram_login">Instagram signed in as:  </string>
     <string name="toast_instagram_loading">Loading login view, please wait.</string>
+    <string name="sensor_unavailable">sensor de pasos no disponible</string>
+    <string name="count_steps">COUNT STEPS</string>
 
     <!--RunTracker-->
     <string name="start_running">Start Running</string>
