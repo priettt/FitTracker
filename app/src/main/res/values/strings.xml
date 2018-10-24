@@ -2,20 +2,11 @@
     <string name="app_name">FitTracker</string>
 
     <!-- Google -->
-
-    <string name="logged_into_google">\"Logged into google account\"</string>
-    <string name="logged_out_from_google">Logged out from google account</string>
-    <string name="google_login_error_message">An error occurred while login into google</string>
-
-    <!-- Common -->
-    <string name="sign_out">Sign Out</string>
-    <string name="signed_in">Signed in</string>
-    <string name="signing_in">Signing in…</string>
+    <string name="logged_into_google">Logged in with Google account</string>
+    <string name="google_login_error_message">An error has occurred while logging in with Google</string>
 
     <!-- Icon Description Strings -->
     <string name="desc_google_icon">Google Logo</string>
-    <string name="signed_out">Signed out</string>
-
     <string name="desc_facebook_icon">Facebook Logo</string>
     <string name="desc_instagram_icon">Instagram Logo</string>
 
@@ -29,18 +20,15 @@
     <!-- Facebook Strings -->
     <string name="facebook_app_id">2277009112312713</string>
     <string name="fb_login_protocol_scheme">fb2277009112312713</string>
-    <string name="logged_out_from_facebook">Logged out from Facebook</string>
-    <string name="logged_into_facebook">Logged into Facebook</string>
-    <string name="fb_login_button_msg_Continue_with_fb">Continue with Facebook</string>
-    <string name="fb_login_button_msg_Log_Out">Log Out</string>
-    <string name="fb_login_cancel_message">Login with facebook canceled</string>
-    <string name="fb_login_error_message">Error while login with facebook</string>
+    <string name="logged_into_facebook">Logged in with Facebook account</string>
+    <string name="fb_login_cancel_message">Login with Facebook canceled</string>
+    <string name="fb_login_error_message">An error has occurred while logging in with Facebook</string>
 
     <!-- Room Database -->
-    <string name="db_text_msg_user_doesnt_exists">User not present into the database, added</string>
-    <string name="db_text_msg_user_exists">User present into the database</string>
+    <string name="db_text_msg_user_doesnt_exists"> The user was not present in the database. A new entry has been created.</string>
+    <string name="db_text_msg_user_exists">User present in the database</string>
     <string name="db_text_msg_user_deleted">User deleted from the database</string>
-    <string name="db_text_msg_adding_user">User added to database</string>
+    <string name="db_text_msg_adding_user">User added to the database</string>
 
     <!-- Local loggin -->
     <string name="loggin">Loggin</string>
@@ -49,43 +37,38 @@
     <!-- SingUp resources -->
     <string name="already_a_member_login">Already a member? Login</string>
     <string name="create_account">Create Account</string>
-    <string name="re_enter_password">Re-enter Password</string>
+    <string name="re_enter_password">Re-enter password</string>
     <string name="password">Password</string>
-    <string name="mobile_number">Mobile Number</string>
+    <string name="mobile_number">Mobile number</string>
     <string name="email">Email</string>
     <string name="last_name">Last name</string>
     <string name="first_name">First name</string>
-    <string name="birthday">chose birthday</string>
-    <string name="username">username</string>
+    <string name="birthday">Choose birthday</string>
+    <string name="username">Username</string>
     <string name="sign_up_failed">Sign up failed</string>
-    <string name="first_name_error">at least 3 characters</string>
-    <string name="last_name_error">at least 3 characters</string>
-    <string name="email_error">enter a valid email address</string>
-    <string name="phone_number_error">Enter Valid Mobile Number</string>
-    <string name="username_error">at least 8 alphanumeric characters</string>
-    <string name="password_error">between 4 and 20 alphanumeric characters</string>
-    <string name="re_enter_password_error">Password Do not match</string>
-    <string name="first_app_screen">First App screen</string>
-    <string name="login_failed">login failed</string>
-    <string name="username_not_present_into_database">username not present into database</string>
-    <string name="username_and_password_error">\"Username and password doesn\'t match to any user in the database\"</string>
+    <string name="first_name_error">At least 3 characters</string>
+    <string name="last_name_error">At least 3 characters</string>
+    <string name="email_error">Please, enter a valid e-mail address</string>
+    <string name="phone_number_error">Please, enter a valid phone number</string>
+    <string name="username_error">Please, use at least 8 alphanumeric characters</string>
+    <string name="password_error">The password must have between 4 and 20 alphanumeric characters</string>
+    <string name="re_enter_password_error">Passwords do not match</string>
+    <string name="first_app_screen">First app screen</string>
+    <string name="login_failed">Login failed</string>
+    <string name="username_not_present_into_database">The username was not present into database</string>
+    <string name="username_and_password_error">Username and password doesn\'t match to any user in the database</string>
     <string name="must_implement_dialog_listener">must implement NoticeDialogListener</string>
     <string name="date_format">%1$d/%2$d/%3$d</string>
-    <string name="birthday_error">birthday not selected</string>
+    <string name="birthday_error">Please, select a birthday </string>
     <string name="datePicker">datePicker</string>
-    <string name="send_me_an_email_with_all_this_information">send me an email with all this information</string>
+    <string name="send_me_an_email_with_all_this_information">Send me an email with all this information</string>
     <string name="app_email_account">fittrackerapppps@gmail.com</string>
     <string name="app_email_password">fittracker1234</string>
     <string name="app_email_host">smtp.gmail.com</string>
     <string name="mail_subject">Fittracker Registration Completed!</string>
-    <string name="email_cant_be_send">email can\'t be send</string>
-
+    <string name="email_cant_be_send">Email can\'t be send</string>
 
     <!--Instagram-->
-    <string name="btn_intagram_login">Instagram Login</string>
-    <string name="btn_intagram_logout">Instagram Logout</string>
     <string name="toast_instagram_login">Instagram signed in as:  </string>
-    <string name="instagram_not_login">Not instagram logged in</string>
-    <string name="toast_instagram_logout">Successful Logout</string>
     <string name="toast_instagram_loading">Loading login view, please wait.</string>
 </resources>
