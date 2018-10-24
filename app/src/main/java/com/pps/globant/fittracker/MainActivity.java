@@ -21,13 +21,14 @@ import com.pps.globant.fittracker.utils.FacebookLoginProvider;
 import com.squareup.otto.Bus;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP;
+import static com.pps.globant.fittracker.utils.Constants.GOOGLE_SERVICE_CLIENT_ID;
+import static com.pps.globant.fittracker.utils.Constants.RC_GET_TOKEN;
+import static com.pps.globant.fittracker.utils.Constants.SP;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int RC_GET_TOKEN = 9002;
     private CallbackManager callbackManager;
     private LoginPresenter presenter;
     private SharedPreferences spUser;
@@ -38,22 +39,24 @@ public class MainActivity extends AppCompatActivity {
         Bus bus = BusProvider.getInstance();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         // Configure sign-in to request the user's ID, email address, token and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(LoginPresenter.GOOGLE_SERVICE_CLIENT_ID)
+                .requestIdToken(GOOGLE_SERVICE_CLIENT_ID)
                 .requestEmail()
+                .requestProfile()
                 .build();
+
         callbackManager = CallbackManager.Factory.create();
         spUser = getSharedPreferences(SP, MODE_PRIVATE);
         presenter = new LoginPresenter(new LoginModel(new FacebookLoginProvider(bus, callbackManager),
                 bus, new UsersRepository(UserRoomDataBase.getDatabase(this).userDao(), bus)),
-                new LoginView(this, bus), gso, GoogleSignIn.getClient(this, gso),
+                new LoginView(this, bus), GoogleSignIn.getClient(this, gso),
                 new InstagramLoginPresenter(BusProvider.getInstance(), new InstagramLoginModel(BusProvider.getInstance(),
                         spUser), new InstagramLoginView(this, bus)));
-        //next line is for debuggin purpose only, it resets the entire database every time the app start. comment it
-        // for a persistence behaviour
-        presenter.clearDatabase();
+
+        presenter.clearDatabase(); //Line for debugging: comment it to activate persistence.
     }
 
     @Override
@@ -76,16 +79,6 @@ public class MainActivity extends AppCompatActivity {
             presenter.setActivityResults(requestCode, resultCode, data);
         else
             callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @OnClick(R.id.btn_insta_login)
-    public void onIgLoginClick() {
-        presenter.igButtonLoginClick();
-    }
-
-    @OnClick(R.id.btn_insta_logout)
-    public void onIgLogoutClick() {
-        presenter.igButtonLogoutClick(this, spUser);
     }
 
 }

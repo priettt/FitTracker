@@ -7,13 +7,14 @@ import android.support.v4.app.FragmentActivity;
 import com.pps.globant.fittracker.mvp.model.DataBase.UserRoomDataBase;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.mvp.model.SignUpModel;
-import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
 import com.pps.globant.fittracker.mvp.presenter.SignUpPresenter;
 import com.pps.globant.fittracker.mvp.view.SignUpView;
 import com.pps.globant.fittracker.utils.BusProvider;
 import com.squareup.otto.Bus;
 
 import butterknife.ButterKnife;
+
+import static com.pps.globant.fittracker.utils.Constants.EXTRA_MESSAGE;
 
 public class SignInFormActivity extends FragmentActivity {
 
@@ -26,7 +27,7 @@ public class SignInFormActivity extends FragmentActivity {
         ButterKnife.bind(this);
         Bus bus = BusProvider.getInstance();
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginPresenter.EXTRA_MESSAGE);
+        String userId = intent.getStringExtra(EXTRA_MESSAGE);
         presenter = new SignUpPresenter(new SignUpView(this, bus), new SignUpModel(bus, new UsersRepository
                 (UserRoomDataBase.getDatabase(this).userDao(), bus)), userId);
 

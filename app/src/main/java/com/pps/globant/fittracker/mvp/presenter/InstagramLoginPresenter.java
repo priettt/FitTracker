@@ -1,7 +1,5 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
-import android.content.SharedPreferences;
-
 import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
 import com.pps.globant.fittracker.mvp.view.InstagramLoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
@@ -9,14 +7,9 @@ import com.pps.globant.fittracker.utils.MyWVClient;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_NAME;
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
-import static com.pps.globant.fittracker.utils.CONSTANTS.USER_ID;
-
 public class InstagramLoginPresenter {
     private final static String CODE = "code";
     private static final String EQUAL_SIGN = "=";
-    private final static String NOT_LOGGED = "None user account logged in";
     private final InstagramLoginModel model;
     private final InstagramLoginView view;
     public Bus bus;
@@ -47,28 +40,15 @@ public class InstagramLoginPresenter {
     @Subscribe
     public void onRetIgInformation(InstagramLoginModel.RetIgInformation event) {
         view.closeDialog();
-        bus.post(new InformationReady(event.name, event.logeado, event.id));
-    }
-
-    public void isLoggedIn(SharedPreferences spUser) {
-        String token = spUser.getString(SP_TOKEN, null);
-        String name = spUser.getString(SP_NAME, null);
-        String id = spUser.getString(USER_ID, null);
-        if (token != null) {
-            bus.post(new InformationReady(name, true, id));
-        } else {
-            bus.post(new InformationReady(NOT_LOGGED, false, id));
-        }
+        bus.post(new InformationReady(event.name, event.id));
     }
 
     public static class InformationReady {
         public final String name;
-        public boolean logeado;
         public String id;
 
-        public InformationReady(String name, boolean logeado, String id) {
+        public InformationReady(String name, String id) {
             this.name = name;
-            this.logeado = logeado;
             this.id = id;
         }
     }
