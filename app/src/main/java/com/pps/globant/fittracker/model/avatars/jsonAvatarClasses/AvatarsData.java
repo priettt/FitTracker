@@ -1,4 +1,3 @@
-
 package com.pps.globant.fittracker.model.avatars.jsonAvatarClasses;
 
 import com.google.gson.annotations.Expose;
@@ -20,7 +19,6 @@ public class AvatarsData {
     private String etag;
     @Expose
     private Data data;
-
 
     public Integer getCode() {
         return code;

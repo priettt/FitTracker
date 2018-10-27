@@ -11,7 +11,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.pps.globant.fittracker.mvp.model.DataBase.UserRoomDataBase;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.mvp.model.InstagramLoginModel;
-
 import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.presenter.InstagramLoginPresenter;
 import com.pps.globant.fittracker.mvp.presenter.LoginPresenter;
@@ -27,14 +26,11 @@ import static com.pps.globant.fittracker.utils.Constants.GOOGLE_SERVICE_CLIENT_I
 import static com.pps.globant.fittracker.utils.Constants.RC_GET_TOKEN;
 import static com.pps.globant.fittracker.utils.Constants.SP;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
     private LoginPresenter presenter;
     private SharedPreferences spUser;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

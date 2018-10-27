@@ -1,4 +1,3 @@
-
 package com.pps.globant.fittracker.model.avatars;
 
 import com.google.gson.annotations.Expose;
@@ -30,6 +29,6 @@ public class Thumbnail {
     }
 
     public String toUrlRequest(String size) {
-        return String.format("%1$s/%2$s.%3$s",path,size,extension);
+        return String.format("%1$s/%2$s.%3$s", path, size, extension);
     }
 }

@@ -144,7 +144,6 @@ public class User {
         this.registerComplete = registerComplete;
     }
 
-
     @Nullable
     public Thumbnail getAvatarThumbnail() {
         return avatarThumbnail;

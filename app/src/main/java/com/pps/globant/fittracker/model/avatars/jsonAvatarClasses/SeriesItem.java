@@ -1,4 +1,3 @@
-
 package com.pps.globant.fittracker.model.avatars.jsonAvatarClasses;
 
 import com.google.gson.annotations.Expose;
@@ -28,6 +27,5 @@ public class SeriesItem {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

@@ -176,7 +176,7 @@ public class SignUpPresenter {
 
     private void startTheAppFirstScreen() {
         Activity activity = view.getActivity();
-        if (activity == null)return;
+        if (activity == null) return;
         Intent intent = new Intent(activity, FirstAppScreenActivity.class);
         long userId = model.getUser().getId();
         intent.putExtra(EXTRA_MESSAGE, String.valueOf(userId));

@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 public interface AvatarsClient {
 
     @GET("/v1/public/characters")
-    Call<AvatarsData> avatars ();
+    Call<AvatarsData> avatars();
 
 }
 

@@ -7,10 +7,11 @@ public class ImageDialogModel {
     private final Thumbnail thumbnail;
 
     public ImageDialogModel(Thumbnail thumbnail) {
-        this.thumbnail=thumbnail;
+        this.thumbnail = thumbnail;
     }
 
-    public String getUrlFullResolution(){return thumbnail.toUrlRequest(Thumbnail.FULL_DETAIL);
+    public String getUrlFullResolution() {
+        return thumbnail.toUrlRequest(Thumbnail.FULL_DETAIL);
     }
 
     public Thumbnail getThumbnail() {

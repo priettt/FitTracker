@@ -13,7 +13,7 @@ public class CardViewView {
 
     public CardViewView(CardView card, Activity activity) {
         cardRef = new WeakReference<>(card);
-        activityRef =  new WeakReference<>(activity);
+        activityRef = new WeakReference<>(activity);
     }
 
     @Nullable

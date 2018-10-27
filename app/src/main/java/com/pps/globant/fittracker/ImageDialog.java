@@ -24,10 +24,6 @@ public class ImageDialog extends Dialog {
         this.onAcceptClickListener = onAcceptClickListener;
     }
 
-    public interface OnAcceptClickListener {
-        void onAcceptAvatar(Thumbnail thumbnail);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +31,8 @@ public class ImageDialog extends Dialog {
         ButterKnife.bind(this);
         setTitle(null);
         setCancelable(false);
-        Bus bus=BusProvider.getInstance();
-        presenter = new ImageDialogPresenter(new ImageDialogView(this,bus), new ImageDialogModel(thumbnail),onAcceptClickListener);
+        Bus bus = BusProvider.getInstance();
+        presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(thumbnail), onAcceptClickListener);
     }
 
     @Override
@@ -49,5 +45,9 @@ public class ImageDialog extends Dialog {
     protected void onStop() {
         super.onStop();
         BusProvider.unregister(presenter);
+    }
+
+    public interface OnAcceptClickListener {
+        void onAcceptAvatar(Thumbnail thumbnail);
     }
 }

@@ -1,4 +1,3 @@
-
 package com.pps.globant.fittracker.model.avatars.jsonAvatarClasses;
 
 import com.google.gson.annotations.Expose;
@@ -52,6 +51,5 @@ public class Comics {
     public void setReturned(Integer returned) {
         this.returned = returned;
     }
-
 
 }

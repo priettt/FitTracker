@@ -1,4 +1,3 @@
-
 package com.pps.globant.fittracker.model.avatars.jsonAvatarClasses;
 
 import com.google.gson.annotations.Expose;
@@ -52,7 +51,5 @@ public class Stories {
     public void setReturned(Integer returned) {
         this.returned = returned;
     }
-
-
 
 }

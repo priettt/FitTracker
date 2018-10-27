@@ -20,25 +20,25 @@ public class ImageDialogView extends DialogView {
     @BindView(R.id.progressBar) ProgressBar progressBar;
     private Bus bus;
 
+    public ImageDialogView(Dialog dialog, Bus bus) {
+        super(dialog);
+        ButterKnife.bind(this, dialog);
+        this.bus = bus;
+    }
+
     @OnClick(R.id.dialog_avatar_buton_cancel)
     public void onCancelClick() {
         bus.post(new onCancelClickPressedEvent());
     }
 
-    public void dismiss(){
-        if (getDialog()==null)return;
+    public void dismiss() {
+        if (getDialog() == null) return;
         getDialog().dismiss();
     }
 
     @OnClick(R.id.dialog_avatar_buton_accept)
     public void onAcceptClick() {
         bus.post(new AcceptClickPressedEvent());
-    }
-
-    public ImageDialogView(Dialog dialog,Bus bus) {
-        super(dialog);
-        ButterKnife.bind(this, dialog);
-        this.bus=bus;
     }
 
     public void display(String imageUrl) {

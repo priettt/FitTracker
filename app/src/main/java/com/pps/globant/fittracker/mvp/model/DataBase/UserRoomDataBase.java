@@ -13,7 +13,6 @@ import com.pps.globant.fittracker.mvp.model.DataBase.dbUtils.Converters;
 
 public abstract class UserRoomDataBase extends RoomDatabase {
 
-
     private static final String DB_NAME = "Base de datos room";
     private static UserRoomDataBase INSTANCE;
 

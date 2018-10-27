@@ -11,10 +11,10 @@ public class FirstAppScreenPresenter {
     }
 
     public void register() {
-        BusProvider.register(this,avatarsPresenter);
+        BusProvider.register(this, avatarsPresenter);
     }
 
     public void unregister() {
-        BusProvider.unregister(this,avatarsPresenter);
+        BusProvider.unregister(this, avatarsPresenter);
     }
 }

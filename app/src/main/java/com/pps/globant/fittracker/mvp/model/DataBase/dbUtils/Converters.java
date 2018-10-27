@@ -2,7 +2,6 @@ package com.pps.globant.fittracker.mvp.model.DataBase.dbUtils;
 
 import android.arch.persistence.room.TypeConverter;
 
-
 import com.pps.globant.fittracker.model.avatars.Thumbnail;
 
 import java.util.Date;
@@ -18,7 +17,6 @@ public class Converters {
     public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
     }
-
 
     @TypeConverter
     public static Thumbnail stringToThumbail(String string) {

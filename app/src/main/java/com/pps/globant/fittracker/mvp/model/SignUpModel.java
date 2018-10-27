@@ -8,8 +8,8 @@ import com.squareup.otto.Bus;
 
 public class SignUpModel {
     private final Bus bus;
-    private User activeUser;
     private final UsersRepository usersRepository;
+    private User activeUser;
 
     public SignUpModel(Bus bus, UsersRepository usersRepository) {
         this.bus = bus;
@@ -19,6 +19,7 @@ public class SignUpModel {
     public User getUser() {
         return activeUser;
     }
+
     public void setUser(User user) {
         activeUser = user;
     }
@@ -27,7 +28,6 @@ public class SignUpModel {
     public void getUserFromDbById() {
         usersRepository.getById(activeUser.getId());
     }
-
 
     public void getUserFromDbById(long id) {
         usersRepository.getById(id);

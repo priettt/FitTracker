@@ -24,13 +24,14 @@ import butterknife.OnClick;
 public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarsViewHolder> {
 
     public static final int CERO = 0;
-    private List<Avatar> avatars;
     ImageDialog.OnAcceptClickListener onAcceptClickListener;
+    private List<Avatar> avatars;
 
     public AvatarsAdapter(List<Avatar> avatars, ImageDialog.OnAcceptClickListener onAcceptClickListener) {
         this.avatars = avatars;
         this.onAcceptClickListener = onAcceptClickListener;
     }
+
     public AvatarsAdapter(List<Avatar> avatars) {
         this.avatars = avatars;
     }
@@ -38,7 +39,7 @@ public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarsV
     @Override
     public AvatarsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.avatar_layout, parent, false);
-        return new AvatarsViewHolder(view,onAcceptClickListener);
+        return new AvatarsViewHolder(view, onAcceptClickListener);
     }
 
     @Override
@@ -79,12 +80,12 @@ public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarsV
         public AvatarsViewHolder(View itemView, ImageDialog.OnAcceptClickListener onAcceptClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            this.onAcceptClickListener=onAcceptClickListener;
+            this.onAcceptClickListener = onAcceptClickListener;
         }
 
         @OnClick(R.id.image_thumbnail_avatar)
         public void onImageClick(View view) {
-            new ImageDialog(view.getContext(), thumbnail,onAcceptClickListener).show();
+            new ImageDialog(view.getContext(), thumbnail, onAcceptClickListener).show();
         }
     }
 }

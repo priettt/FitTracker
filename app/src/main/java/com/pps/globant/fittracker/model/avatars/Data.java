@@ -1,4 +1,3 @@
-
 package com.pps.globant.fittracker.model.avatars;
 
 import com.google.gson.annotations.Expose;

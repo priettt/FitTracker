@@ -72,7 +72,7 @@ public class AvatarsView extends CardViewView {
         TransitionManager.beginDelayedTransition(layoutCardsContainer, new AutoTransition());
         layoutCollapsed.setVisibility(View.GONE);
         layoutExpanded.setVisibility(View.VISIBLE);
-        if (recyclerView.getAdapter()==null) {
+        if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(new AvatarsAdapter(new ArrayList<Avatar>()));
             GridLayoutManager glm = new GridLayoutManager(getActivity(), SPAN_COUNT,
                     GridLayoutManager.HORIZONTAL, REVERSE_LAYOUT_FALSE);
@@ -95,13 +95,13 @@ public class AvatarsView extends CardViewView {
         Picasso.with(imageActualAvatar.getContext()).
                 load(avatarThumbnail.toUrlRequest(Thumbnail.STANDARD_LARGE)).into(imageActualAvatar, new
                 ImageLoadedCallback(progressBarActualAvatar) {
-            @Override
-            public void onSuccess() {
-                if (progressBarActualAvatar != null) {
-                    progressBarActualAvatar.setVisibility(View.GONE);
-                }
-            }
-        });
+                    @Override
+                    public void onSuccess() {
+                        if (progressBarActualAvatar != null) {
+                            progressBarActualAvatar.setVisibility(View.GONE);
+                        }
+                    }
+                });
     }
 
     public void setFirstName(String firstName) {
