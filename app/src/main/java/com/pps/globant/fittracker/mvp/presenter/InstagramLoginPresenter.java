@@ -70,12 +70,12 @@ public class InstagramLoginPresenter {
 
     public static class InformationReady {
         public final String name;
-        public boolean logeado;
+        public boolean logueado;
         public String id;
 
-        public InformationReady(String name, boolean logeado, String id) {
+        public InformationReady(String name, boolean logueado, String id) {
             this.name = name;
-            this.logeado = logeado;
+            this.logueado = logueado;
             this.id = id;
         }
     }
