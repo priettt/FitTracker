@@ -228,7 +228,7 @@ public class LoginPresenter {
 
     @Subscribe
     public void onInformationReady(InstagramLoginPresenter.InformationReady event) {
-        if (event.logeado) {
+        if (event.logueado) {
             view.disableLogin();
             view.showLoginToast(event.name);
         } else {

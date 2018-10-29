@@ -19,7 +19,7 @@ public class InstagramLoginPresenter {
     private static final String EQUAL_SIGN = "=";
     private final static String NOT_LOGGED = "None user account logged in";
     private final static String EMPTY_STRING = "";
-    private final static String SPACE_STRING = "";
+    private final static String SPACE_STRING = " ";
     private final static String IG_PREFIX = "IG";
     private final InstagramLoginModel model;
     private final InstagramLoginView view;
