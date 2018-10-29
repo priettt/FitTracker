@@ -19,6 +19,8 @@ public class InstagramLoginPresenter {
     private static final String EQUAL_SIGN = "=";
     private final static String NOT_LOGGED = "None user account logged in";
     private final static String EMPTY_STRING = "";
+    private final static String SPACE_STRING = "";
+    private final static String IG_PREFIX = "IG";
     private final InstagramLoginModel model;
     private final InstagramLoginView view;
     public Bus bus;
@@ -49,8 +51,8 @@ public class InstagramLoginPresenter {
     @Subscribe
     public void onRetIgInformation(InstagramLoginModel.RetIgInformation event) {
         view.closeDialog();
-        String names[] = event.name.split(" ",2);
-        String id = String.format("IG%s", event.id);
+        String names[] = event.name.split(SPACE_STRING,2);
+        String id = String.format("%s%s", IG_PREFIX, event.id);
         bus.post(new InformationReady(event.name, event.logeado, event.id));
         bus.post(new IgUserDataRecoveredEvent(User.getUser(names[0], names[1], null, null, id)));
     }
