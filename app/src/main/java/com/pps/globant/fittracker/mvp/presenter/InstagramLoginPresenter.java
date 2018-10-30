@@ -14,7 +14,6 @@ public class InstagramLoginPresenter {
     private final InstagramLoginView view;
     public Bus bus;
 
-
     public InstagramLoginPresenter(Bus bus, InstagramLoginModel model, InstagramLoginView view) {
         this.bus = bus;
         BusProvider.register(this);

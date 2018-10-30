@@ -41,7 +41,7 @@ public class SignUpPresenter {
             view.setCompleteLoginView();
         } else {
             view.setLoginSocial();
-            model.getUserFromDbById(Integer.parseInt(userId));
+            model.getUserFromDbById(Long.parseLong(userId));
         }
     }
 
@@ -84,7 +84,6 @@ public class SignUpPresenter {
         }
         model.insertUserToDB();//done async
         if (event.sendEmail) sendMail(model.getUser());
-        startTheAppFirstScreen();
     }
 
     @Subscribe
@@ -107,7 +106,6 @@ public class SignUpPresenter {
         user.setRegisterComplete(COMPLETE);
         model.updateUserToDB();//done async
         if (event.sendEmail) sendMail(model.getUser());
-        startTheAppFirstScreen();
     }
 
     private void sendMail(final User user) {
@@ -178,7 +176,7 @@ public class SignUpPresenter {
 
     private void startTheAppFirstScreen() {
         Activity activity = view.getActivity();
-        if (activity == null)return;
+        if (activity == null) return;
         Intent intent = new Intent(activity, FirstAppScreenActivity.class);
         long userId = model.getUser().getId();
         intent.putExtra(EXTRA_MESSAGE, String.valueOf(userId));
@@ -190,6 +188,16 @@ public class SignUpPresenter {
     public void onDateSetEvent(SignUpView.DatePickerFragment.DateSetEvent event) {
         String date = String.format(view.getContext().getString(R.string.date_format), event.day, event.month, event.year);
         view.setBirthday(date);
+    }
+
+    @Subscribe
+    public void onInsertUserIntoDataBaseCompletedEvent(UsersRepository.InsertUserIntoDataBaseCompleted event) {
+        startTheAppFirstScreen();
+    }
+
+    @Subscribe
+    public void onUpdatingUserFromDataBaseCompleted(UsersRepository.UpdatingUserFromDataBaseCompleted event) {
+        startTheAppFirstScreen();
     }
 
     private boolean validate(SignUpView.SignUpEventComplete event) {

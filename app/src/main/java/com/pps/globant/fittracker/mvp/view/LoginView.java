@@ -61,6 +61,14 @@ public class LoginView extends ActivityView {
         bus.post(new ManualRegisterButtonPressedEvent());
     }
 
+    public void popUp(@StringRes int msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void popUp(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
     public static class GoogleSignInButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
     }
@@ -79,14 +87,6 @@ public class LoginView extends ActivityView {
 
     public static class ManualRegisterButtonPressedEvent {
         //Nothing to do, class made to pass it through the bus
-    }
-
-    public void popUp(@StringRes int msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
-
-    public void popUp(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

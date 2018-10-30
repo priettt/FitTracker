@@ -26,7 +26,6 @@ import static com.pps.globant.fittracker.utils.Constants.GOOGLE_SERVICE_CLIENT_I
 import static com.pps.globant.fittracker.utils.Constants.RC_GET_TOKEN;
 import static com.pps.globant.fittracker.utils.Constants.SP;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
@@ -55,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 new LoginView(this, bus), GoogleSignIn.getClient(this, gso),
                 new InstagramLoginPresenter(BusProvider.getInstance(), new InstagramLoginModel(BusProvider.getInstance(),
                         spUser), new InstagramLoginView(this, bus)));
-
-        presenter.clearDatabase(); //Line for debugging: comment it to activate persistence.
+        //next line is for debuggin purpose only, it resets the entire database every time the app start. comment it
+        // for a persistence behaviour
+        // presenter.clearDatabase();
     }
 
     @Override

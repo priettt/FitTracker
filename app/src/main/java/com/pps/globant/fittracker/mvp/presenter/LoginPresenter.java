@@ -16,7 +16,6 @@ import com.pps.globant.fittracker.mvp.model.LoginModel;
 import com.pps.globant.fittracker.mvp.view.LoginView;
 import com.pps.globant.fittracker.utils.BusProvider;
 import com.pps.globant.fittracker.utils.FacebookLoginProvider;
-
 import com.squareup.otto.Subscribe;
 
 import static com.pps.globant.fittracker.utils.Constants.EXTRA_MESSAGE;
