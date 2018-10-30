@@ -30,6 +30,11 @@ public class InstagramLoginModel {
         new MyAsyncTask(code, bus, spUser).execute();
     }
 
+    @Subscribe
+    public void onPostReadyInformation(MyAsyncTask.PostReadyInformation event) {
+        bus.post(new RetIgInformation(event.name, event.id));
+    }
+
     public static class RetIgInformation {
         public String name;
         public String id;
@@ -38,11 +43,6 @@ public class InstagramLoginModel {
             this.name = name;
             this.id = id;
         }
-    }
-
-    @Subscribe
-    public void onPostReadyInformation(MyAsyncTask.PostReadyInformation event) {
-        bus.post(new RetIgInformation(event.name, event.id));
     }
 
 }

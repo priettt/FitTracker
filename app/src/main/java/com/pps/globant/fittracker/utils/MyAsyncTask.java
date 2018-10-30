@@ -1,4 +1,5 @@
 package com.pps.globant.fittracker.utils;
+
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
@@ -22,13 +23,13 @@ import static com.pps.globant.fittracker.utils.Constants.SP_TOKEN;
 import static com.pps.globant.fittracker.utils.Constants.USER_ID;
 
 public class MyAsyncTask extends AsyncTask<URL, Void, Void> {
+    public SharedPreferences spUser;
+    public SharedPreferences.Editor spEdit;
+    public Bus bus;
     private String code;
     private String accessTokenString;
     private String fullName;
     private String id;
-    public SharedPreferences spUser;
-    public SharedPreferences.Editor spEdit;
-    public Bus bus;
 
     public MyAsyncTask(String code, Bus bus, SharedPreferences spUser) {
         this.code = code;
@@ -59,7 +60,7 @@ public class MyAsyncTask extends AsyncTask<URL, Void, Void> {
             spEdit = spUser.edit();
             spEdit.putString(SP_TOKEN, accessTokenString);
             spEdit.putString(SP_NAME, fullName);
-            spEdit.putString(USER_ID,id);
+            spEdit.putString(USER_ID, id);
             spEdit.putString(SP_CODE, code);
             spEdit.apply();
 
@@ -70,18 +71,17 @@ public class MyAsyncTask extends AsyncTask<URL, Void, Void> {
     }
 
     protected void onPostExecute(Void result) {
-        bus.post(new PostReadyInformation(fullName,id));
+        bus.post(new PostReadyInformation(fullName, id));
     }
 
     public static class PostReadyInformation {
         public final String name;
         public final String id;
 
-        public PostReadyInformation(String name,String id) {
+        public PostReadyInformation(String name, String id) {
             this.name = name;
             this.id = id;
         }
     }
-
 
 }

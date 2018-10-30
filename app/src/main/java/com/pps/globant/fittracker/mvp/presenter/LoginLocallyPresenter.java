@@ -71,7 +71,7 @@ public class LoginLocallyPresenter {
     @Subscribe
     public void onSignUpLinkPressedEvent(LoginLocallyView.signUpLinkPressedEvent event) {
         Activity activity = view.getActivity();
-        if (activity == null)return;
+        if (activity == null) return;
         Intent intent = new Intent(activity, SignInFormActivity.class);
         activity.startActivity(intent);
         activity.finish();

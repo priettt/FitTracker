@@ -36,9 +36,10 @@ public class MyWVClient extends WebViewClient {
         return false;
     }
 
-    public static class PostForHandleUrl{
+    public static class PostForHandleUrl {
         public final String url;
-        public PostForHandleUrl(String url){
+
+        public PostForHandleUrl(String url) {
             this.url = url;
         }
     }

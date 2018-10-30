@@ -5,6 +5,8 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.pps.globant.fittracker.model.avatars.Thumbnail;
+
 import java.util.Date;
 
 @Entity
@@ -29,10 +31,14 @@ public class User {
     @Nullable
     private String socialNetworkId;
     @Nullable
+
+    private Thumbnail avatarThumbnail;
+    @Nullable
     private boolean registerComplete;
 
     public User(@NonNull long id, @Nullable String firstName, @Nullable String lastName, @Nullable String email,
-                @Nullable String username, @Nullable String password, @Nullable Date birthday, @Nullable String socialNetworkId, @Nullable boolean registerComplete) {
+                @Nullable String username, @Nullable String password, @Nullable Date birthday, @Nullable String
+                        socialNetworkId, @Nullable boolean registerComplete, @Nullable Thumbnail avatarThumbnail) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,16 +48,19 @@ public class User {
         this.birthday = birthday;
         this.socialNetworkId = socialNetworkId;
         this.registerComplete = registerComplete;
+        this.avatarThumbnail = avatarThumbnail;
     }
 
     public static User getUser(@Nullable String firstName, @Nullable String lastName, @Nullable String email,
                                @Nullable String username, @Nullable String password, @Nullable Date birthday) {
-        return new User(0, firstName, lastName, email, username, password, birthday, null, true);
+
+        return new User(0, firstName, lastName, email, username, password, birthday, null, true, null);
     }
 
     public static User getUser(@Nullable String firstName, @Nullable String lastName, @Nullable String email,
                                @Nullable Date birthday, @Nullable String socialNetworkId) {
-        return new User(0, firstName, lastName, email, null, null, birthday, socialNetworkId, false);
+
+        return new User(0, firstName, lastName, email, null, null, birthday, socialNetworkId, false, null);
     }
 
     @NonNull
@@ -133,5 +142,14 @@ public class User {
 
     public void setRegisterComplete(@Nullable boolean registerComplete) {
         this.registerComplete = registerComplete;
+    }
+
+    @Nullable
+    public Thumbnail getAvatarThumbnail() {
+        return avatarThumbnail;
+    }
+
+    public void setAvatarThumbnail(@Nullable Thumbnail avatarThumbnail) {
+        this.avatarThumbnail = avatarThumbnail;
     }
 }

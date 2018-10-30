@@ -66,7 +66,13 @@
     <string name="app_email_password">fittracker1234</string>
     <string name="app_email_host">smtp.gmail.com</string>
     <string name="mail_subject">Fittracker Registration Completed!</string>
-    <string name="email_cant_be_send">Email can\'t be send</string>
+    <string name="email_cant_be_send">email can\'t be send</string>
+
+    <string name="back">Cerrar</string>
+    <string name="avatar">avatar</string>
+    <string name="change_avatar">CHANGE AVATAR</string>
+    <string name="less_details">less details</string>
+
 
     <!--Instagram-->
     <string name="toast_instagram_login">Instagram signed in as:  </string>

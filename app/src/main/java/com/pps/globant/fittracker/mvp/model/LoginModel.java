@@ -16,9 +16,9 @@ import com.squareup.otto.Bus;
 public class LoginModel {
 
     private final Bus bus;
-    private User activeUser;
     private final FacebookLoginProvider facebookLoginProvider;
     private final UsersRepository usersRepository;
+    private User activeUser;
 
     public LoginModel(FacebookLoginProvider facebookLoginProvider, Bus bus, UsersRepository usersRepository) {
         this.facebookLoginProvider = facebookLoginProvider;
@@ -35,18 +35,6 @@ public class LoginModel {
                 bus.post(new GoogleSignInEvent(task.getResult()));
             }
         });
-    }
-
-    public static class GoogleSignInEvent {
-        GoogleSignInAccount account;
-
-        public GoogleSignInEvent(GoogleSignInAccount account) {
-            this.account = account;
-        }
-
-        public GoogleSignInAccount getAccount() {
-            return account;
-        }
     }
 
     public void fbLogIn(Activity activity) {
@@ -83,5 +71,17 @@ public class LoginModel {
 
     public void setUser(User user) {
         activeUser = user;
+    }
+
+    public static class GoogleSignInEvent {
+        GoogleSignInAccount account;
+
+        public GoogleSignInEvent(GoogleSignInAccount account) {
+            this.account = account;
+        }
+
+        public GoogleSignInAccount getAccount() {
+            return account;
+        }
     }
 }

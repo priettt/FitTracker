@@ -8,12 +8,12 @@ import android.content.Context;
 
 import com.pps.globant.fittracker.mvp.model.DataBase.dbUtils.Converters;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 
 public abstract class UserRoomDataBase extends RoomDatabase {
 
-    private static final String DB_NAME = "base de datos room";
+    private static final String DB_NAME = "Base de datos room";
     private static UserRoomDataBase INSTANCE;
 
     public static UserRoomDataBase getDatabase(final Context context) {
