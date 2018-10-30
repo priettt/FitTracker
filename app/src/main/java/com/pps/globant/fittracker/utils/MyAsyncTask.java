@@ -13,13 +13,13 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static com.pps.globant.fittracker.utils.CONSTANTS.CLIENT_ID;
-import static com.pps.globant.fittracker.utils.CONSTANTS.CLIENT_SECRET;
-import static com.pps.globant.fittracker.utils.CONSTANTS.REDIRECT_URI;
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_CODE;
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_NAME;
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
-import static com.pps.globant.fittracker.utils.CONSTANTS.USER_ID;
+import static com.pps.globant.fittracker.utils.Constants.CLIENT_ID;
+import static com.pps.globant.fittracker.utils.Constants.CLIENT_SECRET;
+import static com.pps.globant.fittracker.utils.Constants.REDIRECT_URI;
+import static com.pps.globant.fittracker.utils.Constants.SP_CODE;
+import static com.pps.globant.fittracker.utils.Constants.SP_NAME;
+import static com.pps.globant.fittracker.utils.Constants.SP_TOKEN;
+import static com.pps.globant.fittracker.utils.Constants.USER_ID;
 
 public class MyAsyncTask extends AsyncTask<URL, Void, Void> {
     private String code;

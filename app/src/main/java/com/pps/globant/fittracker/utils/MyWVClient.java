@@ -8,7 +8,7 @@ import android.webkit.WebViewClient;
 
 import com.squareup.otto.Bus;
 
-import static com.pps.globant.fittracker.utils.CONSTANTS.REDIRECT_URI;
+import static com.pps.globant.fittracker.utils.Constants.REDIRECT_URI;
 
 public class MyWVClient extends WebViewClient {
     Bus bus;

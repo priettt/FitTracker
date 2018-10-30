@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -8,30 +7,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Dark Buttons -->
-    <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorButtonNormal">@color/blue_grey_500</item>
+    <!-- White Text Style-->
+    <style name="WhiteText" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!-- Facebook styles -->
-    <style name="fbButton" parent="AppTheme">
-        <item name="android:background">@color/com_facebook_button_background_color</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/button_text_size</item>
-        <item name="android:textColor">@color/com_facebook_button_text_color</item>
-        <item name="android:layout_marginTop">@dimen/layout_marginTop_fb_login_button</item>
-        <item name="android:layout_marginBottom">@dimen/layout_marginBottom_fb_login_button</item>
+    <!-- Facebook Button Style-->
+    <style name="ThemeOverlay.FacebookButton" parent="WhiteText">
+        <item name="colorButtonNormal">@color/facebook_color</item>
     </style>
 
-    <!--Instagram styles -->
-    <style name="instagramButton" parent= "AppTheme">
-        <item name="android:layout_width">@dimen/instagram_button_width</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:layout_gravity">center_vertical|center_horizontal</item>
-        <item name="android:textStyle">bold</item>
+    <!-- InstagramButton Style-->
+    <style name="ThemeOverlay.InstagramButton" parent="WhiteText">
+        <item name="colorButtonNormal">@color/instagram_color</item>
+    </style>
+
+    <!-- Google Button Style-->
+    <style name="ThemeOverlay.GoogleButton" parent="WhiteText">
+        <item name="colorButtonNormal">@color/google_color</item>
+    </style>
+
+    <!-- Manual Log In Button Style-->
+    <style name="ThemeOverlay.ManualLogInButton" parent="WhiteText">
+        <item name="colorButtonNormal">@color/manual_login_color</item>
+    </style>
+
+    <!-- Manual Register Button Style-->
+    <style name="ThemeOverlay.ManualRegisterButton" parent="WhiteText">
+        <item name="colorButtonNormal">@color/manual_register_color</item>
     </style>
 
 </resources>

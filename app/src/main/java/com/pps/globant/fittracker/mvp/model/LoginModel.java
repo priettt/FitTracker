@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
@@ -16,11 +17,8 @@ public class LoginModel {
 
     private final Bus bus;
     private User activeUser;
-    private GoogleSignInAccount account; //Contains all the information of the account.
     private final FacebookLoginProvider facebookLoginProvider;
     private final UsersRepository usersRepository;
-
-    //GOOGLE
 
     public LoginModel(FacebookLoginProvider facebookLoginProvider, Bus bus, UsersRepository usersRepository) {
         this.facebookLoginProvider = facebookLoginProvider;
@@ -28,58 +26,36 @@ public class LoginModel {
         this.usersRepository = usersRepository;
     }
 
-    public User getUser() {
-        return activeUser;
-    }
-
-    public void setUser(User user) {
-        activeUser = user;
-    }
-
     public void googleSignIn(Intent data) {
         //Creates the task to SignIn from the intent, and posts GoogleSignInEvent
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-        bus.post(new GoogleSignInEvent(task));
-
+        task.addOnCompleteListener(new OnCompleteListener<GoogleSignInAccount>() {
+            @Override
+            public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+                bus.post(new GoogleSignInEvent(task.getResult()));
+            }
+        });
     }
 
-    public void googleSignOut() {
-        account = null;
-    }
+    public static class GoogleSignInEvent {
+        GoogleSignInAccount account;
 
-    public String getGoogleMail() {
-        return account.getEmail();
-    }
+        public GoogleSignInEvent(GoogleSignInAccount account) {
+            this.account = account;
+        }
 
-    //GOOGLE EVENTS'S CLASSES
-
-    public void setGoogleAccount(GoogleSignInAccount account) {
-        this.account = account;
-    }
-
-    //FACEBOOK
-
-    public void clearDatabase() {
-        usersRepository.clearDatabase();
-    }
-
-    public void fbLogOut() {
-        facebookLoginProvider.logOut();
+        public GoogleSignInAccount getAccount() {
+            return account;
+        }
     }
 
     public void fbLogIn(Activity activity) {
         facebookLoginProvider.logIn(activity);
     }
 
-    public boolean isFbLogedIn() {
-        return facebookLoginProvider.isLoginTokenActive();
+    public void clearDatabase() {
+        usersRepository.clearDatabase();
     }
-
-    public void restoreState() {
-        facebookLoginProvider.restoreState();
-    }
-
-    //ROOM DATABASE
 
     public void getUserFromDbById() {
         usersRepository.getById(activeUser.getId());
@@ -101,18 +77,11 @@ public class LoginModel {
         usersRepository.delete(activeUser);
     }
 
-    public static class GoogleSignInEvent {
-        @NonNull
-        Task<GoogleSignInAccount> completedTask;
-
-        public GoogleSignInEvent(@NonNull Task<GoogleSignInAccount> completedTask) {
-            this.completedTask = completedTask;
-        }
-
-        @NonNull
-        public Task<GoogleSignInAccount> getCompletedTask() {
-            return completedTask;
-        }
+    public User getUser() {
+        return activeUser;
     }
 
+    public void setUser(User user) {
+        activeUser = user;
+    }
 }

@@ -10,9 +10,9 @@ import com.pps.globant.fittracker.utils.MyWVClient;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_NAME;
-import static com.pps.globant.fittracker.utils.CONSTANTS.SP_TOKEN;
-import static com.pps.globant.fittracker.utils.CONSTANTS.USER_ID;
+import static com.pps.globant.fittracker.utils.Constants.SP_NAME;
+import static com.pps.globant.fittracker.utils.Constants.SP_TOKEN;
+import static com.pps.globant.fittracker.utils.Constants.USER_ID;
 
 public class InstagramLoginPresenter {
     private final static String CODE = "code";
@@ -53,29 +53,25 @@ public class InstagramLoginPresenter {
         view.closeDialog();
         String names[] = event.name.split(SPACE_STRING,2);
         String id = String.format("%s%s", IG_PREFIX, event.id);
-        bus.post(new InformationReady(event.name, event.logeado, event.id));
+        bus.post(new InformationReady(event.name, event.id));
         bus.post(new IgUserDataRecoveredEvent(User.getUser(names[0], names[1], null, null, id)));
     }
 
-    public void isLoggedIn(SharedPreferences spUser) {
+    public void checkLoggedIn(SharedPreferences spUser) {
         String token = spUser.getString(SP_TOKEN, null);
         String name = spUser.getString(SP_NAME, null);
         String id = spUser.getString(USER_ID, null);
         if (token != null) {
-            bus.post(new InformationReady(name, true, id));
-        } else {
-            bus.post(new InformationReady(NOT_LOGGED, false, id));
+            bus.post(new InformationReady(name, id));
         }
     }
 
     public static class InformationReady {
         public final String name;
-        public boolean logueado;
         public String id;
 
-        public InformationReady(String name, boolean logueado, String id) {
+        public InformationReady(String name, String id) {
             this.name = name;
-            this.logueado = logueado;
             this.id = id;
         }
     }
