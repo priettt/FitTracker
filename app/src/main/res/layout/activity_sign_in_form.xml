@@ -72,7 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/birthday"
-                android:inputType="none" />
+                android:inputType="none"
+                android:focusableInTouchMode="true"
+                android:cursorVisible="false"
+                android:focusable="false" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- mobile number -->

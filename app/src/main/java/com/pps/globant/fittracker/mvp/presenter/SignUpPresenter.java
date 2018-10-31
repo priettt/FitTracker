@@ -3,6 +3,7 @@ package com.pps.globant.fittracker.mvp.presenter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.pps.globant.fittracker.FirstAppScreenActivity;
 import com.pps.globant.fittracker.LoginLocallyActivity;
@@ -25,9 +26,12 @@ public class SignUpPresenter {
     public static final String EXTRA_MESSAGE = "com.pps.globant.fittracker.USERID";
     public static final String DATE_PATTERN = "dd/mm/yyyy";
     private static final boolean COMPLETE = true;
+    public static final String DEBUGING = "debuging";
+    public static final String CATCH_SENDMAIL = "catch sendmail";
     private SignUpView view;
     private SignUpModel model;
     private String userId;
+    private boolean sendEmail;
 
     public SignUpPresenter(SignUpView view, SignUpModel model, String userId) {
         this.view = view;
@@ -98,14 +102,14 @@ public class SignUpPresenter {
         user.setLastName(event.lastName);
         user.setEmail(event.email);
         try {
-            user.setBirthday(new SimpleDateFormat(view.getContext().getResources().getString(R.string.date_format)).parse
+            user.setBirthday(new SimpleDateFormat(DATE_PATTERN).parse
                     (event.birthday));
         } catch (ParseException e) {
             //not posible
         }
         user.setRegisterComplete(COMPLETE);
-        model.updateUserToDB();//done async
-        if (event.sendEmail) sendMail(model.getUser());
+        sendEmail = event.sendEmail;
+        model.updateUserToDB();//done async   }
     }
 
     private void sendMail(final User user) {
@@ -122,7 +126,7 @@ public class SignUpPresenter {
                             res.getString(R.string.app_email_account),
                             user.getEmail());
                 } catch (Exception e) {
-                    view.popUp(R.string.email_cant_be_send);
+                    Log.d(DEBUGING, CATCH_SENDMAIL);
                 }
             }
         });
@@ -156,7 +160,6 @@ public class SignUpPresenter {
 
     @Subscribe
     public void onSignUpEvent(SignUpView.SignUpEvent event) {
-        view.showSingUpProgressDialog();
         if (userId == null) view.singUpComplete();
         else view.singUpSocial();
     }
@@ -191,12 +194,15 @@ public class SignUpPresenter {
     }
 
     @Subscribe
-    public void onInsertUserIntoDataBaseCompletedEvent(UsersRepository.InsertUserIntoDataBaseCompleted event) {
+    public void onInsertUserIntoDataBaseCompletedEvent
+            (UsersRepository.InsertUserIntoDataBaseCompleted event) {
         startTheAppFirstScreen();
     }
 
     @Subscribe
-    public void onUpdatingUserFromDataBaseCompleted(UsersRepository.UpdatingUserFromDataBaseCompleted event) {
+    public void onUpdatingUserFromDataBaseCompleted
+            (UsersRepository.UpdatingUserFromDataBaseCompleted event) {
+        if (sendEmail) sendMail(model.getUser());
         startTheAppFirstScreen();
     }
 

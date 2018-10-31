@@ -26,11 +26,13 @@ import static com.pps.globant.fittracker.utils.Constants.GOOGLE_SERVICE_CLIENT_I
 import static com.pps.globant.fittracker.utils.Constants.RC_GET_TOKEN;
 import static com.pps.globant.fittracker.utils.Constants.SP;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
     private LoginPresenter presenter;
     private SharedPreferences spUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Bus bus = BusProvider.getInstance();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         // Configure sign-in to request the user's ID, email address, token and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

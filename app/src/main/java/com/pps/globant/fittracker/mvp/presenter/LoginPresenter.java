@@ -2,6 +2,7 @@ package com.pps.globant.fittracker.mvp.presenter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,7 +35,6 @@ public class LoginPresenter {
         this.view = view;
         this.mGoogleSignInClient = mGoogleSignInClient;
         this.igPresenter = igPresenter;
-
     }
 
     public void clearDatabase() {
@@ -155,6 +155,12 @@ public class LoginPresenter {
     }
 
     @Subscribe
+    public void onIgUserDataRecoveredEvent(InstagramLoginPresenter.IgUserDataRecoveredEvent event) {
+        model.setUser(event.user);
+        model.getUserFromDbBySocialNetworkId();
+    }
+
+    @Subscribe
     public void onInstagramSignInButtonPressed(LoginView.InstagramSignInButtonPressedEvent event) {
         view.popUp(R.string.toast_instagram_loading);
         igPresenter.igButtonLoginClick();
@@ -190,5 +196,9 @@ public class LoginPresenter {
         if (activity == null) return;
         Intent intent = new Intent(activity, LoginLocallyActivity.class);
         activity.startActivity(intent);
+    }
+
+    public void checkLoggedIn(SharedPreferences spUser) {
+        igPresenter.checkLoggedIn(spUser);
     }
 }
