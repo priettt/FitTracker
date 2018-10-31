@@ -55,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 new LoginView(this, bus), GoogleSignIn.getClient(this, gso),
                 new InstagramLoginPresenter(BusProvider.getInstance(), new InstagramLoginModel(BusProvider.getInstance(),
                         spUser), new InstagramLoginView(this, bus)));
-
-        // next line is for debuggin purpose only, it resets the entire database every time the app start. comment it
+        //next line is for debuggin purpose only, it resets the entire database every time the app start. comment it
         // for a persistence behaviour
-        // presenter.clearDatabase();
+        presenter.clearDatabase();
     }
 
     @Override
