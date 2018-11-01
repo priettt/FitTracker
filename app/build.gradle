@@ -28,16 +28,20 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    testImplementation 'org.mockito:mockito-core:1.10.19'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //testing
+    androidTestCompile "org.mockito:mockito-android:2.7.21"
+    androidTestCompile "org.powermock:powermock-api-mockito:1.6.6"
+    androidTestCompile 'org.powermock:powermock-module-junit4:1.6.6'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.6'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.6'
+
 
     //MVP dependencies
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.squareup:otto:1.3.8'
-    testImplementation "org.mockito:mockito-core:2.+"
 
     //Google Sign-In Dependencies
     implementation 'com.google.android.gms:play-services-auth:16.0.1'

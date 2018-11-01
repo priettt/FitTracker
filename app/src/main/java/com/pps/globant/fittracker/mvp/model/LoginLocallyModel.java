@@ -1,11 +1,14 @@
 package com.pps.globant.fittracker.mvp.model;
 
+import android.text.TextUtils;
+
 import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.squareup.otto.Bus;
 
 public class LoginLocallyModel {
 
+    private static final boolean FALSE = false;
     private final Bus bus;
     private final UsersRepository usersRepository;
     private User activeUser;
@@ -54,10 +57,11 @@ public class LoginLocallyModel {
     }
 
     public boolean validateUserName(String username) {
-        return (username.isEmpty() || username.length() < 8);
+        return (!TextUtils.isEmpty(username) && !(username.length() < 8));
     }
 
     public boolean validatePassword(String password) {
-        return (password.isEmpty() || password.length() < 4 || password.length() > 10);
+        return (!TextUtils.isEmpty(password) && !(password.length() < 4) && !(password.length() > 10));
     }
+
 }

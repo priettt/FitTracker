@@ -58,11 +58,11 @@ public class LoginLocallyPresenter {
         if (event.user == null || !event.user.isRegisterComplete()) {
             view.popUp(R.string.username_and_password_error);
         } else {
-            Intent intent = new Intent(view.getActivity(), FirstAppScreenActivity.class);
-            long userId = event.user.getId();
-            intent.putExtra(EXTRA_MESSAGE, String.valueOf(userId));
             Activity activity = view.getActivity();
             if (activity == null) return;
+            Intent intent = new Intent(activity, FirstAppScreenActivity.class);
+            long userId = event.user.getId();
+            intent.putExtra(EXTRA_MESSAGE, String.valueOf(userId));
             activity.startActivity(intent);
             activity.finish();
         }
