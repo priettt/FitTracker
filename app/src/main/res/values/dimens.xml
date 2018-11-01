@@ -33,4 +33,6 @@
     <dimen name="button_height">45sp</dimen>
 
     <dimen name="text_medium_size">24sp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+
 </resources>

@@ -12,6 +12,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!-- Flat Button-->
+    <style name="FlatButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorControlHighlight">@color/blue_grey_500</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
     <!-- Facebook Button Style-->
     <style name="ThemeOverlay.FacebookButton" parent="WhiteText">
         <item name="colorButtonNormal">@color/facebook_color</item>
