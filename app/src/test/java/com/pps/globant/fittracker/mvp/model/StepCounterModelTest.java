@@ -67,26 +67,25 @@ public class StepCounterModelTest {
     @Test
     public void getSteps() {
         Whitebox.setInternalState(model, STEPS, STEPS_NUMBER);
-        Assert.assertEquals(model.getSteps(), STEPS_NUMBER);
+        Assert.assertEquals(STEPS_NUMBER, model.getSteps());
     }
 
     @Test
     public void setSteps() {
         model.setSteps(STEPS_NUMBER);
-        Assert.assertEquals(Whitebox.getInternalState(model, STEPS), STEPS_NUMBER);
+        Assert.assertEquals(STEPS_NUMBER, Whitebox.getInternalState(model, STEPS));
     }
 
     @Test
     public void isSensorRegister() {
         Whitebox.setInternalState(model, IS_SENSOR_REGISTER, Boolean.TRUE);
-        Assert.assertEquals(model.isSensorRegister(), Boolean.TRUE);
+        Assert.assertEquals(Boolean.TRUE, model.isSensorRegister());
     }
 
     @Test
     public void sensorAvailable() {
-
         Whitebox.setInternalState(model, IS_SENSOR_AVAILABLE, Boolean.TRUE);
-        Assert.assertEquals(model.sensorAvailable(), Boolean.TRUE);
+        Assert.assertEquals(Boolean.TRUE, model.sensorAvailable());
     }
 
 }

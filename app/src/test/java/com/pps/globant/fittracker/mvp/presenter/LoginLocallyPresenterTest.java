@@ -2,8 +2,11 @@ package com.pps.globant.fittracker.mvp.presenter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.INotificationSideChannel;
 
+import com.pps.globant.fittracker.FirstAppScreenActivity;
 import com.pps.globant.fittracker.R;
+import com.pps.globant.fittracker.SignInFormActivity;
 import com.pps.globant.fittracker.mvp.model.DataBase.User;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
 import com.pps.globant.fittracker.mvp.model.LoginLocallyModel;
@@ -11,15 +14,20 @@ import com.pps.globant.fittracker.mvp.view.LoginLocallyView;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import javax.mail.Quota;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(LoginLocallyPresenter.class)
 public class LoginLocallyPresenterTest {
     public static final String USERNAME = "Username";
     public static final String PASSWORD = "Password";
@@ -37,6 +45,8 @@ public class LoginLocallyPresenterTest {
     @Mock
     private UsersRepository.FetchingUserFromDataBaseCompleted fetchingUserFromDataBaseCompleted;
     @Mock
+    private LoginLocallyView.signUpLinkPressedEvent signUpLinkPressedEvent;
+    @Mock
     private User user;
 
 
@@ -46,7 +56,6 @@ public class LoginLocallyPresenterTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         presenter = new LoginLocallyPresenter(view, model);
-        Mockito.when(user.isRegisterComplete()).thenReturn(Boolean.FALSE);
         Mockito.when(user.getId()).thenReturn(ID);
         Mockito.when(view.getActivity()).thenReturn(activity);
         Mockito.when(model.validateUserName(USERNAME)).thenReturn(Boolean.TRUE);
@@ -106,10 +115,44 @@ public class LoginLocallyPresenterTest {
 
     @Test
     public void onFetchingUserFromDataBaseCompletedUserNotCompletedRegistered() {
+        Mockito.when(user.isRegisterComplete()).thenReturn(Boolean.FALSE);
         Whitebox.setInternalState(fetchingUserFromDataBaseCompleted, FIELD_NAME, user);
         presenter.onFetchingUserFromDataBaseCompleted(fetchingUserFromDataBaseCompleted);
         Mockito.verify(view).popUp(R.string.username_and_password_error);
         Mockito.verifyNoMoreInteractions(view);
+    }
+
+
+    @Test
+    public void onFetchingUserFromDataBaseCompletedUserCorrect() throws Exception {
+        Mockito.when(user.isRegisterComplete()).thenReturn(Boolean.TRUE);
+        final Intent intent = PowerMockito.mock(Intent.class);
+        PowerMockito.whenNew(Intent.class).withArguments(activity,FirstAppScreenActivity.class).thenReturn(intent);
+        Whitebox.setInternalState(fetchingUserFromDataBaseCompleted, FIELD_NAME, user);
+        presenter.onFetchingUserFromDataBaseCompleted(fetchingUserFromDataBaseCompleted);
+        Mockito.verify(user).isRegisterComplete();
+        Mockito.verify(view).getActivity();
+        Mockito.verify(user).getId();
+        Mockito.verify(activity).startActivity(intent);
+        Mockito.verify(activity).finish();
+        Mockito.verify(intent).putExtra(LoginLocallyPresenter.EXTRA_MESSAGE,String.valueOf(ID));
+        Mockito.verifyNoMoreInteractions(view);
+        Mockito.verifyNoMoreInteractions(activity);
+        Mockito.verifyNoMoreInteractions(user);
+        Mockito.verifyNoMoreInteractions(intent);
+    }
+
+    @Test
+    public void onSignUpLinkPressedEvent() throws Exception {
+        final Intent intent = PowerMockito.mock(Intent.class);
+        PowerMockito.whenNew(Intent.class).withArguments(activity,SignInFormActivity.class).thenReturn(intent);
+        presenter.onSignUpLinkPressedEvent(signUpLinkPressedEvent);
+        Mockito.verify(view).getActivity();
+        Mockito.verify(activity).startActivity(intent);
+        Mockito.verify(activity).finish();
+        Mockito.verifyNoMoreInteractions(view);
+        Mockito.verifyNoMoreInteractions(activity);
+        Mockito.verifyNoMoreInteractions(intent);
     }
 
 }
