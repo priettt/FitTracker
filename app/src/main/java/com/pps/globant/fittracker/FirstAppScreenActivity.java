@@ -13,15 +13,19 @@ import com.google.android.gms.location.LocationServices;
 import com.pps.globant.fittracker.mvp.model.AvatarsModel;
 import com.pps.globant.fittracker.mvp.model.DataBase.UserRoomDataBase;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
+import com.pps.globant.fittracker.mvp.model.ExerciseModel;
 import com.pps.globant.fittracker.mvp.model.RunTrackerModel;
 import com.pps.globant.fittracker.mvp.model.StepCounterModel;
 import com.pps.globant.fittracker.mvp.presenter.AvatarsPresenter;
+import com.pps.globant.fittracker.mvp.presenter.ExercisePresenter;
 import com.pps.globant.fittracker.mvp.presenter.FirstAppScreenPresenter;
 import com.pps.globant.fittracker.mvp.presenter.RunTrackerPresenter;
 import com.pps.globant.fittracker.mvp.presenter.StepCounterPresenter;
 import com.pps.globant.fittracker.mvp.view.AvatarsView;
+import com.pps.globant.fittracker.mvp.view.ExerciseView;
 import com.pps.globant.fittracker.mvp.view.RunTrackerView;
 import com.pps.globant.fittracker.mvp.view.StepCounterView;
+import com.pps.globant.fittracker.service.ExerciseService;
 import com.pps.globant.fittracker.utils.BusProvider;
 import com.pps.globant.fittracker.utils.Constants;
 import com.pps.globant.fittracker.utils.ServiceUtils;
@@ -52,15 +56,17 @@ public class FirstAppScreenActivity extends AppCompatActivity {
         String userId = intent.getStringExtra(Constants.EXTRA_MESSAGE);
         Bus bus = BusProvider.getInstance();
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        presenter = new FirstAppScreenPresenter(new RunTrackerPresenter(new RunTrackerModel(LocationServices
-                .getFusedLocationProviderClient(this),new ArrayList<Location>()),new RunTrackerView(runTrackerCard,this,bus)),new AvatarsPresenter(new AvatarsModel(ServiceUtils.getAvatarService(), bus,
+        presenter = new FirstAppScreenPresenter(
+                new RunTrackerPresenter(new RunTrackerModel(LocationServices
+                .getFusedLocationProviderClient(this), new ArrayList<Location>()), new RunTrackerView(runTrackerCard, this, bus)),
+                new AvatarsPresenter(new AvatarsModel(ServiceUtils.getAvatarService(), bus,
                 new UsersRepository(UserRoomDataBase.getDatabase(this).userDao(), bus)), new AvatarsView
                 (avatarsCard, this,
-                        bus), userId),new StepCounterPresenter(new StepCounterModel(sensorManager,
+                        bus), userId), new StepCounterPresenter(new StepCounterModel(sensorManager,
                 getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER)
         ), new
                 StepCounterView
-                (stepCounterCard, this, bus)));
+                (stepCounterCard, this, bus)), new ExercisePresenter(new ExerciseModel(new ExerciseService(bus),bus),new ExerciseView(this)));
     }
 
     @Override
