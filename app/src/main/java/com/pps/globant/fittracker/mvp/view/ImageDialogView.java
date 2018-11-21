@@ -42,7 +42,7 @@ public class ImageDialogView extends DialogView {
     }
 
     public void display(String imageUrl) {
-        Picasso.with(image.getContext()).
+        Picasso.get().
                 load(imageUrl)
                 .into(image, new ImageLoadedCallback(progressBar) {
                     @Override

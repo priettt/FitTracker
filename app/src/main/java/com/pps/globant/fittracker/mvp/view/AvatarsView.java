@@ -92,7 +92,7 @@ public class AvatarsView extends CardViewView {
 
     public void setAvatar(Thumbnail avatarThumbnail) {
         progressBarActualAvatar.setVisibility(View.VISIBLE);
-        Picasso.with(imageActualAvatar.getContext()).
+        Picasso.get().
                 load(avatarThumbnail.toUrlRequest(Thumbnail.STANDARD_LARGE)).into(imageActualAvatar, new
                 ImageLoadedCallback(progressBarActualAvatar) {
                     @Override

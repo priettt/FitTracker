@@ -12,6 +12,10 @@ android {
         buildConfigField "String", "API_URL", "\"https://gateway.marvel.com\""
         buildConfigField "String", "API_PRIVATE_KEY", "\"b6ff1a121a5ce3c278a9e0baa9272b3a8f5fb69a\""
         buildConfigField "String", "API_PUBLIC_KEY", "\"13781f218c297cf58a3aed9b397f08cc\""
+        buildConfigField "String", "WEATHER_API_URL", "\"http://api.openweathermap.org\""
+        buildConfigField "String", "WEATHER_API_KEY", "\"4bf3f3355fc4fb38c83cfe9062d9f85a\""
+        4
+
     }
     buildTypes {
         release {
@@ -67,6 +71,6 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
 
     //picasso
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }

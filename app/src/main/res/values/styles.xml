@@ -12,11 +12,17 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!-- Flat Button-->
-    <style name="FlatButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
-        <item name="colorControlHighlight">@color/blue_grey_500</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+    <!-- Weather number-->
+    <style name="WeatherNumber" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- Weather text-->
+    <style name="WeatherText" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textColor">@color/blue_grey_700</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <!-- Facebook Button Style-->
