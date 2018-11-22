@@ -19,6 +19,12 @@ public class Constants {
 
 
     public static final int RC_GET_TOKEN = 9002;
+    public static final int REQUEST_CHECK_SETTINGS = 12;
+    public static final int WEATHER_LOCATION_PERMISSION_REQUEST_CODE = 2;
+    public static final int MIN_ACCURACY = 10;
+
+    public static final long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+    public static final long FASTEST_INTERVAL = 2 * 1000; /* 2 sec */
 
     /*GOOGLE_SERVICE_CLIENT_ID is a key obtained from https://developers.google.com/identity/sign-in/android/start-integrating
     To get it, it requires an unique SHA1 key, so if you want to recompile the app in another pc, you'll need to create a new key.*/

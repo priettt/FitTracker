@@ -48,9 +48,8 @@ public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarsV
 
         viewHolder.name.setText(imageInfo.getName());
         viewHolder.thumbnail = imageInfo.getThumbnail();
-        Picasso.with(viewHolder.image.getContext()).
-                load(imageInfo.getThumbnail().toUrlRequest(Thumbnail.STANDARD_XLARGE))
-                .into(viewHolder.image, new ImageLoadedCallback(viewHolder.progressBar) {
+        Picasso.get().
+                load(imageInfo.getThumbnail().toUrlRequest(Thumbnail.STANDARD_XLARGE)).into(viewHolder.image, new ImageLoadedCallback(viewHolder.progressBar) {
             @Override
             public void onSuccess() {
                 if (viewHolder.progressBar != null) {

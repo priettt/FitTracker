@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
 import com.pps.globant.fittracker.ImageDialog;
 import com.pps.globant.fittracker.R;
 import com.pps.globant.fittracker.model.fitness.Exercise;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
+public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
     private List<Exercise> ejercicios;
     private int imageWidth = 290;
     private int imageHeight = 250;
@@ -31,18 +32,18 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     @Override
     public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_layout,parent,false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_layout, parent, false);
         return new ExerciseViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ExerciseViewHolder exerciseViewHolder, int i) {
-    final Exercise ejercicio = ejercicios.get(i);
-    exerciseViewHolder.exercise = ejercicio;
-        Picasso.with(exerciseViewHolder.image.getContext()).
+        final Exercise ejercicio = ejercicios.get(i);
+        exerciseViewHolder.exercise = ejercicio;
+        Picasso.get().
                 load(ejercicio.getImage())
-                .resize(imageWidth,imageHeight)
-                .into(exerciseViewHolder.image,new ImageLoadedCallback(exerciseViewHolder.progressBar){
+                .resize(imageWidth, imageHeight)
+                .into(exerciseViewHolder.image, new ImageLoadedCallback(exerciseViewHolder.progressBar) {
                     @Override
                     public void onSuccess() {
                         if (exerciseViewHolder.progressBar != null) {
@@ -70,8 +71,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         }
 
         @OnClick(R.id.image_exercise_layout)
-        public void onImageExerciseClick(View view){
-            new ImageDialog(view.getContext(),exercise, null).show();
+        public void onImageExerciseClick(View view) {
+            new ImageDialog(view.getContext(), exercise, null).show();
         }
     }
 }

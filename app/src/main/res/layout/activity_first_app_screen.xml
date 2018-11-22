@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,66 +10,25 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/exercise_cardview"
-            android:layout_width="@dimen/exercise_layout_width"
+            android:id="@+id/card_avatars"
+            android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_run_tracker">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_exercise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_margin"
-                android:scrollbars="horizontal"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/text_cancel_avatars_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <ProgressBar
-                android:id="@+id/progress_bar_exercise2"
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="@dimen/progress_bar_avatars_expanded_card_size"
-                android:layout_height="@dimen/progress_bar_avatars_expanded_card_size"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/text_cancel_avatars_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_avatars"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:visibility="visible"
-            app:cardCornerRadius="@dimen/cardCornerRadius"
-            app:cardElevation="@dimen/card_elevation"
-            app:layout_constraintBottom_toTopOf="@+id/card_step_counter"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/layout_avatars_card_collapsed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,10 +58,10 @@
                     android:id="@+id/text_first_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginEnd="@dimen/default_margin"
                     android:layout_marginStart="@dimen/default_margin"
                     android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
                     android:text="@string/first_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -125,6 +83,7 @@
                 android:id="@+id/layout_avatars_card_expanded"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -173,12 +132,474 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/card_weather"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:animateLayoutChanges="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_avatars">
+
+            <LinearLayout
+                android:id="@+id/weather_layout_permission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/sea_blue"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_small">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/weather_permission_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size" />
+
+                <Button
+                    android:id="@+id/button_weather_permission"
+                    style="?borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/weather_permission_button"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/weather_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/weather_layout_base"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/weather_background"
+                android:padding="@dimen/card_padding"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/weather_image"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/margin_tiny"
+                    android:layout_marginEnd="@dimen/margin_tiny"
+                    android:contentDescription="@string/weather_icon_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/weather_text_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_toStartOf="@id/weather_image"
+                    android:textColor="@color/blue_grey_900"
+                    android:textSize="@dimen/title_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/weather_text_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/weather_image"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/margin_tiny"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/desc_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weather_image" />
+
+                <TextView
+                    android:id="@+id/weather_text_temp_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/weather_layout_expanded"
+                    android:layout_below="@+id/weather_text_location"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:fontFamily="sans-serif-thin"
+                    android:gravity="center"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/title_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weather_text_location" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/weather_layout_expanded"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/button_weather_see_more"
+                    android:layout_marginStart="@dimen/margin_tiny"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_tiny"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/button_weather_see_more"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weather_text_description">
+
+                    <TextView
+                        android:id="@+id/weather_text_wind_speed"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:text="@string/wind_speed"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/weather_text_wind_speed_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_toEndOf="@+id/weather_text_wind_speed"
+                        app:layout_constraintStart_toEndOf="@+id/weather_text_wind_speed"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/weather_text_wind_direction"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/weather_text_wind_speed"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:text="@string/wind_direction"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_wind_speed" />
+
+                    <TextView
+                        android:id="@+id/weather_text_wind_direction_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_toEndOf="@+id/weather_text_wind_direction"
+                        app:layout_constraintStart_toEndOf="@+id/weather_text_wind_direction"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_wind_speed_value" />
+
+                    <TextView
+                        android:id="@+id/weather_text_pressure"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/weather_text_wind_direction"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:text="@string/pressure"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_wind_direction" />
+
+                    <TextView
+                        android:id="@+id/weather_text_pressure_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_toEndOf="@+id/weather_text_pressure"
+                        app:layout_constraintStart_toEndOf="@+id/weather_text_pressure"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_wind_direction_value" />
+
+                    <TextView
+                        android:id="@+id/weather_text_cloudiness"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/weather_text_pressure"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:text="@string/cloudiness"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_pressure" />
+
+                    <TextView
+                        android:id="@+id/weather_text_cloudiness_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        app:layout_constraintStart_toEndOf="@+id/weather_text_cloudiness"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_pressure_value" />
+
+                    <TextView
+                        android:id="@+id/weather_text_sunrise"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:text="@string/sunrise"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintEnd_toStartOf="@+id/weather_text_sunrise_value"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_humidity" />
+
+                    <TextView
+                        android:id="@+id/weather_text_sunrise_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_humidity_value" />
+
+                    <TextView
+                        android:id="@+id/weather_text_sunset"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:text="@string/sunset"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/weather_text_sunset_value"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_sunrise" />
+
+                    <TextView
+                        android:id="@+id/weather_text_sunset_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_sunrise_value" />
+
+                    <TextView
+                        android:id="@+id/weather_text_humidity"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:text="@string/humidity"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintEnd_toStartOf="@+id/weather_text_humidity_value"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_rain" />
+
+                    <TextView
+                        android:id="@+id/weather_text_humidity_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_text_rain_value" />
+
+                    <TextView
+                        android:id="@+id/weather_text_rain"
+                        style="@style/WeatherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:text="@string/rain"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintEnd_toStartOf="@+id/weather_text_rain_value"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/weather_text_rain_value"
+                        style="@style/WeatherNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:text="@string/dash"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/button_weather_see_more"
+                    style="?borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/weather_text_temp_value"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@string/cards_see_more"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/button_weather_refresh"
+                    style="?borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_toEndOf="@id/button_weather_see_more"
+                    android:gravity="center|end"
+                    android:text="@string/refresh"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/exercise_cardview"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_weather">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/exercises_card_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:scrollbars="horizontal"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/text_cancel_avatars_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_exercise2"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="@dimen/progress_bar_avatars_expanded_card_size"
+                android:layout_height="@dimen/progress_bar_avatars_expanded_card_size"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/text_cancel_avatars_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_step_counter"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exercise_cardview">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_counting_steps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/margin_small"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/text_current_steps"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button_stop_steps_count"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/button_stop_steps_count"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:text="STOP STEP COUNT"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_current_steps"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_count_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
+                android:visibility="visible">
+
+                <Button
+                    android:id="@+id/button_count_steps"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_steps"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:id="@+id/card_run_tracker"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_step_counter">
 
@@ -186,6 +607,7 @@
                 android:id="@+id/layout_start_running"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="@dimen/margin_small"
                 android:visibility="visible">
 
                 <Button
@@ -204,6 +626,7 @@
                 android:id="@+id/layout_run_in_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
                 android:visibility="gone">
 
                 <android.support.constraint.ConstraintLayout
@@ -266,8 +689,8 @@
                         android:id="@+id/text_total_steps"
                         android:layout_width="@dimen/match_constraint"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/default_margin"
                         android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/default_margin"
                         android:textAlignment="center"
                         android:textSize="@dimen/text_medium_size"
                         app:layout_constraintBottom_toTopOf="@+id/text_total_distance"
@@ -279,8 +702,8 @@
                         android:id="@+id/text_total_calories"
                         android:layout_width="@dimen/match_constraint"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/default_margin"
                         android:layout_marginEnd="@dimen/default_margin"
+                        android:layout_marginBottom="@dimen/default_margin"
                         android:textAlignment="center"
                         android:textSize="@dimen/text_medium_size"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -293,9 +716,9 @@
                     android:id="@+id/constraintLayout"
                     android:layout_width="@dimen/match_constraint"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginEnd="@dimen/default_margin"
                     android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -331,65 +754,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_step_counter"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/card_run_tracker"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_avatars">
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/layout_counting_steps"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/text_current_steps"
-                    android:layout_width="@dimen/match_constraint"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginTop="@dimen/default_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/button_stop_steps_count"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/button_stop_steps_count"
-                    android:layout_width="@dimen/match_constraint"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:text="STOP STEP COUNT"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/text_current_steps"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/layout_count_steps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible">
-
-                <Button
-                    android:id="@+id/button_count_steps"
-                    android:layout_width="@dimen/match_constraint"
-                    android:layout_height="wrap_content"
-                    android:text="@string/count_steps"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.CardView>

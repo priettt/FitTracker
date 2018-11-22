@@ -12,6 +12,19 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!-- Weather number-->
+    <style name="WeatherNumber" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- Weather text-->
+    <style name="WeatherText" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textColor">@color/blue_grey_700</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
     <!-- Facebook Button Style-->
     <style name="ThemeOverlay.FacebookButton" parent="WhiteText">
         <item name="colorButtonNormal">@color/facebook_color</item>

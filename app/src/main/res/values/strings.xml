@@ -77,8 +77,36 @@
     <!--Instagram-->
     <string name="toast_instagram_login">Instagram signed in as:  </string>
     <string name="toast_instagram_loading">Loading login view, please wait.</string>
+
+    <!--Cards-->
     <string name="sensor_unavailable">sensor de pasos no disponible</string>
     <string name="count_steps">COUNT STEPS</string>
+
+    <!--Weather Card-->
+    <string name="weather_permission_label">To show you the weather, we need to retrieve your location.</string>
+    <string name="weather_permission_button">It\'s okay</string>
+    <string name="temperature">Temperature</string>
+    <string name="refresh">refresh</string>
+    <string name="weather_icon_description">Weather Icon</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="wind_direction">Wind Direction</string>
+    <string name="humidity">Humidity</string>
+    <string name="cloudiness">Cloudiness</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="pressure">Pressure</string>
+    <string name="rain">Rain</string>
+    <string name="dash">-</string>
+    <string name="humidity_value">%d%%</string>
+    <string name="cloudiness_value">%d%%</string>
+    <string name="wind_speed_value">%.2f km/h</string>
+    <string name="pressure_value">%.2f hPa</string>
+    <string name="rain_value">%.2f mm</string>
+    <string name="degrees">%d C°</string>
+    <string name="icon_url">http://openweathermap.org/img/w/%s.png</string>
+    <string name="cards_see_more">See More</string>
+    <string name="cards_see_less">See Less</string>
+    <string name="weather_retrieve_error">The weather could not be retrieved. Please, try again.</string>
 
     <!--RunTracker-->
     <string name="start_running">Start Running</string>
@@ -91,5 +119,8 @@
     <string name="show_on_map">SHOW ON MAP</string>
     <string name="title_activity_maps">Map</string>
     <string name="no_point_registered_yet">No point registered yet</string>
+
+
+
 
 </resources>

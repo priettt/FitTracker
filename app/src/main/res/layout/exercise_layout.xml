@@ -5,6 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:padding="@dimen/margin_small"
     tools:layout_editor_absoluteY="81dp">
 
 

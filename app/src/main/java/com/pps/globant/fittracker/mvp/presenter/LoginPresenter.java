@@ -145,7 +145,7 @@ public class LoginPresenter {
         }
         Intent intent = new Intent(activity, FirstAppScreenActivity.class);
         long userId = model.getUser().getId();
-        intent.putExtra(EXTRA_MESSAGE, userId);
+        intent.putExtra(EXTRA_MESSAGE, String.valueOf(userId));
         activity.startActivity(intent);
     }
 

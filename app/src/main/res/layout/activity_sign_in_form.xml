@@ -135,7 +135,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_medium"
-            android:checked="true"
+            android:checked="false"
             android:gravity="center"
             android:text="@string/send_me_an_email_with_all_this_information"
             android:textSize="@dimen/text_size" />
