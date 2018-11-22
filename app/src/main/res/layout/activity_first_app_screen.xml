@@ -490,7 +490,7 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/exercise_cardview"
-            android:layout_width="@dimen/exercise_layout_width"
+            android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
