@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.pps.globant.fittracker.model.avatars.Thumbnail;
+import com.pps.globant.fittracker.model.fitness.Exercise;
 import com.pps.globant.fittracker.mvp.model.ImageDialogModel;
 import com.pps.globant.fittracker.mvp.presenter.ImageDialogPresenter;
 import com.pps.globant.fittracker.mvp.view.ImageDialogView;
@@ -17,11 +18,18 @@ public class ImageDialog extends Dialog {
     private ImageDialogPresenter presenter;
     private Thumbnail thumbnail;
     private OnAcceptClickListener onAcceptClickListener;
+    private OnAcceptClickListenerForExercise onAcceptClickListenerForExercise;
+    private Exercise exercise;
 
     public ImageDialog(Context context, Thumbnail thumbnail, OnAcceptClickListener onAcceptClickListener) {
         super(context);
         this.thumbnail = thumbnail;
         this.onAcceptClickListener = onAcceptClickListener;
+    }
+    public ImageDialog(Context context,Exercise exercise, OnAcceptClickListenerForExercise onAcceptClickListenerForExercise) {
+        super(context);
+        this.exercise = exercise;
+        this.onAcceptClickListenerForExercise = onAcceptClickListenerForExercise;
     }
 
     @Override
@@ -32,7 +40,12 @@ public class ImageDialog extends Dialog {
         setTitle(null);
         setCancelable(false);
         Bus bus = BusProvider.getInstance();
-        presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(thumbnail), onAcceptClickListener);
+        if (thumbnail != null){
+            presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(thumbnail), onAcceptClickListener);
+        }else{
+            presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(exercise), onAcceptClickListenerForExercise);
+        }
+
     }
 
     @Override
@@ -49,5 +62,8 @@ public class ImageDialog extends Dialog {
 
     public interface OnAcceptClickListener {
         void onAcceptAvatar(Thumbnail thumbnail);
+    }
+    public interface OnAcceptClickListenerForExercise {
+        void onAcceptExercise(Exercise exercise);
     }
 }

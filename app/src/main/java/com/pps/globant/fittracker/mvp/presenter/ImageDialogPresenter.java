@@ -9,11 +9,18 @@ public class ImageDialogPresenter {
     private ImageDialogView view;
     private ImageDialogModel model;
     private ImageDialog.OnAcceptClickListener onAcceptClickListener;
+    private ImageDialog.OnAcceptClickListenerForExercise onAcceptClickListenerForExercise;
 
     public ImageDialogPresenter(ImageDialogView view, ImageDialogModel model, ImageDialog.OnAcceptClickListener onAcceptClickListener) {
         this.view = view;
         this.model = model;
         this.onAcceptClickListener = onAcceptClickListener;
+        init();
+    }
+    public ImageDialogPresenter(ImageDialogView view, ImageDialogModel model, ImageDialog.OnAcceptClickListenerForExercise onAcceptClickListenerForExercise) {
+        this.view = view;
+        this.model = model;
+        this.onAcceptClickListenerForExercise = onAcceptClickListenerForExercise;
         init();
     }
 
@@ -23,7 +30,9 @@ public class ImageDialogPresenter {
 
     @Subscribe
     public void onAcceptClickPressedEvent(ImageDialogView.AcceptClickPressedEvent event) {
-        onAcceptClickListener.onAcceptAvatar(model.getThumbnail());
+        if (onAcceptClickListener != null){
+            onAcceptClickListener.onAcceptAvatar(model.getThumbnail());
+        }
         view.dismiss();
     }
 
