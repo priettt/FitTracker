@@ -37,7 +37,6 @@ public class StepCounterPresenterTest {
         Mockito.when(view.getActivity()).thenReturn(activity);
         Mockito.when(model.sensorAvailable()).thenReturn(true);
         Mockito.when(model.isSensorRegister()).thenReturn(true);
-        Mockito.doNothing().when(view).popUp(R.string.sensor_unavailable);
         presenter = new StepCounterPresenter(model, view);
     }
 

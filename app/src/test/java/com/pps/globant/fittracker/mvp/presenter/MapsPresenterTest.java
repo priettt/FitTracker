@@ -3,7 +3,6 @@ package com.pps.globant.fittracker.mvp.presenter;
 import android.location.Location;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.pps.globant.fittracker.MapsActivity;
 import com.pps.globant.fittracker.mvp.model.MapsModel;
@@ -18,8 +17,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
 
 public class MapsPresenterTest {
 
