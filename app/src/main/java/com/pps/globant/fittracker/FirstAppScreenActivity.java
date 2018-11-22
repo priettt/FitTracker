@@ -13,18 +13,22 @@ import com.google.android.gms.location.LocationServices;
 import com.pps.globant.fittracker.mvp.model.AvatarsModel;
 import com.pps.globant.fittracker.mvp.model.DataBase.UserRoomDataBase;
 import com.pps.globant.fittracker.mvp.model.DataBase.UsersRepository;
+import com.pps.globant.fittracker.mvp.model.ExerciseModel;
 import com.pps.globant.fittracker.mvp.model.RunTrackerModel;
 import com.pps.globant.fittracker.mvp.model.StepCounterModel;
 import com.pps.globant.fittracker.mvp.model.WeatherModel;
 import com.pps.globant.fittracker.mvp.presenter.AvatarsPresenter;
+import com.pps.globant.fittracker.mvp.presenter.ExercisePresenter;
 import com.pps.globant.fittracker.mvp.presenter.FirstAppScreenPresenter;
 import com.pps.globant.fittracker.mvp.presenter.RunTrackerPresenter;
 import com.pps.globant.fittracker.mvp.presenter.StepCounterPresenter;
 import com.pps.globant.fittracker.mvp.presenter.WeatherPresenter;
 import com.pps.globant.fittracker.mvp.view.AvatarsView;
+import com.pps.globant.fittracker.mvp.view.ExerciseView;
 import com.pps.globant.fittracker.mvp.view.RunTrackerView;
 import com.pps.globant.fittracker.mvp.view.StepCounterView;
 import com.pps.globant.fittracker.mvp.view.WeatherView;
+import com.pps.globant.fittracker.service.ExerciseService;
 import com.pps.globant.fittracker.utils.BusProvider;
 import com.pps.globant.fittracker.utils.Constants;
 import com.pps.globant.fittracker.utils.ServiceUtils;
@@ -77,7 +81,10 @@ public class FirstAppScreenActivity extends AppCompatActivity {
                 new WeatherPresenter(
                         new WeatherModel(
                                 LocationServices.getFusedLocationProviderClient(this), bus),
-                        new WeatherView(weatherCard, this, bus))
+                        new WeatherView(weatherCard, this, bus)),
+                new ExercisePresenter(
+                        new ExerciseModel(new ExerciseService(bus), bus),
+                        new ExerciseView(this))
         );
 
     }

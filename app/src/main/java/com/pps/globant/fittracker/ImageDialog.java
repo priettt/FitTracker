@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.pps.globant.fittracker.model.UrlGetter;
 import com.pps.globant.fittracker.model.avatars.Thumbnail;
+import com.pps.globant.fittracker.model.fitness.Exercise;
 import com.pps.globant.fittracker.mvp.model.ImageDialogModel;
 import com.pps.globant.fittracker.mvp.presenter.ImageDialogPresenter;
 import com.pps.globant.fittracker.mvp.view.ImageDialogView;
@@ -17,10 +19,12 @@ public class ImageDialog extends Dialog {
     private ImageDialogPresenter presenter;
     private Thumbnail thumbnail;
     private OnAcceptClickListener onAcceptClickListener;
+    private Exercise exercise;
+    private UrlGetter urlGetter;
 
-    public ImageDialog(Context context, Thumbnail thumbnail, OnAcceptClickListener onAcceptClickListener) {
+    public ImageDialog(Context context, UrlGetter urlGetter, OnAcceptClickListener onAcceptClickListener) {
         super(context);
-        this.thumbnail = thumbnail;
+        this.urlGetter = urlGetter;
         this.onAcceptClickListener = onAcceptClickListener;
     }
 
@@ -32,7 +36,8 @@ public class ImageDialog extends Dialog {
         setTitle(null);
         setCancelable(false);
         Bus bus = BusProvider.getInstance();
-        presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(thumbnail), onAcceptClickListener);
+        presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(), onAcceptClickListener,urlGetter);
+
     }
 
     @Override

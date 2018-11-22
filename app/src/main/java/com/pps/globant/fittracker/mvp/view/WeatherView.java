@@ -138,7 +138,9 @@ public class WeatherView extends CardViewView {
         weatherTextDescription.setText(description);
         if (getContext() != null)
             weatherTextTempNumber.setText(String.format(getContext().getResources().getString(R.string.degrees), temp));
-        Picasso.get().load(String.format(getContext().getResources().getString(R.string.icon_url), icon)).into(weatherImage);
+        Picasso.get()
+                .load(String.format(getContext().getResources().getString(R.string.icon_url), icon))
+                .into(weatherImage);
         weatherLayoutPermission.setVisibility(View.GONE);
         weatherLayoutBase.setVisibility(View.VISIBLE);
     }
