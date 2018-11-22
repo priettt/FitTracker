@@ -2,6 +2,7 @@ package com.pps.globant.fittracker.mvp.view;
 
 import android.app.Dialog;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -18,6 +19,8 @@ public class ImageDialogView extends DialogView {
 
     @BindView(R.id.dialog_image) ImageView image;
     @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.dialog_avatar_buton_cancel)
+    Button btn_cancel;
     private Bus bus;
 
     public ImageDialogView(Dialog dialog, Bus bus) {
@@ -38,6 +41,7 @@ public class ImageDialogView extends DialogView {
 
     @OnClick(R.id.dialog_avatar_buton_accept)
     public void onAcceptClick() {
+        btn_cancel.setVisibility(View.VISIBLE);
         bus.post(new AcceptClickPressedEvent());
     }
 
@@ -52,6 +56,10 @@ public class ImageDialogView extends DialogView {
                         }
                     }
                 });
+    }
+
+    public void disableCancel() {
+        btn_cancel.setVisibility(View.GONE);
     }
 
     public class AcceptClickPressedEvent {

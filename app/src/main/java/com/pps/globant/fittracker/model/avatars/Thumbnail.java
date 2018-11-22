@@ -1,8 +1,9 @@
 package com.pps.globant.fittracker.model.avatars;
 
 import com.google.gson.annotations.Expose;
+import com.pps.globant.fittracker.model.UrlGetter;
 
-public class Thumbnail {
+public class Thumbnail implements UrlGetter {
 
     public static final String STANDARD_XLARGE = "standard_xlarge";
     public static final String STANDARD_LARGE = "standard_large";
@@ -30,5 +31,10 @@ public class Thumbnail {
 
     public String toUrlRequest(String size) {
         return String.format("%1$s/%2$s.%3$s", path, size, extension);
+    }
+
+    @Override
+    public String urlGetter() {
+        return this.toUrlRequest(FULL_DETAIL);
     }
 }

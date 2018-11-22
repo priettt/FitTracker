@@ -7,19 +7,21 @@ public class FirstAppScreenPresenter {
     private final AvatarsPresenter avatarsPresenter;
     private final RunTrackerPresenter runTrackerPresenter;
     private final StepCounterPresenter stepCounterPresenter;
+    private final ExercisePresenter exercisePresenter;
 
-    public FirstAppScreenPresenter(RunTrackerPresenter runTrackerPresenter, AvatarsPresenter avatarsPresenter, StepCounterPresenter stepCounterPresenter) {
+    public FirstAppScreenPresenter(RunTrackerPresenter runTrackerPresenter, AvatarsPresenter avatarsPresenter, StepCounterPresenter stepCounterPresenter, ExercisePresenter exercisePresenter) {
         this.avatarsPresenter = avatarsPresenter;
         this.runTrackerPresenter = runTrackerPresenter;
         this.stepCounterPresenter = stepCounterPresenter;
+        this.exercisePresenter = exercisePresenter;
     }
 
     public void register() {
-        BusProvider.register(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter);
+        BusProvider.register(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter,exercisePresenter);
     }
 
     public void unregister() {
-        BusProvider.unregister(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter);
+        BusProvider.unregister(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter,exercisePresenter);
         stepCounterPresenter.unregisterSensor();
     }
 

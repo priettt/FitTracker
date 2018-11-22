@@ -33,4 +33,5 @@
     <dimen name="button_height">45sp</dimen>
 
     <dimen name="text_medium_size">24sp</dimen>
+    <dimen name="exercise_layout_width">344dp</dimen>
 </resources>
