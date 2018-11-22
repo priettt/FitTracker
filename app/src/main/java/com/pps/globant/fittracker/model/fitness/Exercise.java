@@ -2,8 +2,9 @@ package com.pps.globant.fittracker.model.fitness;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.pps.globant.fittracker.model.UrlGetter;
 
-public class Exercise {
+public class Exercise implements UrlGetter {
 
     @SerializedName("id")
     @Expose
@@ -83,4 +84,8 @@ public class Exercise {
         this.exercise = exercise;
     }
 
+    @Override
+    public String urlGetter() {
+        return this.getImage();
+    }
 }

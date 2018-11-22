@@ -1,6 +1,9 @@
 package com.pps.globant.fittracker.mvp.presenter;
 
 import com.pps.globant.fittracker.ImageDialog;
+import com.pps.globant.fittracker.model.UrlGetter;
+import com.pps.globant.fittracker.model.avatars.Thumbnail;
+import com.pps.globant.fittracker.model.fitness.Exercise;
 import com.pps.globant.fittracker.mvp.model.ImageDialogModel;
 import com.pps.globant.fittracker.mvp.view.ImageDialogView;
 import com.squareup.otto.Subscribe;
@@ -10,17 +13,16 @@ public class ImageDialogPresenter {
     private ImageDialogModel model;
     private ImageDialog.OnAcceptClickListener onAcceptClickListener;
 
-    public ImageDialogPresenter(ImageDialogView view, ImageDialogModel model, ImageDialog.OnAcceptClickListener onAcceptClickListener) {
+    public ImageDialogPresenter(ImageDialogView view, ImageDialogModel model, ImageDialog.OnAcceptClickListener onAcceptClickListener, UrlGetter urlGetter) {
         this.view = view;
         this.model = model;
-        this.onAcceptClickListener = onAcceptClickListener;
+        if (onAcceptClickListener != null){
+            this.onAcceptClickListener = onAcceptClickListener;
+        }else {
+            view.disableCancel();
+        }
+        model.setUrlGetter(urlGetter);
         init();
-    }
-    public ImageDialogPresenter(ImageDialogView view, ImageDialogModel model) {
-        this.view = view;
-        this.model = model;
-        init();
-        view.disableCancel();
     }
 
     private void init() {
@@ -30,7 +32,7 @@ public class ImageDialogPresenter {
     @Subscribe
     public void onAcceptClickPressedEvent(ImageDialogView.AcceptClickPressedEvent event) {
         if (onAcceptClickListener != null){
-            onAcceptClickListener.onAcceptAvatar(model.getThumbnail());
+            onAcceptClickListener.onAcceptAvatar((Thumbnail)model.getUrlGetter());
         }
         view.dismiss();
     }

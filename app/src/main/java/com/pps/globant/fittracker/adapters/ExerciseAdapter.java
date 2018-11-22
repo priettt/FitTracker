@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
 import com.pps.globant.fittracker.ImageDialog;
 import com.pps.globant.fittracker.R;
 import com.pps.globant.fittracker.model.fitness.Exercise;
@@ -22,7 +21,6 @@ import butterknife.OnClick;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
     private List<Exercise> ejercicios;
-    public static final int CERO = 0;
     private int imageWidth = 290;
     private int imageHeight = 250;
 
@@ -73,7 +71,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
         @OnClick(R.id.image_exercise_layout)
         public void onImageExerciseClick(View view){
-            new ImageDialog(view.getContext(),exercise).show();
+            new ImageDialog(view.getContext(),exercise, null).show();
         }
     }
 }
