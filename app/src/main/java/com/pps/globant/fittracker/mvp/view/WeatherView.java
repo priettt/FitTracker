@@ -23,6 +23,9 @@ import butterknife.OnClick;
 public class WeatherView extends CardViewView {
     private Bus bus;
 
+
+    @BindView(R.id.button_weather_permission)
+    Button weatherPermissionButton;
     @BindView(R.id.weather_layout_permission)
     LinearLayout weatherLayoutPermission;
     @BindView(R.id.weather_layout_base)
@@ -57,7 +60,6 @@ public class WeatherView extends CardViewView {
     Button buttonSeeMore;
     @BindView(R.id.weather_progress)
     ProgressBar weatherProgress;
-
 
     public WeatherView(CardView cardView, Activity activity, Bus bus) {
         super(cardView, activity);
@@ -106,14 +108,16 @@ public class WeatherView extends CardViewView {
         }
     }
 
-    public void toggleSpinner() {
-        if (weatherProgress.getVisibility() == View.GONE) {
-            weatherLayoutPermission.setAlpha(0.4f);
-            weatherProgress.setVisibility(View.VISIBLE);
-        } else {
-            weatherLayoutPermission.setAlpha(1f);
-            weatherProgress.setVisibility(View.GONE);
-        }
+    public void toggleSpinnerOn(){
+        weatherLayoutPermission.setAlpha(0.4f);
+        weatherProgress.setVisibility(View.VISIBLE);
+        weatherPermissionButton.setEnabled(false);
+    }
+
+    public void toggleSpinnerOff(){
+        weatherLayoutPermission.setAlpha(1f);
+        weatherProgress.setVisibility(View.GONE);
+        weatherPermissionButton.setEnabled(true);
     }
 
     public static class WeatherPermissionButtonPressedEvent {

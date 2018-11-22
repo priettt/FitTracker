@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         spUser), new InstagramLoginView(this, bus)));
         //next line is for debuggin purpose only, it resets the entire database every time the app start. comment it
         // for a persistence behaviour
-        presenter.clearDatabase();
+        //presenter.clearDatabase();
     }
 
     @Override

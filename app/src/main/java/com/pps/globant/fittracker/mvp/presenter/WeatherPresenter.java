@@ -44,7 +44,7 @@ public class WeatherPresenter extends LocationCallback {
 
     @Subscribe
     public void onWeatherPermissionsButtonPressed(WeatherView.WeatherPermissionButtonPressedEvent event) {
-        weatherView.toggleSpinner();
+        weatherView.toggleSpinnerOn();
         retrieveLocation();
     }
 
@@ -64,40 +64,25 @@ public class WeatherPresenter extends LocationCallback {
     }
 
     private void fillExtended() {
-        // The API returns wind direction in degrees, the array helps translating it into text,
-        // doing a little trick with modulo and division.
-        // Also, the API returns sunset and sunrise times in Epoch time, so it needs a conversion with
-        // the Date and SimpleDateFormat class. As date works in milliseconds, a "*1000" is needed.
-        String directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"};
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.US);
-        String sunrise = format.format(new Date(weatherModel.getWeather().getSys().getSunrise() * 1000L));
-        String sunset = format.format(new Date(weatherModel.getWeather().getSys().getSunset() * 1000L));
-
-        double rain = (weatherModel.getWeather().getRain() != null) ? weatherModel.getWeather().getRain().get3h() : 0;
-
-
         weatherView.showExtendedWeather(
-                weatherModel.getWeather().getWind().getSpeed() * 3.6, // m/s to km/h
-                directions[Math.round(((weatherModel.getWeather().getWind().getDeg() % 360) / 45))],
-                weatherModel.getWeather().getMain().getHumidity(),
-                weatherModel.getWeather().getMain().getPressure(),
-                weatherModel.getWeather().getClouds().getAll(),
-                rain,
-                sunrise,
-                sunset);
+                weatherModel.getWindSpeed(),
+                weatherModel.getWindDirection(),
+                weatherModel.getHumidity(),
+                weatherModel.getPressure(),
+                weatherModel.getClouds(),
+                weatherModel.getRain(),
+                weatherModel.getSunrise(),
+                weatherModel.getSunset()
+        );
         extended = true;
     }
 
     private void fillBase() {
-        //Changes to Uppercase the first letter from the description returned by the API
-        String description = weatherModel.getWeather().getWeather().get(0).getDescription();
-        String upperDesc = description.substring(0, 1).toUpperCase() + description.substring(1);
         weatherView.showWeather(
-                weatherModel.getWeather().getName(),
-                upperDesc,
-                Math.round(weatherModel.getWeather().getMain().getTemp()),
-                weatherModel.getWeather().getWeather().get(0).getIcon()
+                weatherModel.getName(),
+                weatherModel.getDescription(),
+                weatherModel.getTemperature(),
+                weatherModel.getIcon()
         );
     }
 
@@ -124,7 +109,7 @@ public class WeatherPresenter extends LocationCallback {
     @Subscribe
     public void onGetWeatherSuccessEvent(GetWeatherSuccessEvent event) {
         weatherModel.setWeather(event.getWeather());
-        weatherView.toggleSpinner();
+        weatherView.toggleSpinnerOff();
         fillBase();
         if (extended) fillExtended();
     }
@@ -133,7 +118,7 @@ public class WeatherPresenter extends LocationCallback {
     @Subscribe
     public void onGetWeatherFailureEvent(GetWeatherFailureEvent event) {
         if (weatherView.getContext() != null) {
-            weatherView.toggleSpinner();
+            weatherView.toggleSpinnerOff();
             Toast.makeText(weatherView.getContext(), weatherView.getContext().getResources().getString(R.string.weather_retrieve_error), Toast.LENGTH_LONG).show();
         }
     }
