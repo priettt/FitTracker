@@ -28,13 +28,10 @@ public class ExerciseService {
         call.enqueue(new Callback<ExerciseList>() {
             @Override
             public void onResponse(Call<ExerciseList> call, Response<ExerciseList> response) {
-                //Collections.shuffle(response.body().getExercises());
-// add elements to al, including duplicates
                 Set<Exercise> hs = new HashSet<>();
                 hs.addAll(response.body().getExercises());
                 response.body().getExercises().clear();
                 response.body().getExercises().addAll(hs);
-
                 bus.post(new GetExerciseSuccessEvent(response.body()));
             }
 

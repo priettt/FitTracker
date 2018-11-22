@@ -23,7 +23,8 @@ import butterknife.OnClick;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
     private List<Exercise> ejercicios;
     public static final int CERO = 0;
-
+    private int imageWidth = 290;
+    private int imageHeight = 250;
 
     public ExerciseAdapter(List<Exercise> ejercicios) {
         this.ejercicios = ejercicios;
@@ -42,7 +43,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     exerciseViewHolder.exercise = ejercicio;
         Picasso.with(exerciseViewHolder.image.getContext()).
                 load(ejercicio.getImage())
-                .resize(290,250)
+                .resize(imageWidth,imageHeight)
                 .into(exerciseViewHolder.image,new ImageLoadedCallback(exerciseViewHolder.progressBar){
                     @Override
                     public void onSuccess() {

@@ -21,14 +21,6 @@ public class ExercisePresenter {
         model.getExerciseList();
     }
 
-/*    public void register() {
-        BusProvider.register(this);
-    }
-
-    public void unregister() {
-        BusProvider.unregister(this);
-    }*/
-
     @Subscribe
     public void onExercisesSuccesEvent(GetExerciseSuccessEvent event){
         view.setAdapter(new ExerciseAdapter(event.getExerciseList()));

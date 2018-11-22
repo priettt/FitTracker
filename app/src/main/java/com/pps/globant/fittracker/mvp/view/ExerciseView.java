@@ -19,8 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ExerciseView extends ActivityView<FirstAppScreenActivity> {
-    private static final int SPAN_COUNT = 4;
-    public static final boolean REVERSE_LAYOUT_FALSE = false;
+    private static final int SPAN_COUNT = 3;
     @BindView(R.id.recycler_exercise)
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar_exercise2)
@@ -30,9 +29,7 @@ public class ExerciseView extends ActivityView<FirstAppScreenActivity> {
         super(activity);
         ButterKnife.bind(this,activity);
         recyclerView.setAdapter(new ExerciseAdapter(new ArrayList<Exercise>()));
-        //LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        //recyclerView.setLayoutManager(llm);
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(), 3);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(), SPAN_COUNT);
         recyclerView.setLayoutManager(manager);
     }
 

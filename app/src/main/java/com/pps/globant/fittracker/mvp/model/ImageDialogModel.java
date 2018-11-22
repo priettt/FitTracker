@@ -1,7 +1,4 @@
 package com.pps.globant.fittracker.mvp.model;
-
-import android.support.annotation.Nullable;
-
 import com.pps.globant.fittracker.model.avatars.Thumbnail;
 import com.pps.globant.fittracker.model.fitness.Exercise;
 
@@ -24,10 +21,10 @@ public class ImageDialogModel {
     }
 
     public String getUrlFullResolution() {
-        if (thumbnail == null){
-            return exercise.getImage();
-        }else{
+        if (thumbnail != null) {
             return thumbnail.toUrlRequest(Thumbnail.FULL_DETAIL);
+        } else {
+            return exercise.getImage();
         }
     }
 
