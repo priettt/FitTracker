@@ -17,11 +17,11 @@ public class FirstAppScreenPresenter {
     }
 
     public void register() {
-        BusProvider.register(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter);
+        BusProvider.register(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter,exercisePresenter);
     }
 
     public void unregister() {
-        BusProvider.unregister(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter);
+        BusProvider.unregister(this, avatarsPresenter, runTrackerPresenter, stepCounterPresenter,exercisePresenter);
         stepCounterPresenter.unregisterSensor();
     }
 

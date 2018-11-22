@@ -66,7 +66,8 @@ public class FirstAppScreenActivity extends AppCompatActivity {
                 getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER)
         ), new
                 StepCounterView
-                (stepCounterCard, this, bus)), new ExercisePresenter(new ExerciseModel(new ExerciseService(bus),bus),new ExerciseView(this)));
+                (stepCounterCard, this, bus)),
+                new ExercisePresenter(new ExerciseModel(new ExerciseService(bus),bus),new ExerciseView(this)));
     }
 
     @Override

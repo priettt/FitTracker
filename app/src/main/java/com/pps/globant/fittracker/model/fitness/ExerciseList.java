@@ -15,7 +15,7 @@ public class ExerciseList {
     @SerializedName("previous")
     @Expose
     private Object previous;
-    @SerializedName("exercises")
+    @SerializedName("results")
     @Expose
     private List<Exercise> exercises = null;
 

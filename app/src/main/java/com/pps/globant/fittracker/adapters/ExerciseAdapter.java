@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
     private List<Exercise> ejercicios;
@@ -53,13 +54,15 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     }
 
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.image_exercise)
+        @BindView(R.id.image_exercise_layout)
         ImageView image;
         @BindView(R.id.progress_bar_exercise)
         ProgressBar progressBar;
 
         public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+
         }
     }
 }
