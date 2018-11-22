@@ -23,7 +23,6 @@ import butterknife.OnClick;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
     private List<Exercise> ejercicios;
     public static final int CERO = 0;
-    ImageDialog.OnAcceptClickListenerForExercise onAcceptClickListenerForExercise;
 
 
     public ExerciseAdapter(List<Exercise> ejercicios) {
@@ -34,7 +33,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @Override
     public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_layout,parent,false);
-        return new ExerciseViewHolder(view, onAcceptClickListenerForExercise);
+        return new ExerciseViewHolder(view);
     }
 
     @Override
@@ -65,17 +64,15 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         @BindView(R.id.progress_bar_exercise)
         ProgressBar progressBar;
         Exercise exercise;
-        private ImageDialog.OnAcceptClickListenerForExercise onAcceptClickListenerForExercise;
 
-        public ExerciseViewHolder(@NonNull View itemView, ImageDialog.OnAcceptClickListenerForExercise onAcceptClickListenerForExercise) {
+        public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            this.onAcceptClickListenerForExercise= onAcceptClickListenerForExercise;
         }
 
         @OnClick(R.id.image_exercise_layout)
         public void onImageExerciseClick(View view){
-            new ImageDialog(view.getContext(),exercise,onAcceptClickListenerForExercise).show();
+            new ImageDialog(view.getContext(),exercise).show();
         }
     }
 }

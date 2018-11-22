@@ -18,7 +18,6 @@ public class ImageDialog extends Dialog {
     private ImageDialogPresenter presenter;
     private Thumbnail thumbnail;
     private OnAcceptClickListener onAcceptClickListener;
-    private OnAcceptClickListenerForExercise onAcceptClickListenerForExercise;
     private Exercise exercise;
 
     public ImageDialog(Context context, Thumbnail thumbnail, OnAcceptClickListener onAcceptClickListener) {
@@ -26,10 +25,9 @@ public class ImageDialog extends Dialog {
         this.thumbnail = thumbnail;
         this.onAcceptClickListener = onAcceptClickListener;
     }
-    public ImageDialog(Context context,Exercise exercise, OnAcceptClickListenerForExercise onAcceptClickListenerForExercise) {
+    public ImageDialog(Context context,Exercise exercise) {
         super(context);
         this.exercise = exercise;
-        this.onAcceptClickListenerForExercise = onAcceptClickListenerForExercise;
     }
 
     @Override
@@ -43,7 +41,7 @@ public class ImageDialog extends Dialog {
         if (thumbnail != null){
             presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(thumbnail), onAcceptClickListener);
         }else{
-            presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(exercise), onAcceptClickListenerForExercise);
+            presenter = new ImageDialogPresenter(new ImageDialogView(this, bus), new ImageDialogModel(exercise));
         }
 
     }
@@ -62,8 +60,5 @@ public class ImageDialog extends Dialog {
 
     public interface OnAcceptClickListener {
         void onAcceptAvatar(Thumbnail thumbnail);
-    }
-    public interface OnAcceptClickListenerForExercise {
-        void onAcceptExercise(Exercise exercise);
     }
 }
