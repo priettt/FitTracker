@@ -28,6 +28,7 @@ public class ImageDialog extends Dialog {
     public ImageDialog(Context context,Exercise exercise) {
         super(context);
         this.exercise = exercise;
+
     }
 
     @Override

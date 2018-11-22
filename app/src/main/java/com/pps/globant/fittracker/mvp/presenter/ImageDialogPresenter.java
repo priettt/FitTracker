@@ -20,6 +20,7 @@ public class ImageDialogPresenter {
         this.view = view;
         this.model = model;
         init();
+        view.disableCancel();
     }
 
     private void init() {
